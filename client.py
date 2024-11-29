@@ -1,8 +1,12 @@
 import socket
+
+HOST = socket.gethostname();
+PORT = 12000
+
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
-    client.connect((socket.gethostname(), 2810))
-    print("Ket noi thanh cong voi sever!!!")
+    client.connect((HOST, 12000))
+    print("Connection to Server has been established!")
     msg = ""
     while msg != "exit":
         msg = input("Client: ")

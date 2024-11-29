@@ -1,6 +1,8 @@
 import socket
 import threading
 
+HOST = socket.gethostname();
+PORT = 12000
 
 def recvData(client, addr) :
     print(f"Client {addr} ket noi thanh cong!!!")
@@ -21,12 +23,12 @@ def recvData(client, addr) :
     client.close()
 
 sever = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sever.bind((socket.gethostname(), 2810))
-NumsOfClient = int(input("Nhap vao so luong client:"))
+sever.bind((HOST, PORT))
+NumsOfClient = int(input("The number of client: "))
 sever.listen(NumsOfClient)
-print("Sever dang lang nghe.....")
+print("Waiting for connection.....")
 count = 0
-while count < NumsOfClient:
+while count <= NumsOfClient:
     client, addr = sever.accept()
     thread = threading.Thread(target = recvData, args = (client, addr))
     thread.daemon = False
