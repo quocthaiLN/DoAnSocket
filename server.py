@@ -1,9 +1,11 @@
 import socket
 import threading
 import os
+import csv
 #duong dan toi thu muc sever va client
 PathSever = "DataSever"  
 PathClient = "DataClient"
+PathUsers = "users.csv"
 
 #lay tu ki tu '/' cuoi cung tro ve sau trong duong dan hoac ten file
 def name(fileName):
@@ -55,8 +57,8 @@ def uploadFile(fileName):
             fileWrite = PathSever + tmp
             i += 1
     #doc va ghi file
-    ofs = open(fileWrite, "w")
-    ifs = open(fileName, "r")
+    ofs = open(fileWrite, "wb")
+    ifs = open(fileName, "rb")
     while True:
         data = ifs.read(1024)
         if not data:
@@ -97,10 +99,41 @@ def downloadFile(fileName):
     print("Sever: Tai file xuong thanh cong")
     return True
 
+# Hàm xác thực account của một client: Tìm thông tin client trong file users
+def authenticate_client(username, password):
+
+    with open('users.csv', mode = 'r') as file:
+        reader = csv.reader(file)
+        # fields = next(reader)
+        for row in reader:
+            # Giống với vector ví dụ: vector<string> a = {"username", "password"}
+            if(len(row) == 2 and row[0] == username and row[1] == password):
+                return True
+        
+    return False
+
 #ham nhan du lieu tu client va gui phan hoi
 def recvData(client, addr) :
     print(f"Client {addr} ket noi thanh cong!!!")
+
+    # Xử lý các yêu cầu khác từ client
     try:
+        # Gửi yêu cầu login đến client
+        client.sendall("Server: Enter your username and password to login: ".encode('utf-8'))
+
+        # Nhận thông tin account từ client
+        login_information = client.recv(1024).decode('utf-8')
+        username, password = login_information.split(',')
+
+        if(authenticate_client(username, password)):
+            client.sendall("Successful".encode('utf-8'))
+            print(f"Server: Login successfully towards account {username}")
+        else:
+            client.sendall("Unsuccessfull".encode('utf-8'))
+            print(f"Server: Login unsuccessfully towards account {username}")
+            client.close()
+            return
+        
         data = ""
         while data != "exit":
             data = client.recv(1024);
@@ -143,4 +176,5 @@ while count < NumsOfClient:
     thread.daemon = False
     thread.start()
     count += 1
+
 sever.close()    

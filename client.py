@@ -1,4 +1,5 @@
 import socket
+import getpass # to hide password: ****
 
 def uploadFile(client):
     msg = input("Sever: Nhap vao ten file hoac duong dan file: ")
@@ -25,11 +26,34 @@ def menu():
     print("1. Download File")
     print("2. Upload File")
 
+def login(client):
+
+    # Nhận yêu cầu từ server để nhập thông tin
+    request = client.recv(1024).decode('utf-8')
+    print(request)
+
+    username = input("Username: ")
+    password = input("Password: ")
+
+    login_information = f"{username},{password}"
+    client.sendall(login_information.encode('utf-8'))
+
+    # Nhận phản hồi từ server
+    resp = client.recv(1024).decode('utf-8')
+    if resp == "Successful":
+        print("Login Successful")
+        return True
+    else:
+        print("Login unsuccessfully")
+        return False
+
+
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     client.connect((socket.gethostname(), 2810))
     print("Ket noi thanh cong voi sever!!!")
     while 1:
+        if login(client) == False: continue
         menu()
         choice = int(input("nhap vao lua chon cua ban: "))
         if choice == 0:
