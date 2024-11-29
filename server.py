@@ -5,19 +5,22 @@ HOST = socket.gethostname();
 PORT = 12000
 
 def recvData(client, addr) :
-    print(f"Client {addr} ket noi thanh cong!!!")
+    print(f"Connection from {addr} has been established!")
     try:
         data = ""
         while data != "exit":
-            data = client.recv(1024);
+            data = client.recv(1024)
             data = data.decode('utf-8')
             if data == "exit":
                 break
             print(f"Client {addr}: {data}")
-        resp = ""
-        while resp != "stop" :
-            resp = input("Sever: ")
-            client.sendall(resp.encode('utf-8'))
+        if(data == "exit"):
+            client.send(bytes("Disconnected from the server."))
+            client.close()
+        # resp = ""
+        # while resp != "stop" :
+        #     resp = input("Sever: ")
+        #     client.sendall(resp.encode('utf-8'))
     except:
         print("Connect Error")
     client.close()
