@@ -52,8 +52,11 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     client.connect((socket.gethostname(), 2810))
     print("Ket noi thanh cong voi sever!!!")
+
+    while not login(client): 
+        continue
+
     while 1:
-        if login(client) == False: continue
         menu()
         choice = int(input("nhap vao lua chon cua ban: "))
         if choice == 0:

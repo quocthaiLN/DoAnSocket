@@ -119,21 +119,22 @@ def recvData(client, addr) :
     # Xử lý các yêu cầu khác từ client
     try:
         # Gửi yêu cầu login đến client
-        client.sendall("Server: Enter your username and password to login: ".encode('utf-8'))
+        while True:
+            client.sendall("Server: Enter your username and password to login: ".encode('utf-8'))
 
-        # Nhận thông tin account từ client
-        login_information = client.recv(1024).decode('utf-8')
-        username, password = login_information.split(',')
+            # Nhận thông tin account từ client
+            login_information = client.recv(1024).decode('utf-8')
+            username, password = login_information.split(',')
 
-        if(authenticate_client(username, password)):
-            client.sendall("Successful".encode('utf-8'))
-            print(f"Server: Login successfully towards account {username}")
-        else:
-            client.sendall("Unsuccessfull".encode('utf-8'))
-            print(f"Server: Login unsuccessfully towards account {username}")
-            client.close()
-            return
+            if(authenticate_client(username, password)):
+                client.sendall("Successful".encode('utf-8'))
+                print(f"Server: Login successfully towards account {username}")
+                break
+            else:
+                client.sendall("Unsuccessfull".encode('utf-8'))
+                print(f"Server: Login unsuccessfully towards account {username}")
         
+        # Xử lý download, upload file
         data = ""
         while data != "exit":
             data = client.recv(1024);
