@@ -2,10 +2,17 @@ import socket
 import threading
 import os
 import csv
+import time
 #duong dan toi thu muc sever va client
 PathSever = "DataSever"  
 PathClient = "DataClient"
 PathUsers = "users.csv"
+
+#HOST, PORT, NumberOfClient
+HOST = socket.gethostname()
+PORT = 12000
+NumberOfClient = 1
+
 
 #lay tu ki tu '/' cuoi cung tro ve sau trong duong dan hoac ten file
 def name(fileName):
@@ -112,18 +119,36 @@ def authenticate_client(username, password):
         
     return False
 
+def server_receive(client, addr, message):
+        try:
+            message = client.recv(1024).decode('utf-8')
+            print(f"Client[{addr}]: {message}")
+            return message
+        except:
+            print(f"Co loi khi nhan du lieu tu Client:[{addr}].")
+
+
+def server_send(client, addr, message):
+    try:
+        print(f"Da gui thong bao den Client[{addr}].")
+        client.send(message.encode('utf-8'))
+    except:
+        print(f"Co loi khi gui thong bao den Client[{addr}]")
+
+
 #ham nhan du lieu tu client va gui phan hoi
-def recvData(client, addr) :
-    print(f"Client {addr} ket noi thanh cong!!!")
+def handle_Client(client, addr, list_Connection) :
+    print(f"Ket noi thanh cong voi Client:[{addr}].")
 
     # Xử lý các yêu cầu khác từ client
     try:
         # Gửi yêu cầu login đến client
         while True:
-            client.sendall("Server: Enter your username and password to login: ".encode('utf-8'))
+            server_send(client, addr,"Enter your username and password to login: ")
 
             # Nhận thông tin account từ client
-            login_information = client.recv(1024).decode('utf-8')
+            login_information = ""
+            login_information = server_receive(client, addr,login_information)
             username, password = login_information.split(',')
 
             if(authenticate_client(username, password)):
@@ -136,10 +161,12 @@ def recvData(client, addr) :
         
         # Xử lý download, upload file
         data = ""
-        while data != "exit":
+        while True:
             data = client.recv(1024);
             data = data.decode('utf-8')
             if data == "exit":
+                print(f"Client[{addr}]: Da ngat ket noi khoi Server.")
+                list_Connection.remove((client, addr))
                 break
             if data == "uploadFile":
                 msg = client.recv(1024).decode('utf-8')
@@ -162,20 +189,27 @@ def recvData(client, addr) :
     except:
         print("Connect Error")
     client.close()
+    
 
 #tao socket
-sever = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sever.bind((socket.gethostname(), 2810))
-NumsOfClient = int(input("Nhap vao so luong client:"))
-sever.listen(NumsOfClient)
-print("Sever dang lang nghe.....")
-#tao da luong
-count = 0
-while count < NumsOfClient:
-    client, addr = sever.accept()
-    thread = threading.Thread(target = recvData, args = (client, addr))
-    thread.daemon = False
-    thread.start()
-    count += 1
 
-sever.close()    
+def main():
+    sever = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sever.bind((HOST, PORT))
+    sever.listen(NumberOfClient)
+    print("Sever dang lang nghe...")
+#tao da luong
+    list_Connection = []
+    while True:
+        if len(list_Connection) < NumberOfClient:
+            client, addr = sever.accept()
+            list_Connection.append((client, addr))
+            thread = threading.Thread(target = handle_Client, args = (client, addr, list_Connection))
+            thread.daemon = False
+            thread.start()
+
+            
+    sever.close()    
+if __name__ == "__main__":
+    main()
+

@@ -1,5 +1,11 @@
 import socket
 import getpass # to hide password: ****
+import time
+#HOST, PORT
+HOST = socket.gethostname()
+PORT = 12000
+
+
 # test
 def uploadFile(client):
     msg = input("Sever: Nhap vao ten file hoac duong dan file: ")
@@ -31,8 +37,9 @@ def login(client):
     # Nhận yêu cầu từ server để nhập thông tin
     request = client.recv(1024).decode('utf-8')
     print(request)
+            
 
-    username = input("Username: ")
+    username = input("\nUsername: ")
     password = input("Password: ")
 
     login_information = f"{username},{password}"
@@ -49,20 +56,27 @@ def login(client):
 
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 try:
-    client.connect((socket.gethostname(), 2810))
-    print("Ket noi thanh cong voi sever!!!")
+
+    client.connect((HOST, PORT))
+    print("Ket noi thanh cong voi Sever.")
 
     while not login(client): 
         continue
-
-    while 1:
+    connect = True
+    while connect:
         menu()
-        choice = int(input("nhap vao lua chon cua ban: "))
+        choice = int(input("Nhap lua chon cua ban: "))
         if choice == 0:
             msg = "exit"
-            client.sendall(msg.encode('utf-8'))
-            break
+            again_check = input("Ban co chac rang muon ngat ket noi chu?(Y/N): ")
+            if again_check == "Y":
+                client.sendall(msg.encode('utf-8'))
+                print("Ban da ngat ket noi khoi Server.")
+                connect = False
+            else:
+                continue
         if choice == 1:
             msg = "downloadFile"
             client.sendall(msg.encode('utf-8'))
@@ -71,6 +85,9 @@ try:
             msg = "uploadFile"
             client.sendall(msg.encode('utf-8'))
             uploadFile(client)
+except socket.timeout:
+    print("Server dang day.")
 except:
-    print("Connect error")
+    print("Khong the ket noi voi Server.")
+
 client.close()
