@@ -1,6 +1,6 @@
 import socket
 import getpass # to hide password: ****
-
+# test
 def uploadFile(client):
     msg = input("Sever: Nhap vao ten file hoac duong dan file: ")
     client.sendall(msg.encode('utf-8'))
