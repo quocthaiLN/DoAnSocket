@@ -6,11 +6,23 @@ BTN_COLOR = "#A1EEBD"
 WIDTH_BTN = 18 # width of featured buttons
 
 class DownloadPage(Frame):
-    def __init__(self, parent, main_menu_pointer):
+    def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
-
+        # Main label
         mainLabel = Label(self, text="Download Page", font=(FONT, 22, "bold"))
-        mainLabel.pack()
+        mainLabel.place(x = 125, y = 50)
+        # Notr label
+        lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
+        lb_note.place(x = 40, y = 120)
+        # Entry path file
+        self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue")
+        self.entry_path.focus()
+        self.entry_path.place(x = 125 - 30, y = 120, height = 24)
+
+        # Button 
+        btn_select_file = Button(self, text = "Select file", font = (FONT, 16, "bold"), bg = "PaleGreen", command = lambda: app_pointer.downloadFile(self, client))
+        btn_select_file.place(x = 150, y = 200)
+
 
 
 class UploadPage(Frame):
@@ -29,7 +41,7 @@ class MainMenu(Frame):
         lb_main.place(x = 150, y = 30)
 
         # Button
-        btn_download_file = Button(self, text = "Download file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN, command = lambda: app_pointer.downloadFile(self, client))
+        btn_download_file = Button(self, text = "Download file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN, command = lambda: app_pointer.show_page(DownloadPage))
         btn_download_file.place(x = 130, y = 120)
 
         btn_download_folder = Button(self, text = "Download folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
@@ -155,7 +167,8 @@ class App(Tk):
         data = "downloadFile"
         sck.sendall(data.encode('utf-8'))
 
-        msg = input("Sever: Nhap vao ten file hoac duong dan file: ")
+        msg = curFrame.entry_path.get()
+        print(msg)
         sck.sendall(msg.encode('utf-8'))
         resp = sck.recv(1024)
         resp = resp.decode('utf-8')
