@@ -173,9 +173,9 @@ def recvData(client, addr) :
                     resp = "Failed"
                     client.sendall(resp.encode('utf-8'))
             if data == "downloadFile":
-                 #gui yeu cau
-                request = "Nhap vao duong dan hoac ten file: "
-                client.sendall(request.encode('utf-8'))
+                 #gui yeu cau: Lấy thông tin từ gui
+                # request = "Nhap vao duong dan hoac ten file: "
+                # client.sendall(request.encode('utf-8'))
                 #nhan ten file hoac duong dan
                 msg = client.recv(1024).decode('utf-8')
                 if msg == "CANCEL":
