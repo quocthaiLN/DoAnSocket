@@ -165,6 +165,7 @@ def handle_Client(client, addr, list_Connection) :
                 server_send(client, addr, "Server da day.")
                 list_Connection.remove((client, addr))
                 client.close()
+                return
             else:
                 server_send(client, addr,"Enter your username and password to login: ")
 
@@ -182,9 +183,6 @@ def handle_Client(client, addr, list_Connection) :
                 print(f"Server: Login unsuccessfully towards account {username}")
         #gui nhan file
         data = ""
-
-        while data != "exit":
-            data = client.recv(1024)
 
         while True:
             data = client.recv(1024);
