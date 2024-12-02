@@ -144,6 +144,19 @@ def menu():
     print("1. Upload File")
     print("2. Download File")
     
+# def client_receive(client):
+#     while True:
+#         try:
+#             # Nhận dữ liệu từ server
+#             data = client.recv(1024).decode('utf-8')
+#             if not data:
+#                 break
+#             if data == "timeout":
+#                 print("Server: Time Out.")
+#                 client.close()
+#         except:
+#             print("Error receiving data from server")
+#             break
 
 def login(client):
 
@@ -206,11 +219,11 @@ try:
             msg = "downloadFile"
             client.sendall(msg.encode('utf-8'))
             downloadFile(client)
-except socket.timeout:
-    print("Server dang day.")
-
-except:
-    print("Khong the ket noi voi Server.")
-
+# except socket.timeout:
+#     print("Server dang day.")
+except Exception as e:
+    print(F"Khong the ket noi voi Server, Error: {e}")
+input()
 client.close()
+
 #C:/Users/Admin/Documents/vs code/vs code python/anh.bin

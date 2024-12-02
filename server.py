@@ -10,7 +10,7 @@ PathUsers = "users.csv"
 #HOST, PORT, NumberOfClient
 HOST = socket.gethostname()
 PORT = 12000
-NumberOfClient = 1
+NumberOfClient = 5
 
 
 #lay tu ki tu '/' cuoi cung tro ve sau trong duong dan hoac ten file
@@ -136,13 +136,16 @@ def authenticate_client(username, password):
     return False
 
 def server_receive(client, addr, message):
+        client.settimeout(600)
         try:
             message = client.recv(1024).decode('utf-8')
             print(f"Client[{addr}]: {message}")
             return message
-        except:
+        except socket.timeout:
+            print(f"Client [{addr}]: TimeOut.")
+        except Exception as e:
             print(f"Co loi khi nhan du lieu tu Client:[{addr}].")
-
+        
 
 def server_send(client, addr, message):
     try:
@@ -171,9 +174,17 @@ def handle_Client(client, addr, list_Connection) :
 
             # Nhận thông tin account từ client
             login_information = ""
-            login_information = server_receive(client, addr,login_information)
-            username, password = login_information.split(',')
+            login_information = server_receive(client, addr,login_information) 
+                
 
+            if login_information is None:
+                server_send(client, addr, "timeout")
+                list_Connection.remove((client, addr))
+                client.close()
+                return
+
+
+            username, password = login_information.split(',')
             if(authenticate_client(username, password)):
                 client.sendall("Successful".encode('utf-8'))
                 print(f"Server: Login successfully towards account {username}")
@@ -185,8 +196,12 @@ def handle_Client(client, addr, list_Connection) :
         data = ""
 
         while True:
-            data = client.recv(1024);
-
+            try:
+                data = client.recv(1024);
+            except socket.timeout:
+                print(f"Da ngat ket noi voi Client {client, addr} do TimeOut.")
+                list_Connection.remove((client, addr))
+                break
             data = data.decode('utf-8')
             if data == "exit":
                 print(f"Client[{addr}]: Da ngat ket noi khoi Server.")
@@ -222,8 +237,8 @@ def handle_Client(client, addr, list_Connection) :
                 else:
                     resp = "Failed"
                     client.sendall(resp.encode('utf-8'))
-    except:
-        print(f"Connect Error from Client : {client, addr}")
+    except Exception as e:
+        print(f"Connect Error {e} from Client : {client, addr}")
     client.close()
     
 
@@ -244,8 +259,9 @@ def main():
             thread.daemon = False
             thread.start()
 
-            
+
     sever.close()    
 if __name__ == "__main__":
     main()
+
 
