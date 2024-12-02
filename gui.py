@@ -7,6 +7,8 @@ FONT = "JetBrains Mono"
 BTN_COLOR = "#A1EEBD"
 WIDTH_BTN = 18 # width of featured buttons
 PathClient = "DataClient"
+PathSever = "DataSever"  
+PathUsers = "users.csv"
 
 # Các hàm để xử lý đường dẫn
 def name(fileName):
@@ -198,8 +200,8 @@ class App(Tk):
 
     def downloadFile(self, curFrame: Frame, sck: socket):
         # Send request for server
-        # data = "downloadFile"
-        # sck.sendall(data.encode('utf-8'))
+        data = "downloadFile"
+        sck.sendall(data.encode('utf-8'))
 
        #Nhan yeu cau nhap duong dan tu sever
         # resp = client.recv(1024).decode('utf-8')
