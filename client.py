@@ -2,7 +2,6 @@ import socket
 import os
 import time
 import getpass # to hide password: ****
-<<<<<<< HEAD
 
 PathClient = "DataClient"
 
@@ -45,9 +44,7 @@ def checkExist(path):
         return True
     return False
 
-=======
-# test
->>>>>>> 87b6ff0df08b89f8c9c5591a2e9ab7dbb96615f2
+
 def uploadFile(client):
     #Nhan yeu cau nhap duong dan tu sever
     resp = client.recv(1024).decode('utf-8')
@@ -168,11 +165,7 @@ try:
     client.connect((socket.gethostname(), 2810))
     print("Ket noi thanh cong voi sever!!!")
 
-<<<<<<< HEAD
-    while not login(client):
-=======
     while not login(client): 
->>>>>>> 87b6ff0df08b89f8c9c5591a2e9ab7dbb96615f2
         continue
 
     while 1:
