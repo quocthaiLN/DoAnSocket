@@ -2,9 +2,9 @@ import socket
 import threading
 import os
 import csv
+import time
 #duong dan toi thu muc sever va client
 PathSever = "DataSever"  
-PathClient = "DataClient"
 PathUsers = "users.csv"
 
 #lay tu ki tu '/' cuoi cung tro ve sau trong duong dan hoac ten file
@@ -28,6 +28,12 @@ def check(s):
         return True
     return False
 
+def check1(s):
+    for i in s:
+        if i == '/':
+            return True
+    return False
+
 #lay phan ten file va khong lay them phan mo rong
 def getNameWithNotExten(name):
     res = name[0 : name.index(".")]
@@ -38,12 +44,13 @@ def getExten(name):
     res = name[name.index(".") : len(name)]
     return res
         
+def checkExist(path):
+    if os.path.isfile(path):
+        return True
+    return False
+        
 #ham upload file tu client len sever
-def uploadFile(fileName):
-    #kiem tra xem file co ton tai khong
-    if not os.path.isfile(fileName):
-        print("Tai file khong thanh cong")
-        return False
+def uploadFile(client, fileName, addr):
     tmp = name(fileName)
     if not check(tmp):
         tmp = '/' + tmp
@@ -53,50 +60,60 @@ def uploadFile(fileName):
     #kiem tra xem trong thu muc sever co file tren chua neu co thi them so 1,2,3,.. o sau de khac voi file cu
     i = 1
     while os.path.isfile(PathSever + tmp):
-            tmp = nameWithNotExten + str(i) + exten
+            tmp = nameWithNotExten + "(" + str(i) + ")" + exten
             fileWrite = PathSever + tmp
             i += 1
-    #doc va ghi file
+    sizeRecv = client.recv(1024).decode('utf-8')
+    size = int(sizeRecv)
+    sizeResp = "Nhan thanh cong"
+    client.sendall(sizeResp.encode('utf-8'))
     ofs = open(fileWrite, "wb")
-    ifs = open(fileName, "rb")
-    while True:
-        data = ifs.read(1024)
+    sw = 0
+    while size > sw:
+        data = client.recv(1024)
         if not data:
             break
         ofs.write(data)
-    ifs.close()
+        sw += len(data)
     ofs.close()
-    print("Tai file thanh cong")
+    if os.path.getsize(fileWrite) != size:
+        print("Loi ngung ket noi tu sever toi client")
+        client.sendall("Loi ket noi".encode('utf-8'))
+        temp = client.recv(1024).decode('utf-8')
+        return False
+    print(f"Sever: Yeu cau upload file cua client {addr} hoan thanh. File dang duoc luu tru tai {fileWrite} tren sever")
+    client.sendall(f"File dang duoc luu tru tai {fileWrite} tren sever".encode('utf-8'))
+    temp = client.recv(1024).decode('utf-8')
     return True
 
-#ham download sever tai xuong file cho client
-def downloadFile(fileName):
-    #check rong hay khong
-    if not os.path.isfile(fileName):
-        print("Sever: Tai file khong thanh cong")
-        return False
+def downloadFile(client, fileName, addr):
     tmp = name(fileName)
     if not check(tmp):
         tmp = '/' + tmp
-    nameWithNotExten = getNameWithNotExten(tmp)
-    exten = getExten(tmp)
-    fileWrite = PathClient + tmp
-    i = 1
-    #check file trong thu muc da ton tai chua
-    while os.path.isfile(PathClient + tmp):
-        tmp = nameWithNotExten + str(i) + exten
-        fileWrite = PathClient + tmp
-        i += 1
-    ofs = open(fileWrite, "w")
-    ifs = open(fileName, "r")
-    while True:
+    Path = PathSever + tmp
+    if (check1(fileName) and Path != fileName) or not checkExist(Path):
+        msg = "Not exist"
+        client.sendall(msg.encode('utf-8'))
+        return
+    else:
+        msg = "Exist"
+        client.sendall(msg.encode('utf-8'))
+        respMsg = client.recv(1024).decode('utf-8')
+    size = os.path.getsize(Path)
+    client.sendall(str(size).encode('utf-8'))
+    sizeResp = client.recv(1024).decode('utf-8')
+    ifs = open(Path, "rb")
+    while 1:
         data = ifs.read(1024)
         if not data:
             break
-        ofs.write(data)
+        client.sendall(data)
     ifs.close()
-    ofs.close()
-    print("Sever: Tai file xuong thanh cong")
+    resp = client.recv(1024).decode('utf-8')
+    if int(resp) != size:
+        print("Loi ngung ket noi tu sever toi client")
+        return False
+    print(f"Yeu cau download file cua client {addr} hoan thanh.")
     return True
 
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
@@ -118,41 +135,53 @@ def recvData(client, addr) :
 
     # Xử lý các yêu cầu khác từ client
     try:
-        # Gửi yêu cầu login đến client
-        client.sendall("Server: Enter your username and password to login: ".encode('utf-8'))
+        while 1:
+            # Gửi yêu cầu login đến client
+            client.sendall("Server: Enter your username and password to login: ".encode('utf-8'))
 
-        # Nhận thông tin account từ client
-        login_information = client.recv(1024).decode('utf-8')
-        username, password = login_information.split(',')
+            # Nhận thông tin account từ client
+            login_information = client.recv(1024).decode('utf-8')
+            username, password = login_information.split(',')
 
-        if(authenticate_client(username, password)):
-            client.sendall("Successful".encode('utf-8'))
-            print(f"Server: Login successfully towards account {username}")
-        else:
-            client.sendall("Unsuccessfull".encode('utf-8'))
-            print(f"Server: Login unsuccessfully towards account {username}")
-            client.close()
-            return
-        
+            if(authenticate_client(username, password)):
+                client.sendall("Successful".encode('utf-8'))
+                print(f"Server: Login successfully towards account {username}")
+                break
+            else:
+                client.sendall("Unsuccessfull".encode('utf-8'))
+                print(f"Server: Login unsuccessfully towards account {username}")
+        #gui nhan file
         data = ""
         while data != "exit":
-            data = client.recv(1024);
+            data = client.recv(1024)
             data = data.decode('utf-8')
             if data == "exit":
                 break
             if data == "uploadFile":
+                #gui yeu cau
+                request = "Nhap vao duong dan hoac ten file: "
+                client.sendall(request.encode('utf-8'))
+                #nhan ten file hoac duong dan
                 msg = client.recv(1024).decode('utf-8')
+                if msg == "CANCEL":
+                    continue
                 print(f"Client {addr}: Upload file voi duong dan {msg}")
-                if uploadFile(msg):
+                if uploadFile(client, msg, addr):
                     resp = "Success"
                     client.sendall(resp.encode('utf-8'))
                 else:
                     resp = "Failed"
                     client.sendall(resp.encode('utf-8'))
             if data == "downloadFile":
+                 #gui yeu cau
+                request = "Nhap vao duong dan hoac ten file: "
+                client.sendall(request.encode('utf-8'))
+                #nhan ten file hoac duong dan
                 msg = client.recv(1024).decode('utf-8')
+                if msg == "CANCEL":
+                    continue
                 print(f"Client {addr}: Download file voi duong dan {msg}")
-                if downloadFile(msg):
+                if downloadFile(client, msg, addr):
                     resp = "Success"
                     client.sendall(resp.encode('utf-8'))
                 else:
