@@ -35,9 +35,19 @@ def menu():
 def login(client):
 
     # Nhận yêu cầu từ server để nhập thông tin
+    # client.settimeout(5)    
+    # try:
     request = client.recv(1024).decode('utf-8')
-    print(request)
-            
+    if request == "Server da day.":
+        print(request)
+        client.close()
+        return
+    else:
+        print(request)
+    # except socket.timeout:
+    #     print("Server phan hoi qua lau.")
+    #     client.close()
+    #     return
 
     username = input("\nUsername: ")
     password = input("Password: ")

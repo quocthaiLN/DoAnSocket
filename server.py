@@ -144,7 +144,13 @@ def handle_Client(client, addr, list_Connection) :
     try:
         # Gửi yêu cầu login đến client
         while True:
-            server_send(client, addr,"Enter your username and password to login: ")
+
+            if len(list_Connection) > NumberOfClient:
+                server_send(client, addr, "Server da day.")
+                list_Connection.remove((client, addr))
+                client.close()
+            else:
+                server_send(client, addr,"Enter your username and password to login: ")
 
             # Nhận thông tin account từ client
             login_information = ""
@@ -187,7 +193,7 @@ def handle_Client(client, addr, list_Connection) :
                     resp = "Failed"
                     client.sendall(resp.encode('utf-8'))
     except:
-        print("Connect Error")
+        print(f"Connect Error from Client : {client, addr}")
     client.close()
     
 
@@ -201,7 +207,7 @@ def main():
 #tao da luong
     list_Connection = []
     while True:
-        if len(list_Connection) < NumberOfClient:
+        if len(list_Connection) <= NumberOfClient:
             client, addr = sever.accept()
             list_Connection.append((client, addr))
             thread = threading.Thread(target = handle_Client, args = (client, addr, list_Connection))
