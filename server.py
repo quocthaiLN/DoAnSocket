@@ -136,7 +136,7 @@ def authenticate_client(username, password):
     return False
 
 def server_receive(client, addr, message):
-        client.settimeout(600)
+        client.settimeout(5)
         try:
             message = client.recv(1024).decode('utf-8')
             print(f"Client[{addr}]: {message}")

@@ -188,22 +188,22 @@ def login(client):
         return False
 
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+def main():
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
 
-try:
+        client.connect((HOST, PORT))
+        print("Ket noi thanh cong voi Sever.")
 
-    client.connect((HOST, PORT))
-    print("Ket noi thanh cong voi Sever.")
-
-    while not login(client): 
-        continue
-    connect = True
-    while connect:
-        menu()
-        choice = int(input("Nhap lua chon cua ban: "))
-        if choice == 0:
-            msg = "exit"
-            again_check = input("Ban co chac rang muon ngat ket noi chu?(Y/N): ")
+        while not login(client): 
+            continue
+        connect = True
+        while connect:
+            menu()
+            choice = int(input("Nhap lua chon cua ban: "))
+            if choice == 0:
+                msg = "exit"
+                again_check = input("Ban co chac rang muon ngat ket noi chu?(Y/N): ")
             if again_check == "Y":
                 client.sendall(msg.encode('utf-8'))
                 print("Ban da ngat ket noi khoi Server.")
@@ -221,9 +221,10 @@ try:
             downloadFile(client)
 # except socket.timeout:
 #     print("Server dang day.")
-except Exception as e:
-    print(F"Khong the ket noi voi Server, Error: {e}")
-input()
-client.close()
-
+    except Exception as e:
+        print(F"Khong the ket noi voi Server, Error: {e}")
+    input()
+    client.close()
+if __name__ == "__main__":
+    main()
 #C:/Users/Admin/Documents/vs code/vs code python/anh.bin
