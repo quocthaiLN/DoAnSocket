@@ -87,8 +87,8 @@ def downloadFile(fileName):
         tmp = nameWithNotExten + str(i) + exten
         fileWrite = PathClient + tmp
         i += 1
-    ofs = open(fileWrite, "w")
-    ifs = open(fileName, "r")
+    ofs = open(fileWrite, "wb")
+    ifs = open(fileName, "rb")
     while True:
         data = ifs.read(1024)
         if not data:
