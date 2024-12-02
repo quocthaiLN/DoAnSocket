@@ -41,32 +41,69 @@ def getExten(name):
     res = name[name.index(".") : len(name)]
     return res
 
+def cleanScreen():
+    os.system("cls")
+
+def checkExist(path):
+    if os.path.isfile(path):
+        return True
+    return False
+
 class DownloadPage(Frame):
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
         # Main label
         mainLabel = Label(self, text="Download Page", font=(FONT, 22, "bold"))
-        mainLabel.place(x = 125, y = 50)
+        mainLabel.place(x = 125, y = 70) # 50
         # Notr label
         lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
-        lb_note.place(x = 40, y = 120)
+        lb_note.place(x = 40, y = 150)
+
+        # Notice label
+        self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red")
+        self.lb_notice.place(x = 95, y = 185)
+
         # Entry path file
         self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue")
         self.entry_path.focus()
-        self.entry_path.place(x = 125 - 30, y = 120, height = 24)
+        self.entry_path.place(x = 95, y = 150, height = 24)
 
         # Button 
-        btn_select_file = Button(self, text = "Select file", font = (FONT, 16, "bold"), bg = "PaleGreen", command = lambda: app_pointer.downloadFile(self, client))
-        btn_select_file.place(x = 150, y = 200)
+        btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
+                                 command = lambda: app_pointer.downloadFile(self, client))
+        btn_select_file.place(x = 125, y = 225)
 
-
+        btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
+                          command = lambda: app_pointer.show_page(MainMenu))
+        btn_back.place(x = 125, y = 265)
 
 class UploadPage(Frame):
-    def __init__(self, parent, main_menu_pointer):
+    def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
-
+        # Main label
         mainLabel = Label(self, text="Upload Page", font=(FONT, 22, "bold"))
-        mainLabel.pack()
+        mainLabel.place(x = 125, y = 70) # 50
+        # Notr label
+        lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
+        lb_note.place(x = 40, y = 150)
+
+        # Notice label
+        self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red")
+        self.lb_notice.place(x = 95, y = 185)
+
+        # Entry path file
+        self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue")
+        self.entry_path.focus()
+        self.entry_path.place(x = 95, y = 150, height = 24)
+
+        # Button 
+        btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
+                                 command = lambda: app_pointer.uploadFile(self, client))
+        btn_select_file.place(x = 125, y = 225)
+
+        btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
+                          command = lambda: app_pointer.show_page(MainMenu))
+        btn_back.place(x = 125, y = 265)
 
 
 class MainMenu(Frame):
@@ -77,13 +114,15 @@ class MainMenu(Frame):
         lb_main.place(x = 150, y = 30)
 
         # Button
-        btn_download_file = Button(self, text = "Download file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN, command = lambda: app_pointer.show_page(DownloadPage))
+        btn_download_file = Button(self, text = "Download file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
+                                    command = lambda: app_pointer.show_page(DownloadPage))
         btn_download_file.place(x = 130, y = 120)
 
         btn_download_folder = Button(self, text = "Download folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
         btn_download_folder.place(x = 130, y = 160)
 
-        btn_upload_file = Button(self, text = "Upload file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
+        btn_upload_file = Button(self, text = "Upload file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
+                                    command = lambda: app_pointer.show_page(UploadPage))
         btn_upload_file.place(x = 130, y = 200)
 
         btn_upload_folder = Button(self, text = "Upload folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
@@ -92,22 +131,7 @@ class MainMenu(Frame):
         btn_exit = Button(self, text = "Exit", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
         btn_exit.place(x = 130, y = 280)
 
-        
-        
-    # def show_download_page(self, pageName):
-    #     self.frames[pageName].tkraise()
-        
-    # def downloadFile(self, curFrame: Frame, sck: socket):
-    #     msg = input("Sever: Nhap vao ten file hoac duong dan file: ")
-    #     sck.sendall(msg.encode('utf-8'))
-    #     resp = sck.recv(1024)
-    #     resp = resp.decode('utf-8')
-    #     if resp == "Failed":
-    #         print("Sever: Tai file ve that bai")
-    #     if resp == "Success":
-    #         print("Sever: Tai file ve thanh cong")
-    #     pass
-
+    
 class LoginPage(Frame):
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
@@ -139,7 +163,6 @@ class LoginPage(Frame):
         btn_login.place(x = 195, y = 290)
 
 
-
 class App(Tk):
     def __init__(self):
         Tk.__init__(self)
@@ -147,7 +170,7 @@ class App(Tk):
         self.title("Application")
         self.geometry("450x550")
         self.resizable(width = False, height = False)
-        self.attributes("-topmost", True)
+        self.attributes("-topmost", False)
         # self["bg"] = "white"
         # login_frame = LoginPage(container)
         # home_frame = HomePage(container)
@@ -171,7 +194,7 @@ class App(Tk):
     def show_page(self, class_name):
         self.frames[class_name].tkraise()
 
-    def login(self, curFrame, sck):
+    def login(self, curFrame: Frame, sck: socket):
         # Nhận yêu cầu từ server để nhập thông tin
         request = sck.recv(1024).decode('utf-8')
         print(request)
@@ -200,8 +223,8 @@ class App(Tk):
 
     def downloadFile(self, curFrame: Frame, sck: socket):
         # Send request for server
-        data = "downloadFile"
-        sck.sendall(data.encode('utf-8'))
+        data_send = "downloadFile"
+        sck.sendall(data_send.encode('utf-8'))
 
        #Nhan yeu cau nhap duong dan tu sever
         # resp = client.recv(1024).decode('utf-8')
@@ -219,7 +242,8 @@ class App(Tk):
         #gui trang thai xem file co ton tai tren sever hay khong
         checkStatus = sck.recv(1024).decode('utf-8')
         if checkStatus == 'Not exist':
-            print("File khong ton tai!!!")
+            curFrame.lb_notice["text"] = "File khong ton tai!!!"
+            # print("File khong ton tai!!!")
             return
         else:
             resp = "Da nhan duoc"
@@ -255,12 +279,52 @@ class App(Tk):
         # sck.sendall("da nhan".encode('utf-8'))
         resp = sck.recv(1024).decode('utf-8')
         if resp == "Success":
-            print(f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite} ")
+            curFrame.lb_notice["text"] = f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite}"
+            # print(f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite} ")
         else:
-            print(f"Sever: Download file that bai. Loi ket noi!")
+            curFrame.lb_notice["text"] = "Download file that bai. Loi ket noi!"
+            # print(f"Sever: Download file that bai. Loi ket noi!")
+    
+    def uploadFile(self, curFrame: Frame, sck: socket):
+        # Send request upload for server
+        data_send = "uploadFile" #gui
+        sck.sendall(data_send.encode("utf-8")) # gui
+
+        #Nhan yeu cau nhap duong dan tu sever
+        # resp = sck.recv(1024).decode('utf-8')
+        while 1:
+            print("Nhap CANCEL de thoat!!!")
+            # msg = input(f"(Sever request) - {resp}")
+            msg = curFrame.entry_path.get() # gui
+            if msg == 'CANCEL':
+                sck.sendall(msg.encode('utf-8'))
+                return
+            if not checkExist(msg):
+                print("File khong ton tai. Yeu cau nhap lai!!!")
+                continue
+            sck.sendall(msg.encode('utf-8'))
+            break
+        size = os.path.getsize(msg)
+        sck.sendall(str(size).encode('utf-8'))
+        sizeResp = sck.recv(1024).decode('utf-8')
+        
+        ifs = open(msg, "rb")
+        while 1:
+            data = ifs.read(1024)
+            if not data:
+                break
+            sck.sendall(data)
+        ifs.close()
+        respSta = sck.recv(1024).decode('utf-8')
+        sck.sendall("da nhan".encode('utf-8'))
+        resp = sck.recv(1024).decode('utf-8')
+        if resp == "Success":
+            print(f"Sever: Da upload file len sever thanh cong. {respSta}")
+        else:
+            print(f"Sever: Upload file len sever that bai. {respSta}")
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((socket.gethostname(), 2810))
+client.connect((socket.gethostname(), 12000))
 print("Ket noi thanh cong voi sever!!!")
 app = App()
 app.mainloop()

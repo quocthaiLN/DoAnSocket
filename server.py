@@ -194,8 +194,8 @@ def handle_Client(client, addr, list_Connection) :
                 break
             if data == "uploadFile":
                 #gui yeu cau
-                request = "Nhap vao duong dan hoac ten file: "
-                client.sendall(request.encode('utf-8'))
+                # request = "Nhap vao duong dan hoac ten file: "
+                # client.sendall(request.encode('utf-8'))
                 #nhan ten file hoac duong dan
                 msg = client.recv(1024).decode('utf-8')
                 if msg == "CANCEL":

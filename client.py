@@ -174,7 +174,7 @@ def login(client):
         print("Login unsuccessfully")
         return False
 
-
+# --------------------------- main ----------------
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
