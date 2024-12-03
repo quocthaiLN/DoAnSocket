@@ -125,6 +125,10 @@ def downloadFile(client, fileName, addr):
 def uploadFilesInFolderSequentially(client, pathFolder, addr):
     size = client.recv(1024).decode('utf-8')
     size = int(size)
+    if size == 0:
+        print(f"Folder '{pathFolder}'was sent by client {addr} is empty. Can't upload folder")
+        client.sendall(f"Folder '{pathFolder}'was sent by client {addr} is empty. Can't upload folder".encode('utf-8'))
+        return
     client.sendall("da nhan".encode('utf-8'))
     i = 0
     cnt = 0
@@ -144,6 +148,9 @@ def uploadFilesInFolderSequentially(client, pathFolder, addr):
         client.sendall(f"Sever: Upload khong thanh cong {cnt} file")
     else:
         client.sendall(f"Sever: Upload thanh cong toan bo folder")
+
+def activityHistory():
+    print("")
 
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
 def authenticate_client(username, password):
@@ -220,7 +227,7 @@ def handle_Client(client, addr, list_Connection) :
 
         while True:
             try:
-                data = client.recv(1024);
+                data = client.recv(1024)
             except socket.timeout:
                 print(f"Da ngat ket noi voi Client {client, addr} do TimeOut.")
                 list_Connection.remove((client, addr))
@@ -232,8 +239,8 @@ def handle_Client(client, addr, list_Connection) :
                 break
             if data == "uploadFile":
                 #gui yeu cau
-                # request = "Nhap vao duong dan hoac ten file: "
-                # client.sendall(request.encode('utf-8'))
+                request = "Nhap vao duong dan hoac ten file: "
+                client.sendall(request.encode('utf-8'))
                 #nhan ten file hoac duong dan
                 msg = client.recv(1024).decode('utf-8')
                 if msg == "CANCEL":
@@ -269,12 +276,8 @@ def handle_Client(client, addr, list_Connection) :
                 if msg == "CANCEL":
                     continue
                 print(f"Client {addr}: Upload folder voi duong dan {msg}")
-                if uploadFilesInFolderSequentially(client, msg, addr):
-                    resp = "Success"
-                    client.sendall(resp.encode('utf-8'))
-                else:
-                    resp = "Failed"
-                    client.sendall(resp.encode('utf-8'))
+                uploadFilesInFolderSequentially(client, msg, addr)
+                
     except Exception as e:
         print(f"Connect Error {e} from Client : {client, addr}")
     client.close()
