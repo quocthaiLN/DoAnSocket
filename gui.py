@@ -260,7 +260,7 @@ class App(Tk):
             print(f"Sever: Download file that bai. Loi ket noi!")
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((socket.gethostname(), 2810))
+client.connect((socket.gethostname(), 12000))
 print("Ket noi thanh cong voi sever!!!")
 app = App()
 app.mainloop()

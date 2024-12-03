@@ -45,26 +45,16 @@ def checkExist(path):
         return True
     return False
 
-
+def checkFolderExist(path):
+    if os.path.isdir(path):
+        return True
+    return False
 
 #HOST, PORT
 HOST = socket.gethostname()
 PORT = 12000
 
-def uploadFile(client):
-    #Nhan yeu cau nhap duong dan tu sever
-    resp = client.recv(1024).decode('utf-8')
-    while 1:
-        print("Nhap CANCEL de thoat!!!")
-        msg = input(f"(Sever request) - {resp}")
-        if msg == 'CANCEL':
-            client.sendall(msg.encode('utf-8'))
-            return
-        if not checkExist(msg):
-            print("File khong ton tai. Yeu cau nhap lai!!!")
-            continue
-        client.sendall(msg.encode('utf-8'))
-        break
+def uploadFile(client, msg):
     size = os.path.getsize(msg)
     client.sendall(str(size).encode('utf-8'))
     sizeResp = client.recv(1024).decode('utf-8')
@@ -80,9 +70,9 @@ def uploadFile(client):
     client.sendall("da nhan".encode('utf-8'))
     resp = client.recv(1024).decode('utf-8')
     if resp == "Success":
-        print(f"Sever: Da upload file len sever thanh cong. {respSta}")
+        print(f"Sever: Da upload file {msg} len sever thanh cong. {respSta}")
     else:
-        print(f"Sever: Upload file len sever that bai. {respSta}")
+        print(f"Sever: Upload file {msg} len sever that bai. {respSta}")
 
 def downloadFile(client):
     #Nhan yeu cau nhap duong dan tu sever
@@ -138,11 +128,23 @@ def downloadFile(client):
     else:
         print(f"Sever: Download file that bai. Loi ket noi!")
 
+def uploadFilesInFolderSequentially(client, msg):
+    fileName = os.listdir(msg)
+    client.sendall(str(len(fileName)).encode('utf-8'))
+    sizeResp = client.recv(1024).decode('utf-8')
+    for file in fileName:
+        client.sendall(file.encode('utf-8'))
+        fileRep = client.recv(1024).decode('utf-8')
+        uploadFile(client, msg + "/" + file)
+    client.sendall("da xong".encode('utf-8'))
+    res = client.recv(1024).decode('utf-8')
+    print(res)
 
 def menu():
     print("0. Exit")
     print("1. Upload File")
     print("2. Download File")
+    print("3. Upload Files In Folder Sequentially")
     
 
 def login(client):
@@ -198,14 +200,51 @@ try:
             else:
                 continue
         if choice == 1:
+            flag = True
             msg = "uploadFile"
             client.sendall(msg.encode('utf-8'))
-            uploadFile(client)
+            #Nhan yeu cau nhap duong dan tu sever
+            resp = client.recv(1024).decode('utf-8')
+            while 1:
+                print("Nhap CANCEL de thoat!!!")
+                msg = input(f"(Sever request) - {resp}")
+                if msg == 'CANCEL':
+                    client.sendall(msg.encode('utf-8'))
+                    flag = False
+                    break
+                if not checkExist(msg):
+                    print("File khong ton tai. Yeu cau nhap lai!!!")
+                    continue
+                client.sendall(msg.encode('utf-8'))
+                break
+            if flag == True:
+                uploadFile(client, msg)
 
         if choice == 2:
             msg = "downloadFile"
             client.sendall(msg.encode('utf-8'))
             downloadFile(client)
+
+        if choice == 3:
+            msg = "uploadFilesInFolderSequentially"
+            client.sendall(msg.encode('utf-8'))
+            flag = True
+            #Nhan yeu cau nhap duong dan folder tu sever
+            resp = client.recv(1024).decode('utf-8')
+            while 1:
+                print("Nhap CANCEL de thoat!!!")
+                msg = input(f"(Sever request) - {resp}")
+                if msg == 'CANCEL':
+                    client.sendall(msg.encode('utf-8'))
+                    flag = False
+                    break
+                if not checkFolderExist(msg):
+                    print("Folder khong ton tai. Yeu cau nhap lai!!!")
+                    continue
+                client.sendall(msg.encode('utf-8'))
+                break
+            if flag == True:
+                uploadFilesInFolderSequentially(client, msg)
 except socket.timeout:
     print("Server dang day.")
 

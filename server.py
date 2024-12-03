@@ -122,6 +122,29 @@ def downloadFile(client, fileName, addr):
     print(f"Yeu cau download file cua client {addr} hoan thanh.")
     return True
 
+def uploadFilesInFolderSequentially(client, pathFolder, addr):
+    size = client.recv(1024).decode('utf-8')
+    size = int(size)
+    client.sendall("da nhan".encode('utf-8'))
+    i = 0
+    cnt = 0
+    while i < size:
+        i += 1
+        files = client.recv(1024).decode('utf-8')
+        client.sendall("da nhan".encode('utf-8'))
+        if uploadFile(client, pathFolder + "/" + files, addr):
+            resp = "Success"
+            client.sendall(resp.encode('utf-8'))
+        else:
+            cnt += 1
+            resp = "Failed"
+            client.sendall(resp.encode('utf-8'))
+    tmp = client.recv(1024).decode('utf-8')
+    if cnt > 0:
+        client.sendall(f"Sever: Upload khong thanh cong {cnt} file")
+    else:
+        client.sendall(f"Sever: Upload thanh cong toan bo folder")
+
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
 def authenticate_client(username, password):
 
@@ -208,15 +231,30 @@ def handle_Client(client, addr, list_Connection) :
                     resp = "Failed"
                     client.sendall(resp.encode('utf-8'))
             if data == "downloadFile":
-                 #gui yeu cau: Lấy thông tin từ gui
-                # request = "Nhap vao duong dan hoac ten file: "
-                # client.sendall(request.encode('utf-8'))
+                #gui yeu cau: Lấy thông tin từ gui
+                request = "Nhap vao duong dan hoac ten file: "
+                client.sendall(request.encode('utf-8'))
                 #nhan ten file hoac duong dan
                 msg = client.recv(1024).decode('utf-8')
                 if msg == "CANCEL":
                     continue
                 print(f"Client {addr}: Download file voi duong dan {msg}")
                 if downloadFile(client, msg, addr):
+                    resp = "Success"
+                    client.sendall(resp.encode('utf-8'))
+                else:
+                    resp = "Failed"
+                    client.sendall(resp.encode('utf-8'))
+            if data == "uploadFilesInFolderSequentially":
+                #gui yeu cau
+                request = "Nhap vao duong dan den folder: "
+                client.sendall(request.encode('utf-8'))
+                #nhan ten folder
+                msg = client.recv(1024).decode('utf-8')
+                if msg == "CANCEL":
+                    continue
+                print(f"Client {addr}: Upload folder voi duong dan {msg}")
+                if uploadFilesInFolderSequentially(client, msg, addr):
                     resp = "Success"
                     client.sendall(resp.encode('utf-8'))
                 else:
