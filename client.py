@@ -144,6 +144,19 @@ def menu():
     print("1. Upload File")
     print("2. Download File")
     
+# def client_receive(client):
+#     while True:
+#         try:
+#             # Nhận dữ liệu từ server
+#             data = client.recv(1024).decode('utf-8')
+#             if not data:
+#                 break
+#             if data == "timeout":
+#                 print("Server: Time Out.")
+#                 client.close()
+#         except:
+#             print("Error receiving data from server")
+#             break
 
 def login(client):
 
@@ -174,23 +187,26 @@ def login(client):
         print("Login unsuccessfully")
         return False
 
+
 # --------------------------- main ----------------
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-try:
 
-    client.connect((HOST, PORT))
-    print("Ket noi thanh cong voi Sever.")
+def main():
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
 
-    while not login(client): 
-        continue
-    connect = True
-    while connect:
-        menu()
-        choice = int(input("Nhap lua chon cua ban: "))
-        if choice == 0:
-            msg = "exit"
-            again_check = input("Ban co chac rang muon ngat ket noi chu?(Y/N): ")
+        client.connect((HOST, PORT))
+        print("Ket noi thanh cong voi Sever.")
+
+        while not login(client): 
+            continue
+        connect = True
+        while connect:
+            menu()
+            choice = int(input("Nhap lua chon cua ban: "))
+            if choice == 0:
+                msg = "exit"
+                again_check = input("Ban co chac rang muon ngat ket noi chu?(Y/N): ")
             if again_check == "Y":
                 client.sendall(msg.encode('utf-8'))
                 print("Ban da ngat ket noi khoi Server.")
@@ -206,11 +222,12 @@ try:
             msg = "downloadFile"
             client.sendall(msg.encode('utf-8'))
             downloadFile(client)
-except socket.timeout:
-    print("Server dang day.")
-
-except:
-    print("Khong the ket noi voi Server.")
-
-client.close()
+# except socket.timeout:
+#     print("Server dang day.")
+    except Exception as e:
+        print(F"Khong the ket noi voi Server, Error: {e}")
+    input()
+    client.close()
+if __name__ == "__main__":
+    main()
 #C:/Users/Admin/Documents/vs code/vs code python/anh.bin
