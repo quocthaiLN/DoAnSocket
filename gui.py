@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog
 import socket
 import os
 import time
@@ -49,52 +50,105 @@ def checkExist(path):
         return True
     return False
 
+# def browseFiles(entry_var: StringVar):
+#     filename = filedialog.askopenfilename(initialdir = "/",
+#                                           title = "Select a File",
+#                                           filetypes = (("Text files",
+#                                                         "*.txt*"),
+#                                                        ("all files",
+#                                                         "*.*")))
+#     if filename:
+#         entry_var.set(filename)  # Cập nhật giá trị cho StringVar
+
+
 class DownloadPage(Frame):
+
+    def check_entry_path(self, filename: str, app_pointer):
+        if filename != "":
+            app_pointer.downloadFile(self, client)
+    
+    def browseFiles(self, entry_var: StringVar):
+        # Lấy đường dẫn tuyệt đối tương đối với thư mục hiện tại
+        current_dir = os.path.dirname(__file__) # Path to current file
+        folder_path = os.path.join(current_dir, PathSever)
+        # Đường dẫn tuyệt đối -> thích ứng trên mọi hệ điều hành
+        absolute_path = os.path.abspath(folder_path)
+        filename = filedialog.askopenfilename(initialdir = absolute_path,
+                                            title = "Select a File",
+                                            filetypes = (("Text files",
+                                                            "*.txt*"),
+                                                        ("all files",
+                                                            "*.*")))
+        if filename:
+            filename_only = os.path.basename(filename)
+            path_for_download = PathSever + "/" + filename_only
+            entry_var.set(path_for_download)  # Cập nhật giá trị cho StringVar
+
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
         # Main label
         mainLabel = Label(self, text="Download Page", font=(FONT, 22, "bold"))
         mainLabel.place(x = 125, y = 70) # 50
-        # Notr label
+        # Note label
         lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
-        lb_note.place(x = 40, y = 150)
+        lb_note.place(x = 20, y = 150)
 
         # Notice label
         self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red")
-        self.lb_notice.place(x = 95, y = 185)
+        self.lb_notice.place(x = 10, y = 185)
 
         # Entry path file
-        self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue")
+        self.text_entry = StringVar()
+
+        self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue", textvariable = self.text_entry)
         self.entry_path.focus()
-        self.entry_path.place(x = 95, y = 150, height = 24)
+        self.entry_path.place(x = 75, y = 150, height = 24)
 
         # Button 
         btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
-                                 command = lambda: app_pointer.downloadFile(self, client))
+                                 command = lambda: self.check_entry_path(self.entry_path.get(), app_pointer))
         btn_select_file.place(x = 125, y = 225)
 
         btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
                           command = lambda: app_pointer.show_page(MainMenu))
         btn_back.place(x = 125, y = 265)
 
+        # File Explorer StringVar() -> to get filename
+        btn_explore = Button(self, text = "...", font = (FONT, 5, "bold"), fg = "blue",
+                             command = lambda: self.browseFiles(self.text_entry))
+        btn_explore.place(x = 400, y = 158)
+        
+
 class UploadPage(Frame):
+
+    def browseFiles(self, entry_var: StringVar):
+        filename = filedialog.askopenfilename(initialdir = "/",
+                                            title = "Select a File",
+                                            filetypes = (("Text files",
+                                                            "*.txt*"),
+                                                        ("all files",
+                                                            "*.*")))
+        if filename:
+            entry_var.set(filename)  # Cập nhật giá trị cho StringVar
+
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
         # Main label
         mainLabel = Label(self, text="Upload Page", font=(FONT, 22, "bold"))
         mainLabel.place(x = 125, y = 70) # 50
-        # Notr label
+        # Note label
         lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
-        lb_note.place(x = 40, y = 150)
+        lb_note.place(x = 20, y = 150)
 
         # Notice label
         self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red")
-        self.lb_notice.place(x = 95, y = 185)
+        self.lb_notice.place(x = 10, y = 185)
 
         # Entry path file
-        self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue")
+        self.text_entry = StringVar()
+        self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue", textvariable = self.text_entry)
         self.entry_path.focus()
-        self.entry_path.place(x = 95, y = 150, height = 24)
+        self.entry_path.place(x = 75, y = 150, height = 24)
 
         # Button 
         btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
@@ -104,6 +158,11 @@ class UploadPage(Frame):
         btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
                           command = lambda: app_pointer.show_page(MainMenu))
         btn_back.place(x = 125, y = 265)
+
+        # File Explorer StringVar -> to get filename
+        btn_explore = Button(self, text = "...", font = (FONT, 5, "bold"), fg = "blue",
+                             command = lambda: self.browseFiles(self.text_entry))
+        btn_explore.place(x = 400, y = 158)
 
 
 class MainMenu(Frame):
@@ -279,11 +338,14 @@ class App(Tk):
         # sck.sendall("da nhan".encode('utf-8'))
         resp = sck.recv(1024).decode('utf-8')
         if resp == "Success":
-            curFrame.lb_notice["text"] = f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite}"
-            # print(f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite} ")
+            curFrame.lb_notic["fg"] = "green"
+            curFrame.lb_notice["text"] = f"Sever: File dang duoc luu tru tai {fileWrite}"
+
+            print(f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite} ")
         else:
             curFrame.lb_notice["text"] = "Download file that bai. Loi ket noi!"
-            # print(f"Sever: Download file that bai. Loi ket noi!")
+
+            print(f"Sever: Download file that bai. Loi ket noi!")
     
     def uploadFile(self, curFrame: Frame, sck: socket):
         # Send request upload for server
@@ -319,8 +381,13 @@ class App(Tk):
         sck.sendall("da nhan".encode('utf-8'))
         resp = sck.recv(1024).decode('utf-8')
         if resp == "Success":
+            curFrame.lb_notice["fg"] = "green"
+            curFrame.lb_notice["text"] = f"Sever: Da upload file len sever thanh cong. {respSta}"
+
             print(f"Sever: Da upload file len sever thanh cong. {respSta}")
         else:
+            curFrame.lb_notice["text"] = f"Sever: Upload file len sever that bai. {respSta}"
+
             print(f"Sever: Upload file len sever that bai. {respSta}")
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
