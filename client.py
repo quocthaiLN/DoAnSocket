@@ -163,28 +163,57 @@ def menu():
 #             print("Error receiving data from server")
 #             break
 
+def client_send(client, data):
+    try:
+        client.sendall(data.encode('utf-8'))
+    except ConnectionResetError:
+        print(f"Server đột ngột ngắt kết nối.")
+    except Exception as e:
+        print(f"Có lỗi {e} khi gửi dữ liệu đến Server.")
+
+
+
+def client_receive(client):
+    try:
+        data = client.recv(1024).decode('utf-8')
+        if not data:
+            print("Server đã đóng kết nối.")
+            client.close()
+        else:
+            print(f"Server: {data}.")
+            return data
+    except socket.error: #BẮT LỖI TIME-OUT, SERVER TỰ NGẮT KẾT NỐI BẰNG CLOSE()
+        print(f"Server: TimeOut.")
+        client.close()
+    except ConnectionResetError:
+        print("Server đột ngột ngắt kết nối.")
+        client.close()
+    except Exception as e:
+        print(f"Có lỗi {e} khi nhận dữ liệu từ Server.")
+        client.close()
+    return None
+    
+    
+
 def login(client):
 
     # Nhận yêu cầu từ server để nhập thông tin
     # client.settimeout(5)    
     # try:
-    request = client.recv(1024).decode('utf-8')
+    request = client_receive(client)
 
     if request == "Server da day.":
-        print(request)
         client.close()
         return
-    else:
-        print(request)
 
     username = input("\nUsername: ")
     password = input("Password: ")
 
     login_information = f"{username},{password}"
-    client.sendall(login_information.encode('utf-8'))
+    client_send(client, login_information)
 
     # Nhận phản hồi từ server
-    resp = client.recv(1024).decode('utf-8')
+    resp = client_receive(client)
     if resp == "Successful":
         print("Login Successful")
         return True
@@ -201,7 +230,7 @@ def main():
     try:
 
         client.connect((HOST, PORT))
-        print("Ket noi thanh cong voi Sever.")
+        print("Đã kết nối với Sever.")
 
         while not login(client): 
             continue
@@ -264,12 +293,11 @@ def main():
                     break
                 if flag == True:
                     uploadFilesInFolderSequentially(client, msg)
-# except socket.timeout:
-#     print("Server dang day.")
     except Exception as e:
         print(F"Khong the ket noi voi Server, Error: {e}")
     input()
     client.close()
+
 if __name__ == "__main__":
     main()
 #C:/Users/Admin/Documents/vs code/vs code python/anh.bin
