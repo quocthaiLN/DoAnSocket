@@ -6,7 +6,7 @@ import time
 #duong dan toi thu muc sever va client
 PathSever = "DataSever"  
 PathUsers = "users.csv"
-
+PathHistory = "DataSever/OperationHistory.txt"
 #HOST, PORT, NumberOfClient
 HOST = socket.gethostname()
 PORT = 12000
@@ -54,7 +54,18 @@ def checkExist(path):
     if os.path.isfile(path):
         return True
     return False
-        
+
+#ham lay thoi gian thuc
+def getTime():
+    localTime = time.strftime("%a %d-%m-%Y %H:%M:%S", time.localtime(time.time()))
+    return localTime
+
+def operationHistory(msg):
+    ofs = open(PathHistory, "a")
+    ofs.write(msg)
+    ofs.close()
+
+
 #ham upload file tu client len sever
 def uploadFile(client, fileName, addr):
     tmp = name(fileName)
@@ -81,12 +92,12 @@ def uploadFile(client, fileName, addr):
             break
         ofs.write(data)
         sw += len(data)
+        try:
+            resp = client.recv(1024).decode('utf-8')
+        except Exception as e:
+            print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
+            return False
     ofs.close()
-    if os.path.getsize(fileWrite) != size:
-        print("Loi ngung ket noi tu sever toi client")
-        client.sendall("Loi ket noi".encode('utf-8'))
-        temp = client.recv(1024).decode('utf-8')
-        return False
     print(f"Sever: Yeu cau upload file cua client {addr} hoan thanh. File dang duoc luu tru tai {fileWrite} tren sever")
     client.sendall(f"File dang duoc luu tru tai {fileWrite} tren sever".encode('utf-8'))
     temp = client.recv(1024).decode('utf-8')
@@ -114,11 +125,12 @@ def downloadFile(client, fileName, addr):
         if not data:
             break
         client.sendall(data)
+        try:
+            resp = client.recv(1024).decode('utf-8')
+        except Exception as e:
+            print(f"Co loi khi download file {fileName}/ Connect Error:[{addr}].")
+            return False
     ifs.close()
-    resp = client.recv(1024).decode('utf-8')
-    if int(resp) != size:
-        print("Loi ngung ket noi tu sever toi client")
-        return False
     print(f"Yeu cau download file cua client {addr} hoan thanh.")
     return True
 
@@ -145,12 +157,11 @@ def uploadFilesInFolderSequentially(client, pathFolder, addr):
             client.sendall(resp.encode('utf-8'))
     tmp = client.recv(1024).decode('utf-8')
     if cnt > 0:
+        operationHistory("\n" + str(getTime()) + f"Client {addr} da upload folder voi duong dan {pathFolder}. Co {cnt} file khong duoc upload")
         client.sendall(f"Sever: Upload khong thanh cong {cnt} file")
     else:
+        operationHistory("\n" + str(getTime()) + f"Client {addr} da upload folder voi duong dan {pathFolder} thanh cong")
         client.sendall(f"Sever: Upload thanh cong toan bo folder")
-
-def activityHistory():
-    print("")
 
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
 def authenticate_client(username, password):
@@ -216,6 +227,7 @@ def handle_Client(client, addr, list_Connection) :
 
             username, password = login_information.split(',')
             if(authenticate_client(username, password)):
+                operationHistory("\n" + str(getTime()) + f"Client {addr} da dang nhap voi ten tai khoan la {username}")
                 client.sendall("Successful".encode('utf-8'))
                 print(f"Server: Login successfully towards account {username}")
                 break
@@ -234,6 +246,7 @@ def handle_Client(client, addr, list_Connection) :
                 break
             data = data.decode('utf-8')
             if data == "exit":
+                operationHistory("\n" + str(getTime()) + f"Client {addr} da ngat ket noi voi sever")
                 print(f"Client[{addr}]: Da ngat ket noi khoi Server.")
                 list_Connection.remove((client, addr))
                 break
@@ -245,8 +258,10 @@ def handle_Client(client, addr, list_Connection) :
                 msg = client.recv(1024).decode('utf-8')
                 if msg == "CANCEL":
                     continue
+                operationHistory("\n" + str(getTime()) + f"Client {addr} da yeu cau upload file voi duong dan {msg}")
                 print(f"Client {addr}: Upload file voi duong dan {msg}")
                 if uploadFile(client, msg, addr):
+                    operationHistory("\n" + str(getTime()) + f"Client {addr} da upload file voi duong dan {msg} thanh cong")
                     resp = "Success"
                     client.sendall(resp.encode('utf-8'))
                 else:
@@ -260,8 +275,10 @@ def handle_Client(client, addr, list_Connection) :
                 msg = client.recv(1024).decode('utf-8')
                 if msg == "CANCEL":
                     continue
+                operationHistory("\n" + str(getTime()) + f"Client {addr} da yeu cau download file voi duong dan {msg}")
                 print(f"Client {addr}: Download file voi duong dan {msg}")
                 if downloadFile(client, msg, addr):
+                    operationHistory("\n" + str(getTime()) + f"Client {addr} da download file voi duong dan {msg} thanh cong")
                     resp = "Success"
                     client.sendall(resp.encode('utf-8'))
                 else:
@@ -275,6 +292,7 @@ def handle_Client(client, addr, list_Connection) :
                 msg = client.recv(1024).decode('utf-8')
                 if msg == "CANCEL":
                     continue
+                operationHistory("\n" + str(getTime()) + f"Client {addr} da yeu cau upload folder voi duong dan {msg}")
                 print(f"Client {addr}: Upload folder voi duong dan {msg}")
                 uploadFilesInFolderSequentially(client, msg, addr)
                 
@@ -290,17 +308,21 @@ def main():
     sever.bind((HOST, PORT))
     sever.listen(NumberOfClient)
     print("Sever dang lang nghe...")
-#tao da luong
+    operationHistory("\n------------------------------------------------------------------------------------------------------------------------------------")
+    operationHistory("\n" + str(getTime()) + ":" + "Sever mo ket noi")
+    #tao da luong
     list_Connection = []
     while True:
         if len(list_Connection) <= NumberOfClient:
             client, addr = sever.accept()
+            operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} da ket noi toi sever")
             list_Connection.append((client, addr))
             thread = threading.Thread(target = handle_Client, args = (client, addr, list_Connection))
             thread.daemon = False
             thread.start()
 
-
+    operationHistory("\n" + str(getTime()) + ":" + "Sever da ngat ket noi")
+    operationHistory("--------------------------------------------")
     sever.close()    
 if __name__ == "__main__":
     main()

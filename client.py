@@ -65,6 +65,11 @@ def uploadFile(client, msg):
         if not data:
             break
         client.sendall(data)
+        try:
+            resp = client.recv(1024)
+        except Exception as e:
+            print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
+            return False
     ifs.close()
     respSta = client.recv(1024).decode('utf-8')
     client.sendall("da nhan".encode('utf-8'))
@@ -113,15 +118,17 @@ def downloadFile(client):
     ofs = open(fileWrite, "wb")
     sw = 0
     while size > sw:
-        data = client.recv(1024)
+        try:
+            data = client.recv(1024)
+        except Exception as e:
+            print(f"Co loi khi download file {msg}/ Connect Error with sever.")
+            return False
         if not data:
             break
         ofs.write(data)
         sw += len(data)
+        client.sendall(str(sw).encode('utf-8'))
     ofs.close()
-    client.sendall(str(sw).encode('utf-8'))
-    # respSta = client.recv(1024).decode('utf-8')
-    # client.sendall("da nhan".encode('utf-8'))
     resp = client.recv(1024).decode('utf-8')
     if resp == "Success":
         print(f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite} ")
