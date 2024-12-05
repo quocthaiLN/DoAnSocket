@@ -92,6 +92,9 @@ def downloadFile(client):
     client.sendall(msg.encode('utf-8'))
     #gui trang thai xem file co ton tai tren sever hay khong
     checkStatus = client.recv(1024).decode('utf-8')
+    if checkStatus == 'ff':
+        print("File is in list forbidden file. Can't download this file")
+        return
     if checkStatus == 'Not exist':
         print("File khong ton tai!!!")
         return

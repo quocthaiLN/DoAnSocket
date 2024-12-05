@@ -7,6 +7,7 @@ import time
 PathSever = "DataSever"  
 PathUsers = "users.csv"
 PathHistory = "DataSever/OperationHistory.txt"
+ListForbiddenFile = ["users.csv", "OperationHistory"]
 #HOST, PORT, NumberOfClient
 HOST = socket.gethostname()
 PORT = 12000
@@ -87,20 +88,26 @@ def uploadFile(client, fileName, addr):
     ofs = open(fileWrite, "wb")
     sw = 0
     while size > sw:
-        data = client.recv(1024)
+        try:
+            data = client.recv(1024)
+        except Exception as e:
+            print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
+            return False
         if not data:
             break
         ofs.write(data)
         sw += len(data)
-        try:
-            resp = client.recv(1024).decode('utf-8')
-        except Exception as e:
-            print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
-            return False
+        
     ofs.close()
     print(f"Sever: Yeu cau upload file cua client {addr} hoan thanh. File dang duoc luu tru tai {fileWrite} tren sever")
     client.sendall(f"File dang duoc luu tru tai {fileWrite} tren sever".encode('utf-8'))
     temp = client.recv(1024).decode('utf-8')
+    return True
+
+def isForbiddenFile(fileName):
+    for file in ListForbiddenFile:
+        if file == fileName:
+            return False
     return True
 
 def downloadFile(client, fileName, addr):
@@ -108,8 +115,14 @@ def downloadFile(client, fileName, addr):
     if not check(tmp):
         tmp = '/' + tmp
     Path = PathSever + tmp
+    if isForbiddenFile(Path):
+        msg = "File is in list forbidden file. Can't download this file"
+        print(msg)
+        client.sendall("ff".encode('utf-8'))
+        return
     if (check1(fileName) and Path != fileName) or not checkExist(Path):
         msg = "Not exist"
+        print("File is not exist")
         client.sendall(msg.encode('utf-8'))
         return
     else:
@@ -166,7 +179,7 @@ def uploadFilesInFolderSequentially(client, pathFolder, addr):
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
 def authenticate_client(username, password):
 
-    with open('users.csv', mode = 'r') as file:
+    with open('DataSever/users.csv', mode = 'r') as file:
         reader = csv.reader(file)
         # fields = next(reader)
         for row in reader:
