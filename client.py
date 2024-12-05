@@ -219,61 +219,65 @@ def main():
         while connect:
             menu()
             choice = int(input("Nhap lua chon cua ban: "))
-            if choice == 0:
-                msg = "exit"
-                again_check = input("Ban co chac rang muon ngat ket noi chu?(Y/N): ")
-                if again_check == "Y":
-                    client.sendall(msg.encode('utf-8'))
-                    print("Ban da ngat ket noi khoi Server.")
-                    connect = False
-                else:
-                    break
-            if choice == 1:
-                flag = True
-                msg = "uploadFile"
-                client.sendall(msg.encode('utf-8'))
-                #Nhan yeu cau nhap duong dan tu sever
-                resp = client.recv(1024).decode('utf-8')
-                while 1:
-                    print("Nhap CANCEL de thoat!!!")
-                    msg = input(f"(Sever request) - {resp}")
-                    if msg == 'CANCEL':
+            match choice:
+                case 0:
+                    msg = "exit"
+                    again_check = input("Ban co chac rang muon ngat ket noi chu?(Y/N): ")
+                    if again_check == "Y":
                         client.sendall(msg.encode('utf-8'))
-                        flag = False
+                        print("Ban da ngat ket noi khoi Server.")
+                        connect = False
+                    else:
                         break
-                    if not checkExist(msg):
-                        print("File khong ton tai. Yeu cau nhap lai!!!")
-                        continue
+                case 1:
+                    flag = True
+                    msg = "uploadFile"
                     client.sendall(msg.encode('utf-8'))
-                    break
-                if flag == True:
-                    uploadFile(client, msg)
-
-            if choice == 2:
-                msg = "downloadFile"
-                client.sendall(msg.encode('utf-8'))
-                downloadFile(client)
-
-            if choice == 3:
-                msg = "uploadFilesInFolderSequentially"
-                client.sendall(msg.encode('utf-8'))
-                flag = True
-                #Nhan yeu cau nhap duong dan folder tu sever
-                resp = client.recv(1024).decode('utf-8')
-                while 1:
-                    print("Nhap CANCEL de thoat!!!")
-                    msg = input(f"(Sever request) - {resp}")
-                    if msg == 'CANCEL':
+                    #Nhan yeu cau nhap duong dan tu sever
+                    resp = client.recv(1024).decode('utf-8')
+                    while 1:
+                        print("Nhap CANCEL de thoat!!!")
+                        msg = input(f"(Sever request) - {resp}")
+                        if msg == 'CANCEL':
+                            client.sendall(msg.encode('utf-8'))
+                            flag = False
+                            break
+                        if not checkExist(msg):
+                            print("File khong ton tai. Yeu cau nhap lai!!!")
+                            continue
                         client.sendall(msg.encode('utf-8'))
-                        flag = False
                         break
-                    if not checkFolderExist(msg):
-                        print("Folder khong ton tai. Yeu cau nhap lai!!!")
-                        continue
+                    if flag == True:
+                        uploadFile(client, msg)
+
+                case 2:
+                    msg = "downloadFile"
                     client.sendall(msg.encode('utf-8'))
-                    break
-                if flag == True:
-                    uploadFilesInFolderSequentially(client, msg)
+                    downloadFile(client)
+                case 3:
+                    msg = "uploadFilesInFolderSequentially"
+                    client.sendall(msg.encode('utf-8'))
+                    flag = True
+                    #Nhan yeu cau nhap duong dan folder tu sever
+                    resp = client.recv(1024).decode('utf-8')
+                    while 1:
+                        print("Nhap CANCEL de thoat!!!")
+                        msg = input(f"(Sever request) - {resp}")
+                        if msg == 'CANCEL':
+                            client.sendall(msg.encode('utf-8'))
+                            flag = False
+                            break
+                        if not checkFolderExist(msg):
+                            print("Folder khong ton tai. Yeu cau nhap lai!!!")
+                            continue
+                        client.sendall(msg.encode('utf-8'))
+                        break
+                    if flag == True:
+                        uploadFilesInFolderSequentially(client, msg)
+                case default:
+                    print("Yeu cau ban nhap vao khong hop le. Vui long nhap lai")
+
+
 # except socket.timeout:
 #     print("Server dang day.")
     except Exception as e:
