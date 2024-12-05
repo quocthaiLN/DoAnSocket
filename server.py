@@ -87,16 +87,15 @@ def uploadFile(client, fileName, addr):
     ofs = open(fileWrite, "wb")
     sw = 0
     while size > sw:
-        data = client.recv(1024)
+        try:
+            data = client.recv(1024)
+        except Exception as e:
+            print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
+            return False
         if not data:
             break
         ofs.write(data)
         sw += len(data)
-        try:
-            resp = client.recv(1024).decode('utf-8')
-        except Exception as e:
-            print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
-            return False
     ofs.close()
     print(f"Sever: Yeu cau upload file cua client {addr} hoan thanh. File dang duoc luu tru tai {fileWrite} tren sever")
     client.sendall(f"File dang duoc luu tru tai {fileWrite} tren sever".encode('utf-8'))
