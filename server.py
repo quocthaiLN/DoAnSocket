@@ -93,6 +93,11 @@ def uploadFile(client, fileName, addr):
         except Exception as e:
             print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
             return False
+        try:
+            data = client.recv(1024)
+        except Exception as e:
+            print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
+            return False
         if not data:
             break
         ofs.write(data)
