@@ -1,0 +1,190 @@
+
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 09:21:24:Sever mo ket noi
+Fri 06-12-2024 09:21:44:Client ('192.168.1.3', 51672) da ket noi toi sever
+Fri 06-12-2024 09:21:49: Client ('192.168.1.3', 51672) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 09:34:21:Sever mo ket noi
+Fri 06-12-2024 09:34:42:Client ('192.168.1.3', 52208) da ket noi toi sever
+Fri 06-12-2024 09:34:46: Client ('192.168.1.3', 52208) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 09:34:55: Client hthang ('192.168.1.3', 52208) da ngat ket noi voi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 09:36:01:Sever mo ket noi
+Fri 06-12-2024 09:36:15:Client ('192.168.1.3', 52253) da ket noi toi sever
+Fri 06-12-2024 09:36:19: Client ('192.168.1.3', 52253) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 09:36:40: Client ('192.168.1.3', 52253) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 09:37:53:Sever mo ket noi
+Fri 06-12-2024 09:38:03:Client ('192.168.1.3', 52286) da ket noi toi sever
+Fri 06-12-2024 09:38:09: Client ('192.168.1.3', 52286) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 09:38:22: Client qthang ('192.168.1.3', 52286) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 09:39:31: Client ('192.168.1.3', 52286) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 09:39:45:Sever mo ket noi
+Fri 06-12-2024 09:39:48:Client ('192.168.1.3', 52318) da ket noi toi sever
+Fri 06-12-2024 09:39:53: Client ('192.168.1.3', 52318) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 09:40:07: Client hthang ('192.168.1.3', 52318) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 09:40:07: Client hthang ('192.168.1.3', 52318) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 09:53:01:Sever mo ket noi
+Fri 06-12-2024 09:53:12:Client ('192.168.1.3', 52747) da ket noi toi sever
+Fri 06-12-2024 09:53:19: Client ('192.168.1.3', 52747) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 09:53:29: Client qthang ('192.168.1.3', 52747) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 09:53:29: Client qthang ('192.168.1.3', 52747) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 10:00:18:Sever mo ket noi
+Fri 06-12-2024 10:00:29:Client ('192.168.1.3', 52953) da ket noi toi sever
+Fri 06-12-2024 10:00:37: Client ('192.168.1.3', 52953) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 10:00:54: Client hthang ('192.168.1.3', 52953) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 10:00:54: Client hthang ('192.168.1.3', 52953) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 10:01:32:Sever mo ket noi
+Fri 06-12-2024 10:01:37:Client ('192.168.1.3', 52997) da ket noi toi sever
+Fri 06-12-2024 10:01:44: Client ('192.168.1.3', 52997) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 10:01:55: Client qthang ('192.168.1.3', 52997) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 10:02:33: Client ('192.168.1.3', 52997) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 10:02:56:Sever mo ket noi
+Fri 06-12-2024 10:03:06:Client ('192.168.1.3', 53053) da ket noi toi sever
+Fri 06-12-2024 10:03:12: Client ('192.168.1.3', 53053) da dang nhap voi ten tai khoan la qthai
+Fri 06-12-2024 10:03:22: Client qthai ('192.168.1.3', 53053) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 10:03:22: Client qthai ('192.168.1.3', 53053) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 10:04:03:Sever mo ket noi
+Fri 06-12-2024 10:04:10:Client ('192.168.1.3', 53061) da ket noi toi sever
+Fri 06-12-2024 10:04:16: Client ('192.168.1.3', 53061) da dang nhap voi ten tai khoan la qthai
+Fri 06-12-2024 10:04:24: Client qthai ('192.168.1.3', 53061) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 10:04:33: Client ('192.168.1.3', 53061) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 10:10:13:Sever mo ket noi
+Fri 06-12-2024 10:10:23:Client ('192.168.1.3', 53231) da ket noi toi sever
+Fri 06-12-2024 10:10:31: Client ('192.168.1.3', 53231) da dang nhap voi ten tai khoan la qthai
+Fri 06-12-2024 10:10:41: Client qthai ('192.168.1.3', 53231) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 10:10:53: Client ('192.168.1.3', 53231) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 10:16:22:Sever mo ket noi
+Fri 06-12-2024 10:16:31:Client ('192.168.1.3', 53426) da ket noi toi sever
+Fri 06-12-2024 10:16:36: Client ('192.168.1.3', 53426) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 10:16:45: Client hthang ('192.168.1.3', 53426) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 10:16:56: Client ('192.168.1.3', 53426) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 10:21:49:Sever mo ket noi
+Fri 06-12-2024 10:22:02:Client ('192.168.1.3', 53813) da ket noi toi sever
+Fri 06-12-2024 10:22:06: Client ('192.168.1.3', 53813) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 10:22:15: Client hthang ('192.168.1.3', 53813) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 10:22:49: Client ('192.168.1.3', 53813) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 10:23:25:Sever mo ket noi
+Fri 06-12-2024 10:23:33:Client ('192.168.1.3', 53836) da ket noi toi sever
+Fri 06-12-2024 10:23:39: Client ('192.168.1.3', 53836) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 10:23:51: Client qthang ('192.168.1.3', 53836) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 10:23:51: Client qthang ('192.168.1.3', 53836) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 11:18:42:Sever mo ket noi
+Fri 06-12-2024 11:18:47:Client ('192.168.1.3', 54245) da ket noi toi sever
+Fri 06-12-2024 11:18:53: Client ('192.168.1.3', 54245) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 11:19:10: Client hthang ('192.168.1.3', 54245) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 11:19:22: Client ('192.168.1.3', 54245) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 11:19:55:Sever mo ket noi
+Fri 06-12-2024 11:20:16:Client ('192.168.1.3', 54260) da ket noi toi sever
+Fri 06-12-2024 11:20:20: Client ('192.168.1.3', 54260) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 11:20:31: Client qthang ('192.168.1.3', 54260) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 11:20:31: Client qthang ('192.168.1.3', 54260) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+Fri 06-12-2024 11:21:12: Client ('192.168.1.3', 54260) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 11:25:34:Sever mo ket noi
+Fri 06-12-2024 11:25:46:Client ('192.168.1.3', 54300) da ket noi toi sever
+Fri 06-12-2024 11:25:51: Client ('192.168.1.3', 54300) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 11:26:01: Client hthang ('192.168.1.3', 54300) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 11:26:02: Client hthang ('192.168.1.3', 54300) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 11:26:53:Sever mo ket noi
+Fri 06-12-2024 11:26:57:Client ('192.168.1.3', 54306) da ket noi toi sever
+Fri 06-12-2024 11:27:02: Client ('192.168.1.3', 54306) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 11:27:16: Client hthang ('192.168.1.3', 54306) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 11:27:26: Client ('192.168.1.3', 54306) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 11:28:08:Sever mo ket noi
+Fri 06-12-2024 11:28:18:Client ('192.168.1.3', 54324) da ket noi toi sever
+Fri 06-12-2024 11:28:24: Client ('192.168.1.3', 54324) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 11:28:33: Client hthang ('192.168.1.3', 54324) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 11:28:49: Client ('192.168.1.3', 54324) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 11:29:17:Sever mo ket noi
+Fri 06-12-2024 11:29:21:Client ('192.168.1.3', 54331) da ket noi toi sever
+Fri 06-12-2024 11:29:25: Client ('192.168.1.3', 54331) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 11:29:34: Client qthang ('192.168.1.3', 54331) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 11:29:50: Client ('192.168.1.3', 54331) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 11:30:05:Sever mo ket noi
+Fri 06-12-2024 11:30:17:Client ('192.168.1.3', 54340) da ket noi toi sever
+Fri 06-12-2024 11:30:23: Client ('192.168.1.3', 54340) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 11:30:34: Client qthang ('192.168.1.3', 54340) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 11:30:34: Client qthang ('192.168.1.3', 54340) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 11:34:48:Sever mo ket noi
+Fri 06-12-2024 11:35:03:Client ('192.168.1.3', 54367) da ket noi toi sever
+Fri 06-12-2024 11:35:07: Client ('192.168.1.3', 54367) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 11:35:15: Client qthang ('192.168.1.3', 54367) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 11:35:31: Client ('192.168.1.3', 54367) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 12:14:53:Sever mo ket noi
+Fri 06-12-2024 12:14:57:Client ('192.168.1.3', 54795) da ket noi toi sever
+Fri 06-12-2024 12:15:02: Client ('192.168.1.3', 54795) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 12:15:18: Client hthang ('192.168.1.3', 54795) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 12:15:36: Client ('192.168.1.3', 54795) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 12:16:33:Sever mo ket noi
+Fri 06-12-2024 12:16:38:Client ('192.168.1.3', 54837) da ket noi toi sever
+Fri 06-12-2024 12:16:44: Client ('192.168.1.3', 54837) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 12:16:56: Client hthang ('192.168.1.3', 54837) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 12:17:24: Client ('192.168.1.3', 54837) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 12:18:00:Sever mo ket noi
+Fri 06-12-2024 12:18:04:Client ('192.168.1.3', 54866) da ket noi toi sever
+Fri 06-12-2024 12:18:11: Client ('192.168.1.3', 54866) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 12:18:44: Client hthang ('192.168.1.3', 54866) da yeu cau download file voi duong dan DataSever/Content of middle exam.jpg
+Fri 06-12-2024 12:18:58: Client hthang ('192.168.1.3', 54866) da download file voi duong dan DataSever/Content of middle exam.jpg thanh cong
+Fri 06-12-2024 12:19:07: Client hthang ('192.168.1.3', 54866) da yeu cau download file voi duong dan DataSever/Content of middle exam.jpg
+Fri 06-12-2024 12:22:21: Client ('192.168.1.3', 54866) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 12:24:29:Sever mo ket noi
+Fri 06-12-2024 12:24:33:Client ('192.168.1.3', 54935) da ket noi toi sever
+Fri 06-12-2024 12:24:37: Client ('192.168.1.3', 54935) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 12:24:50: Client hthang ('192.168.1.3', 54935) da yeu cau download file voi duong dan DataSever/Content of middle exam.jpg
+Fri 06-12-2024 12:26:59: Client ('192.168.1.3', 54935) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 12:28:17:Sever mo ket noi
+Fri 06-12-2024 12:28:31:Client ('192.168.1.3', 55013) da ket noi toi sever
+Fri 06-12-2024 12:28:41: Client ('192.168.1.3', 55013) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 12:28:55: Client hthang ('192.168.1.3', 55013) da yeu cau download file voi duong dan DataSever/Content of middle exam.jpg
+Fri 06-12-2024 12:29:20: Client ('192.168.1.3', 55013) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 12:30:54:Sever mo ket noi
+Fri 06-12-2024 12:31:06:Client ('192.168.1.3', 55045) da ket noi toi sever
+Fri 06-12-2024 12:31:17: Client ('192.168.1.3', 55045) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 12:31:36: Client hthang ('192.168.1.3', 55045) da yeu cau download file voi duong dan DataSever/Content of middle exam.jpg
+Fri 06-12-2024 12:31:36: Client hthang ('192.168.1.3', 55045) da download file voi duong dan DataSever/Content of middle exam.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 12:33:12:Sever mo ket noi
+Fri 06-12-2024 12:33:15:Client ('192.168.1.3', 55096) da ket noi toi sever
+Fri 06-12-2024 12:33:20: Client ('192.168.1.3', 55096) da dang nhap voi ten tai khoan la qthang
+Fri 06-12-2024 12:33:28: Client qthang ('192.168.1.3', 55096) da yeu cau download file voi duong dan DataSever/Content of middle exam.jpg
+Fri 06-12-2024 12:33:35: Client qthang ('192.168.1.3', 55096) da download file voi duong dan DataSever/Content of middle exam.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 12:38:16:Sever mo ket noi
+Fri 06-12-2024 12:38:31:Client ('192.168.1.3', 55214) da ket noi toi sever
+Fri 06-12-2024 12:38:36: Client ('192.168.1.3', 55214) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 12:38:46: Client hthang ('192.168.1.3', 55214) da yeu cau download file voi duong dan DataSever/Content of middle exam.jpg
+Fri 06-12-2024 12:38:52: Client hthang ('192.168.1.3', 55214) da download file voi duong dan DataSever/Content of middle exam.jpg thanh cong
+Fri 06-12-2024 12:39:13: Client hthang ('192.168.1.3', 55214) da yeu cau download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg
+Fri 06-12-2024 12:40:10: Client hthang ('192.168.1.3', 55214) da download file voi duong dan DataSever/z4762245713429_b612b6f4f79ece2de5157cda3874b85d.jpg thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 14:57:29:Sever mo ket noi
+Fri 06-12-2024 14:58:15:Client ('192.168.1.3', 61110) da ket noi toi sever
+Fri 06-12-2024 14:58:25: Client ('192.168.1.3', 61110) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 14:58:52:Sever mo ket noi
+Fri 06-12-2024 14:59:18:Client ('192.168.1.3', 61148) da ket noi toi sever
+Fri 06-12-2024 14:59:25: Client ('192.168.1.3', 61148) da ngat ket noi toi sever do loi ket noi

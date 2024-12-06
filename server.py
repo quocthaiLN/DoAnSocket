@@ -112,8 +112,8 @@ def uploadFile(client, fileName, addr):
 def isForbiddenFile(fileName):
     for file in ListForbiddenFile:
         if file == fileName:
-            return False
-    return True
+            return True
+    return False
 
 def downloadFile(client, fileName, addr):
     tmp = name(fileName)

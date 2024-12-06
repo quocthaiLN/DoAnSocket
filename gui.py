@@ -1,5 +1,8 @@
 from tkinter import *
 from tkinter import filedialog
+from tkinter import ttk
+import threading
+# from tkinter import Label, Toplevel
 import socket
 import os
 import time
@@ -60,7 +63,7 @@ class DownloadFilePage(Frame):
 
     def check_entry_path(self, filename: str, app_pointer):
         if filename != "":
-            app_pointer.downloadFile(self, client)
+            app_pointer.downloadFile_thread(self, client)
     
     def browseFiles(self, entry_var: StringVar):
         # Lấy đường dẫn tuyệt đối tương đối với thư mục hiện tại
@@ -255,7 +258,8 @@ class LoginPage(Frame):
         self.entry_password.place(x = 165, y = 242)
 
         # Button
-        btn_login = Button(self, text = "Sign in", font = (FONT, 9, "bold"), bg = "#80C4E9", command = lambda: app_pointer.login(self, client))
+        btn_login = Button(self, text = "Sign in", font = (FONT, 9, "bold"), bg = "#80C4E9",
+         command = lambda: app_pointer.login(self, client))
         btn_login.place(x = 195, y = 290)
 
 
@@ -317,18 +321,22 @@ class App(Tk):
         except:
             print("Server is not responding")
 
+    # ------------------------------------------------
+    def downloadFile_thread(self, curFrame: Frame, sck: socket):
+        # Tạo một luồng mới để chạy hàm download mà không làm đơ UI
+        download_thread = threading.Thread(target=self.downloadFile, args=(curFrame, sck))
+        download_thread.start()
+
     def downloadFile(self, curFrame: Frame, sck: socket):
         # Send request for server
         data_send = "downloadFile"
         sck.sendall(data_send.encode('utf-8'))
 
        #Nhan yeu cau nhap duong dan tu sever
-        resp = client.recv(1024).decode('utf-8')
-        # resp = curFrame.entry_path.get()
-        # sck.sendall(resp.encode("utf-8"))
+        resp = sck.recv(1024).decode('utf-8')
         print("Nhap CANCEL de thoat!!!")
         #nhap vao ten file
-        # GUI
+        # msg = input(f"(Sever request) - {resp}")
         msg = curFrame.entry_path.get()
         if msg == 'CANCEL':
             sck.sendall(msg.encode('utf-8'))
@@ -337,9 +345,11 @@ class App(Tk):
         sck.sendall(msg.encode('utf-8'))
         #gui trang thai xem file co ton tai tren sever hay khong
         checkStatus = sck.recv(1024).decode('utf-8')
+        if checkStatus == 'ff':
+            print("File is in list forbidden file. Can't download this file")
+            return
         if checkStatus == 'Not exist':
-            curFrame.lb_notice["text"] = "File khong ton tai!!!"
-            # print("File khong ton tai!!!")
+            print("File khong ton tai!!!")
             return
         else:
             resp = "Da nhan duoc"
@@ -358,21 +368,53 @@ class App(Tk):
                 fileWrite = PathClient + tmp
                 i += 1
         sizeRecv = sck.recv(1024).decode('utf-8')
-        size = int(sizeRecv)
+        size = int(sizeRecv) # total_size
         sizeResp = "Nhan thanh cong"
         sck.sendall(sizeResp.encode('utf-8'))
+        # Progess bar GUI
+        progress = Toplevel(self)
+        progress.title("Download")
+
+        progress_bar = ttk.Progressbar(progress, orient="horizontal", length=300, mode="determinate", maximum=size)
+        progress_bar.pack(pady = 20)
+
+        progress_label = Label(progress, text="0 MB / 0 MB")
+        progress_label.pack(pady = 10)
+        # ---------------------------
+
         ofs = open(fileWrite, "wb")
-        sw = 0
+        sw = 0 # downloaded_size
+        # progress_bar.start()
         while size > sw:
-            data = sck.recv(1024)
+            # progress_bar.start()
+            
+            try:
+                data = sck.recv(1024)
+            except Exception as e:
+                print(f"Co loi khi download file {msg}/ Connect Error with sever.")
+                return False
             if not data:
                 break
             ofs.write(data)
             sw += len(data)
+
+            # time.sleep(0.05)
+            if progress.winfo_exists():
+                progress_bar["value"] = sw
+                progress_label.config(text=f"{sw / (1024 * 1024):.2f} MB / {size / (1024 * 1024):.2f} MB")
+                progress.update_idletasks()
+                time.sleep(0.05)
+            # ---------------------
+
+            sck.sendall(str(sw).encode('utf-8'))
+
+        # progress_bar.stop()
+
         ofs.close()
-        sck.sendall(str(sw).encode('utf-8'))
-        # respSta = sck.recv(1024).decode('utf-8')
-        # sck.sendall("da nhan".encode('utf-8'))
+        time.sleep(1.5)
+        if progress.winfo_exists:
+            progress.destroy() # GUI : progress bar
+        
         resp = sck.recv(1024).decode('utf-8')
         if resp == "Success":
             curFrame.lb_notice["fg"] = "green"
@@ -395,6 +437,11 @@ class App(Tk):
             if not data:
                 break
             sck.sendall(data)
+            try:
+                resp = sck.recv(1024)
+            except Exception as e:
+                print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
+                return False
         ifs.close()
         respSta = sck.recv(1024).decode('utf-8')
         sck.sendall("da nhan".encode('utf-8'))
