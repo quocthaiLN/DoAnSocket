@@ -166,6 +166,9 @@ def menu():
 def client_send(client, data):
     try:
         client.sendall(data.encode('utf-8'))
+    except socket.error: #BẮT LỖI TIME-OUT, SERVER TỰ NGẮT KẾT NỐI BẰNG CLOSE()
+        print(f"Server: Đã ngắt kết nối.")
+        client.close()
     except ConnectionResetError:
         print(f"Server đột ngột ngắt kết nối.")
     except Exception as e:
@@ -180,10 +183,10 @@ def client_receive(client):
             print("Server đã đóng kết nối.")
             client.close()
         else:
-            print(f"Server: {data}.")
+            #print(f"Server: {data}.")
             return data
     except socket.error: #BẮT LỖI TIME-OUT, SERVER TỰ NGẮT KẾT NỐI BẰNG CLOSE()
-        print(f"Server: TimeOut.")
+        print(f"Server: Đã ngắt kết nối.")
         client.close()
     except ConnectionResetError:
         print("Server đột ngột ngắt kết nối.")
@@ -200,12 +203,20 @@ def login(client):
     # Nhận yêu cầu từ server để nhập thông tin
     # client.settimeout(5)    
     # try:
-    request = client_receive(client)
+    # request = client_receive(client)
 
-    if request == "Server da day.":
-        client.close()
-        return
+    # if request == "Server da day.":
+    #     #client.close()
+    #     return
+    #print(f"Đang kết nối với Server vui lòng chờ.")
+    # while client_receive(client) == "Server da day.":
+    #     time.sleep(1)
+    #     continue
+    
 
+    reply = client_receive(client)
+    #os.system('cls')
+    print(reply)
     username = input("\nUsername: ")
     password = input("Password: ")
 
@@ -215,6 +226,7 @@ def login(client):
     # Nhận phản hồi từ server
     resp = client_receive(client)
     if resp == "Successful":
+        #os.system('cls')
         print("Login Successful")
         return True
     else:
@@ -228,9 +240,9 @@ def login(client):
 def main():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-
+        
         client.connect((HOST, PORT))
-        print("Đã kết nối với Sever.")
+        print(f"Đang kết nối với Server vui lòng chờ.")
 
         while not login(client): 
             continue
@@ -293,6 +305,9 @@ def main():
                     break
                 if flag == True:
                     uploadFilesInFolderSequentially(client, msg)
+    # except OSError as os:
+    #     if os.winerror == 10038:
+    #         print(f"Server từ chối kết nối.")
     except Exception as e:
         print(F"Khong the ket noi voi Server, Error: {e}")
     input()

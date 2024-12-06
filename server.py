@@ -4,13 +4,13 @@ import os
 import csv
 import time
 #duong dan toi thu muc sever va client
-PathSever = "DataSever"  
+PathSever = "DataServer"  
 PathUsers = "users.csv"
 
 #HOST, PORT, NumberOfClient
 HOST = socket.gethostname()
 PORT = 12000
-NumberOfClient = 5
+NumberOfClient = 1
 FORMAT = 'utf-8'
 
 #lay tu ki tu '/' cuoi cung tro ve sau trong duong dan hoac ten file
@@ -166,7 +166,7 @@ def authenticate_client(username, password):
     return False
 
 def server_receive(client, addr, list_Connection):
-    client.settimeout(5)
+    client.settimeout(600)
     try:
         message = client.recv(1024).decode(FORMAT)
         if not message:
@@ -174,7 +174,7 @@ def server_receive(client, addr, list_Connection):
             list_Connection.remove((client, addr))
             client.close()
         else:    
-            print(f"Client{addr}: {message}")
+            #print(f"Client{addr}: {message}")
             return message
     except socket.timeout:
         print(f"Client {addr}: TimeOut.")
@@ -196,6 +196,10 @@ def server_send(client, addr, list_Connection ,message):
     try:
         print(f"Da gui thong bao den Client: {addr}.")
         client.sendall(message.encode(FORMAT))
+    except socket.error:
+        print(f"Client {addr} đã ngắt kết nối.")
+        list_Connection.remove((client, addr))
+        client.close()
     except ConnectionResetError:
         print(f"Client {addr} đột ngột ngắt kết nối.")
         list_Connection.remove((client, addr))
@@ -209,16 +213,14 @@ def server_send(client, addr, list_Connection ,message):
 
 
 
-def init_Connection(client, addr, list_Connection):
+# def init_Connection(client, addr, list_Connection):
 
-    if len(list_Connection) > NumberOfClient:
-        server_send(client, addr, list_Connection, "Server da day.")
-        list_Connection.remove((client, addr))
-        client.close()
-        return False
-    else:
-        server_send(client, addr,list_Connection,"Enter your username and password to login")
-        return True
+#     if len(list_Connection) > NumberOfClient:
+#         #server_send(client, addr, list_Connection, "Server da day.")
+#         return False
+#     else:
+#         server_send(client, addr,list_Connection,"Enter your username and password to login")
+#         return True
 
 
 #ham nhan du lieu tu client va gui phan hoi
@@ -229,79 +231,90 @@ def handle_Client(client, addr, list_Connection) :
     try:
         # Gửi yêu cầu login đến client
         while True:
+            
+            # i = 0
+            # while True:
 
-            if not init_Connection(client, addr, list_Connection):
-                break
-
+            #     if init_Connection == False:
+            #         continue
+            #     else:
+            #         break
+            #init_Connection(client, addr, list_Connection)
 
             # Nhận thông tin account từ client
+            server_send(client, addr,list_Connection,"Enter your username and password to login")
             login_information = ""
-            login_information = server_receive(client, addr, list_Connection) 
-                
-
+            login_information = server_receive(client, addr, list_Connection)
             if login_information is None:
-                return
-
+                 return
+            #print(f"Nhận Username, Password từ Client: {addr}")
 
             username, password = login_information.split(',')
             if(authenticate_client(username, password)):
-                server_send(client, addr, list_Connection, "Successful")
                 print(f"Server: Login successfully towards account {username}")
+                server_send(client, addr, list_Connection, "Successful")
                 break
             else:
-                client.sendall("Unsuccessfull".encode(FORMAT))
+                #client.sendall("Unsuccessfull".encode(FORMAT))
+                server_send(client, addr, list_Connection, "Unsuccessful")
                 print(f"Server: Login unsuccessfully towards account {username}")
         #gui nhan file
         data = ""
 
         while True:
-            try:
-                data = client.recv(1024)
-            except socket.timeout:
-                print(f"Da ngat ket noi voi Client {client, addr} do TimeOut.")
-                list_Connection.remove((client, addr))
-                break
-            data = data.decode(FORMAT)
+            # try:
+            #     data = client.recv(1024)
+            # except socket.timeout:
+            #     print(f"Da ngat ket noi voi Client {client, addr} do TimeOut.")
+            #     list_Connection.remove((client, addr))
+            #     break
+            data = server_receive(client, addr, list_Connection)
+            if data is None:
+                return
+            #data = data.decode(FORMAT)
             if data == "exit":
-                print(f"Client{addr}: Da ngat ket noi khoi Server.")
+                print(f"Client {addr}: Đã đăng xuất khỏi Server.")
                 list_Connection.remove((client, addr))
                 break
             if data == "uploadFile":
                 #gui yeu cau
                 request = "Nhap vao duong dan hoac ten file: "
-                client.sendall(request.encode(FORMAT))
+                server_send(client, addr, list_Connection, request)
                 #nhan ten file hoac duong dan
-                msg = client.recv(1024).decode(FORMAT)
+                #msg = client.recv(1024).decode(FORMAT)
+                msg = server_receive(client, addr, list_Connection)
+                if msg is None:
+                    return 
                 if msg == "CANCEL":
                     continue
                 print(f"Client {addr}: Upload file voi duong dan {msg}")
                 if uploadFile(client, msg, addr):
                     resp = "Success"
-                    client.sendall(resp.encode(FORMAT))
+                    server_send(client, addr, list_Connection, resp)
                 else:
                     resp = "Failed"
-                    client.sendall(resp.encode(FORMAT))
+                    server_send(client, addr, list_Connection, resp)
             if data == "downloadFile":
                 #gui yeu cau: Lấy thông tin từ gui
-                request = "Nhap vao duong dan hoac ten file: "
-                client.sendall(request.encode(FORMAT))
+                request = "Nhập tên file hoặc dường đẫn: "
+                server_send(client, addr, list_Connection, request)
                 #nhan ten file hoac duong dan
-                msg = client.recv(1024).decode(FORMAT)
+                msg = server_receive(client, addr, list_Connection)
                 if msg == "CANCEL":
                     continue
                 print(f"Client {addr}: Download file voi duong dan {msg}")
                 if downloadFile(client, msg, addr):
                     resp = "Success"
-                    client.sendall(resp.encode(FORMAT))
+                    server_send(client, addr, list_Connection, resp)
                 else:
                     resp = "Failed"
-                    client.sendall(resp.encode(FORMAT))
+                    server_send(client, addr, list_Connection, resp)
             if data == "uploadFilesInFolderSequentially":
                 #gui yeu cau
                 request = "Nhap vao duong dan den folder: "
-                client.sendall(request.encode(FORMAT))
+                server_send(client, addr, list_Connection, request)
                 #nhan ten folder
-                msg = client.recv(1024).decode(FORMAT)
+                msg = server_receive(client, addr, list_Connection)
                 if msg == "CANCEL":
                     continue
                 print(f"Client {addr}: Upload folder voi duong dan {msg}")
@@ -316,12 +329,12 @@ def handle_Client(client, addr, list_Connection) :
 def main():
     sever = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sever.bind((HOST, PORT))
-    sever.listen(NumberOfClient)
+    sever.listen(NumberOfClient + 1)
     print("Sever dang lang nghe...")
 #tao da luong
     list_Connection = []
     while True:
-        if len(list_Connection) <= NumberOfClient:
+        if len(list_Connection) < NumberOfClient:
             client, addr = sever.accept()
             list_Connection.append((client, addr))
             thread = threading.Thread(target = handle_Client, args = (client, addr, list_Connection))
