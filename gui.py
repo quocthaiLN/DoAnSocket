@@ -50,18 +50,13 @@ def checkExist(path):
         return True
     return False
 
-# def browseFiles(entry_var: StringVar):
-#     filename = filedialog.askopenfilename(initialdir = "/",
-#                                           title = "Select a File",
-#                                           filetypes = (("Text files",
-#                                                         "*.txt*"),
-#                                                        ("all files",
-#                                                         "*.*")))
-#     if filename:
-#         entry_var.set(filename)  # Cập nhật giá trị cho StringVar
+def checkFolderExist(path):
+    if os.path.isdir(path):
+        return True
+    return False
 
 
-class DownloadPage(Frame):
+class DownloadFilePage(Frame):
 
     def check_entry_path(self, filename: str, app_pointer):
         if filename != "":
@@ -88,7 +83,7 @@ class DownloadPage(Frame):
         Frame.__init__(self, parent)
         # Main label
         mainLabel = Label(self, text="Download Page", font=(FONT, 22, "bold"))
-        mainLabel.place(x = 125, y = 70) # 50
+        mainLabel.place(x = 100, y = 70) # 50
         # Note label
         lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
         lb_note.place(x = 20, y = 150)
@@ -119,7 +114,7 @@ class DownloadPage(Frame):
         btn_explore.place(x = 400, y = 158)
         
 
-class UploadPage(Frame):
+class UploadFilePage(Frame):
 
     def browseFiles(self, entry_var: StringVar):
         filename = filedialog.askopenfilename(initialdir = "/",
@@ -134,8 +129,8 @@ class UploadPage(Frame):
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
         # Main label
-        mainLabel = Label(self, text="Upload Page", font=(FONT, 22, "bold"))
-        mainLabel.place(x = 125, y = 70) # 50
+        mainLabel = Label(self, text="Upload File Page", font=(FONT, 22, "bold"))
+        mainLabel.place(x = 100, y = 70) # 50
         # Note label
         lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
         lb_note.place(x = 20, y = 150)
@@ -152,7 +147,7 @@ class UploadPage(Frame):
 
         # Button 
         btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
-                                 command = lambda: app_pointer.uploadFile(self, client))
+                                 command = lambda: app_pointer.uploadFile_support_gui(self, client))
         btn_select_file.place(x = 125, y = 225)
 
         btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
@@ -164,6 +159,46 @@ class UploadPage(Frame):
                              command = lambda: self.browseFiles(self.text_entry))
         btn_explore.place(x = 400, y = 158)
 
+class UploadFolderPage(Frame):
+    def __init__(self, parent, app_pointer):
+        Frame.__init__(self, parent)
+        # Main label
+        mainLabel = Label(self, text="Upload Folder Page", font=(FONT, 22, "bold"))
+        mainLabel.place(x = 100, y = 70) # 50
+        # Note label
+        lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
+        lb_note.place(x = 20, y = 150)
+
+        # Notice label
+        self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red")
+        self.lb_notice.place(x = 10, y = 185)
+
+        # Entry path file
+        self.folder_path = StringVar()
+        self.entry_path_upFolder = Entry(self, width = 40, font = (FONT, 10), fg = "blue", textvariable = self.folder_path)
+        self.entry_path_upFolder.focus()
+        self.entry_path_upFolder.place(x = 75, y = 150, height = 24)
+
+        # Button 
+        btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
+                                 command = lambda: app_pointer.uploadFolder_support_gui(self, client))
+        btn_select_file.place(x = 125, y = 225)
+
+        btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
+                          command = lambda: app_pointer.show_page(MainMenu))
+        btn_back.place(x = 125, y = 265)
+
+        # File Explorer StringVar -> to get filename
+        btn_explore = Button(self, text = "...", font = (FONT, 5, "bold"), fg = "blue",
+                             command = lambda: self.browse_folder())
+        btn_explore.place(x = 400, y = 158)
+
+    def browse_folder(self):
+        foldername = filedialog.askdirectory(initialdir="/", title="Select a Directory")
+        if foldername:
+            self.folder_path.set(foldername)  # Cập nhật StringVar với đường dẫn đã chọn
+
+
 
 class MainMenu(Frame):
     def __init__(self, parent, app_pointer):
@@ -174,20 +209,22 @@ class MainMenu(Frame):
 
         # Button
         btn_download_file = Button(self, text = "Download file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
-                                    command = lambda: app_pointer.show_page(DownloadPage))
+                                    command = lambda: app_pointer.show_page(DownloadFilePage))
         btn_download_file.place(x = 130, y = 120)
 
         btn_download_folder = Button(self, text = "Download folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
         btn_download_folder.place(x = 130, y = 160)
 
         btn_upload_file = Button(self, text = "Upload file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
-                                    command = lambda: app_pointer.show_page(UploadPage))
+                                    command = lambda: app_pointer.show_page(UploadFilePage))
         btn_upload_file.place(x = 130, y = 200)
 
-        btn_upload_folder = Button(self, text = "Upload folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
+        btn_upload_folder = Button(self, text = "Upload folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
+                                    command = lambda: app_pointer.show_page(UploadFolderPage))
         btn_upload_folder.place(x = 130, y = 240)
 
-        btn_exit = Button(self, text = "Exit", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
+        btn_exit = Button(self, text = "Exit", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
+                            command = lambda: app_pointer.exit(self, client))
         btn_exit.place(x = 130, y = 280)
 
     
@@ -243,7 +280,7 @@ class App(Tk):
         # Tạo một dictionary để lưu các class page
         # Dùng vòng for để grid các frame này, thay vì làm tuần tự
         self.frames = {}
-        for F in (LoginPage, MainMenu, DownloadPage, UploadPage):
+        for F in (LoginPage, MainMenu, DownloadFilePage, UploadFilePage, UploadFolderPage):
             frame = F(container, self)
             frame.grid(row = 0, column = 0, sticky = "nsew")
             self.frames[F] = frame
@@ -286,10 +323,10 @@ class App(Tk):
         sck.sendall(data_send.encode('utf-8'))
 
        #Nhan yeu cau nhap duong dan tu sever
-        # resp = client.recv(1024).decode('utf-8')
+        resp = client.recv(1024).decode('utf-8')
         # resp = curFrame.entry_path.get()
         # sck.sendall(resp.encode("utf-8"))
-        # print("Nhap CANCEL de thoat!!!")
+        print("Nhap CANCEL de thoat!!!")
         #nhap vao ten file
         # GUI
         msg = curFrame.entry_path.get()
@@ -338,7 +375,7 @@ class App(Tk):
         # sck.sendall("da nhan".encode('utf-8'))
         resp = sck.recv(1024).decode('utf-8')
         if resp == "Success":
-            curFrame.lb_notic["fg"] = "green"
+            curFrame.lb_notice["fg"] = "green"
             curFrame.lb_notice["text"] = f"Sever: File dang duoc luu tru tai {fileWrite}"
 
             print(f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite} ")
@@ -347,25 +384,7 @@ class App(Tk):
 
             print(f"Sever: Download file that bai. Loi ket noi!")
     
-    def uploadFile(self, curFrame: Frame, sck: socket):
-        # Send request upload for server
-        data_send = "uploadFile" #gui
-        sck.sendall(data_send.encode("utf-8")) # gui
-
-        #Nhan yeu cau nhap duong dan tu sever
-        # resp = sck.recv(1024).decode('utf-8')
-        while 1:
-            print("Nhap CANCEL de thoat!!!")
-            # msg = input(f"(Sever request) - {resp}")
-            msg = curFrame.entry_path.get() # gui
-            if msg == 'CANCEL':
-                sck.sendall(msg.encode('utf-8'))
-                return
-            if not checkExist(msg):
-                print("File khong ton tai. Yeu cau nhap lai!!!")
-                continue
-            sck.sendall(msg.encode('utf-8'))
-            break
+    def uploadFile(self, sck: socket, msg: str):
         size = os.path.getsize(msg)
         sck.sendall(str(size).encode('utf-8'))
         sizeResp = sck.recv(1024).decode('utf-8')
@@ -381,17 +400,78 @@ class App(Tk):
         sck.sendall("da nhan".encode('utf-8'))
         resp = sck.recv(1024).decode('utf-8')
         if resp == "Success":
-            curFrame.lb_notice["fg"] = "green"
-            curFrame.lb_notice["text"] = f"Sever: Da upload file len sever thanh cong. {respSta}"
-
-            print(f"Sever: Da upload file len sever thanh cong. {respSta}")
+            print(f"Sever: Da upload file {msg} len sever thanh cong. {respSta}")
         else:
-            curFrame.lb_notice["text"] = f"Sever: Upload file len sever that bai. {respSta}"
+            print(f"Sever: Upload file {msg} len sever that bai. {respSta}")
+    
+    def uploadFile_support_gui(self, curFrame: Frame, sck: socket):
+        flag = True
+        msg = "uploadFile"
+        sck.sendall(msg.encode('utf-8'))
+        #Nhan yeu cau nhap duong dan tu sever
+        resp = sck.recv(1024).decode('utf-8')
+        while 1:
+            print("Nhap CANCEL de thoat!!!")
+            # msg = input(f"(Sever request) - {resp}")
+            msg = curFrame.entry_path.get()
+            if msg == 'CANCEL':
+                sck.sendall(msg.encode('utf-8'))
+                flag = False
+                break
+            if not checkExist(msg):
+                print("File khong ton tai. Yeu cau nhap lai!!!")
+                continue
+            sck.sendall(msg.encode('utf-8'))
+            break
+        if flag == True:
+            self.uploadFile(sck, msg)
 
-            print(f"Sever: Upload file len sever that bai. {respSta}")
+    def uploadFilesInFolderSequentially(self, sck: socket, msg: str):
+        fileName = os.listdir(msg)
+        sck.sendall(str(len(fileName)).encode('utf-8'))
+        sizeResp = sck.recv(1024).decode('utf-8')
+        if sizeResp != "da nhan":
+            print(f"Sever: {sizeResp}")
+            return
+        for file in fileName:
+            sck.sendall(file.encode('utf-8'))
+            fileRep = sck.recv(1024).decode('utf-8')
+            self.uploadFile(sck, msg + "/" + file)
+        sck.sendall("da xong".encode('utf-8'))
+        res = sck.recv(1024).decode('utf-8')
+        print(res)
+
+    def uploadFolder_support_gui(self, curFrame: Frame, sck: socket):
+        msg = "uploadFilesInFolderSequentially"
+        sck.sendall(msg.encode('utf-8'))
+        flag = True
+        #Nhan yeu cau nhap duong dan folder tu sever
+        resp = sck.recv(1024).decode('utf-8')
+        while 1:
+            print("Nhap CANCEL de thoat!!!")
+            # msg = input(f"(Sever request) - {resp}")
+            msg = curFrame.entry_path_upFolder.get()
+            if msg == 'CANCEL':
+                sck.sendall(msg.encode('utf-8'))
+                flag = False
+                break
+            if not checkFolderExist(msg):
+                print("Folder khong ton tai. Yeu cau nhap lai!!!")
+                continue
+            sck.sendall(msg.encode('utf-8'))
+            break
+        if flag == True:
+            self.uploadFilesInFolderSequentially(sck, msg)
+
+    def exit(self, curFrame: Frame, sck: socket):
+        msg = "exit"
+        sck.sendall(msg.encode("utf-8"))
+        app.destroy()
+        sck.close()
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((socket.gethostname(), 12000))
 print("Ket noi thanh cong voi sever!!!")
 app = App()
 app.mainloop()
+client.close()
