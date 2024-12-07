@@ -188,3 +188,50 @@ Fri 06-12-2024 14:58:25: Client ('192.168.1.3', 61110) da ngat ket noi toi sever
 Fri 06-12-2024 14:58:52:Sever mo ket noi
 Fri 06-12-2024 14:59:18:Client ('192.168.1.3', 61148) da ket noi toi sever
 Fri 06-12-2024 14:59:25: Client ('192.168.1.3', 61148) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 06-12-2024 19:56:13:Sever mo ket noi
+Fri 06-12-2024 19:56:41:Client ('192.168.1.3', 61954) da ket noi toi sever
+Fri 06-12-2024 19:56:47: Client ('192.168.1.3', 61954) da dang nhap voi ten tai khoan la hthang
+Fri 06-12-2024 20:06:00: Client ('192.168.1.3', 61954) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 08:29:05:Sever mo ket noi
+Sat 07-12-2024 08:29:28:Client ('192.168.1.3', 53030) da ket noi toi sever
+Sat 07-12-2024 08:29:35: Client ('192.168.1.3', 53030) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 08:30:03: Client hthang ('192.168.1.3', 53030) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+Sat 07-12-2024 08:30:29: Client ('192.168.1.3', 53030) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 08:31:26:Sever mo ket noi
+Sat 07-12-2024 08:31:45:Client ('192.168.1.3', 53048) da ket noi toi sever
+Sat 07-12-2024 08:31:54: Client ('192.168.1.3', 53048) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 08:32:10: Client hthang ('192.168.1.3', 53048) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+Sat 07-12-2024 08:32:34: Client ('192.168.1.3', 53048) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 08:32:49:Sever mo ket noi
+Sat 07-12-2024 08:33:10:Client ('192.168.1.3', 53065) da ket noi toi sever
+Sat 07-12-2024 08:33:21: Client ('192.168.1.3', 53065) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 08:33:32: Client hthang ('192.168.1.3', 53065) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+Sat 07-12-2024 08:33:40: Client ('192.168.1.3', 53065) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 08:34:30:Sever mo ket noi
+Sat 07-12-2024 08:34:43:Client ('192.168.1.3', 53070) da ket noi toi sever
+Sat 07-12-2024 08:34:47: Client ('192.168.1.3', 53070) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 08:34:59: Client qthang ('192.168.1.3', 53070) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf206256
+Sat 07-12-2024 08:35:14: Client ('192.168.1.3', 53070) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 08:40:10:Sever mo ket noi
+Sat 07-12-2024 08:40:16:Client ('192.168.1.3', 53111) da ket noi toi sever
+Sat 07-12-2024 08:40:26: Client ('192.168.1.3', 53111) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 08:40:39: Client hthang ('192.168.1.3', 53111) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+Sat 07-12-2024 08:40:55: Client ('192.168.1.3', 53111) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 08:41:45:Sever mo ket noi
+Sat 07-12-2024 08:42:00:Client ('192.168.1.3', 53120) da ket noi toi sever
+Sat 07-12-2024 08:42:03: Client ('192.168.1.3', 53120) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 08:42:38: Client qthang ('192.168.1.3', 53120) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+Sat 07-12-2024 08:42:44: Client ('192.168.1.3', 53120) da ngat ket noi toi sever do loi ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 08:44:07:Sever mo ket noi
+Sat 07-12-2024 08:44:34:Client ('192.168.1.3', 53139) da ket noi toi sever
+Sat 07-12-2024 08:44:37: Client ('192.168.1.3', 53139) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 08:45:13: Client qthang ('192.168.1.3', 53139) da yeu cau upload file voi duong dan D:/University/Computer Network/Project_Socket/DoAnSocket/learning_git.cpp
+Sat 07-12-2024 08:45:17: Client ('192.168.1.3', 53139) da ngat ket noi toi sever do loi ket noi
