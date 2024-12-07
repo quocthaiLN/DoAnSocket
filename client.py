@@ -200,6 +200,10 @@ def client_receive(client):
     
 
 def login(client):
+    status = client_receive(client)
+    os.system('cls')
+    print(status)
+    res = client_send(client, "da nhan")
     reply = client_receive(client)
     print(reply)
     username = input("\nUsername: ")
@@ -225,10 +229,8 @@ def login(client):
 def main():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        
         client.connect((HOST, PORT))
         print(f"Đang kết nối với Server vui lòng chờ.")
-
         while not login(client): 
             continue
         connect = True
@@ -256,12 +258,14 @@ def main():
                         msg = input(f"(Sever request) - {resp}")
                         if msg == 'CANCEL':
                             client.sendall(msg.encode('utf-8'))
+                            Bin = client_receive(client)
                             flag = False
                             break
                         if not checkExist(msg):
                             print("File khong ton tai. Yeu cau nhap lai!!!")
                             continue
                         client.sendall(msg.encode('utf-8'))
+                        Bin = client_receive(client)
                         break
                     if flag == True:
                         uploadFile(client, msg)
@@ -281,12 +285,14 @@ def main():
                         msg = input(f"(Sever request) - {resp}")
                         if msg == 'CANCEL':
                             client.sendall(msg.encode('utf-8'))
+                            Bin = client_receive(client)
                             flag = False
                             break
                         if not checkFolderExist(msg):
                             print("Folder khong ton tai. Yeu cau nhap lai!!!")
                             continue
                         client.sendall(msg.encode('utf-8'))
+                        Bin = client_receive(client)
                         break
                     if flag == True:
                         uploadFilesInFolderSequentially(client, msg)
