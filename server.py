@@ -93,15 +93,15 @@ def uploadFile(client, fileName, addr):
         except Exception as e:
             print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
             return False
-        try:
-            data = client.recv(1024)
-        except Exception as e:
-            print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
-            return False
         if not data:
             break
         ofs.write(data)
         sw += len(data)
+        try:
+            client.sendall("da nhan".encode('utf-8'))
+        except Exception as e:
+            print(f"Co loi khi upload file {fileName}/ Connect Error:[{addr}].")
+            return False
         
     ofs.close()
     print(f"Sever: Yeu cau upload file cua client {addr} hoan thanh. File dang duoc luu tru tai {fileWrite} tren sever")
@@ -176,11 +176,12 @@ def uploadFilesInFolderSequentially(client, pathFolder, addr):
     tmp = client.recv(1024).decode('utf-8')
     if cnt > 0:
         operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da upload folder voi duong dan {pathFolder}. Co {cnt} file khong duoc upload")
-        client.sendall(f"Sever: Upload khong thanh cong {cnt} file")
+        client.sendall(f"Sever: Upload khong thanh cong {cnt} file".encode('utf-8'))
+        print(f"Sever: Upload folder {pathFolder} khong thanh cong {cnt} file")
     else:
         operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da upload folder voi duong dan {pathFolder} thanh cong")
-        client.sendall(f"Sever: Upload thanh cong toan bo folder")
-
+        client.sendall(f"Sever: Upload thanh cong toan bo folder".encode('utf-8'))
+        print(f"Sever: Upload thanh cong toan bo folder")
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
 def authenticate_client(username, password):
 

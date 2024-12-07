@@ -64,9 +64,13 @@ def uploadFile(client, msg):
         data = ifs.read(1024)
         if not data:
             break
-        client.sendall(data)
         try:
-            resp = client.recv(1024)
+            client.sendall(data)
+        except Exception as e:
+            print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
+            return False
+        try:
+            resp = client.recv(1024).decode('utf-8')
         except Exception as e:
             print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
             return False
