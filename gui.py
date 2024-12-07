@@ -9,6 +9,7 @@ import time
 
 FONT = "JetBrains Mono"
 BTN_COLOR = "#A1EEBD"
+MAIN_COLOR = "#6c63ff"
 WIDTH_BTN = 18 # width of featured buttons
 PathClient = "DataClient"
 PathSever = "DataSever"  
@@ -234,33 +235,44 @@ class MainMenu(Frame):
 class LoginPage(Frame):
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
+
+        self["bg"] = "white"
+        # Image
+        self.img = PhotoImage(file = "./img/background_login-Photoroom.png")
+        lb_img = Label(self, image = self.img, width = 500, height = 600, bg = "#f2f2f2")
+        lb_img.place(x = 500, y = 2)
+
         # Label - header
-        lb_head = Label(self, text = "Login", font = (FONT, 15))
-        lb_head.place(x = 200, y = 140) # 10
+        lb_head = Label(self, text = "Login", font = (FONT, 15, "bold"), bg = "white")
+        lb_head.place(x = 200 + 10, y = 140 + 50) # 10
         # Label username
-        lb_username = Label(self, text = "username", font = (FONT, 11))
-        lb_username.place(x = 70, y = 190)
+        lb_username = Label(self, text = "username", font = (FONT, 11), bg = "white")
+        lb_username.place(x = 70 , y = 190 + 50)
 
         # Label password
-        lb_password = Label(self, text = "password", font = (FONT, 11))
-        lb_password.place(x = 70, y = 240)
+        lb_password = Label(self, text = "password", font = (FONT, 11), bg = "white")
+        lb_password.place(x = 70, y = 240 + 50)
 
         # Label notice
-        self.lb_notice = Label(self, text = "", font = (FONT, 8), fg = "red")
-        self.lb_notice.place(x = 165, y = 267)
+        self.lb_notice = Label(self, text = "", font = (FONT, 8), fg = "red", bg = "white")
+        self.lb_notice.place(x = 165, y = 267 + 50)
         # Entry username
-        self.entry_username = Entry(self, width = 25, font = (FONT, 12), bd = 0.25)
-        self.entry_username.place(x = 165, y = 192)
+
+        self.entry_username = Entry(self, width = 25, font = (FONT, 12), bd = 0.25, bg = "white", border = 0.5)
+        self.entry_username.place(x = 165, y = 192 + 50)
         self.entry_username.focus()
+        
 
         # Entry password
-        self.entry_password = Entry(self, width = 25, font = (FONT, 12), bd = 0.25)
-        self.entry_password.place(x = 165, y = 242)
+        self.entry_password = Entry(self, width = 25, font = (FONT, 12), bd = 0.25, border = 0.5)
+        self.entry_password.place(x = 165, y = 242 + 50)
 
         # Button
         btn_login = Button(self, text = "Sign in", font = (FONT, 9, "bold"), bg = "#80C4E9",
          command = lambda: app_pointer.login(self, client))
-        btn_login.place(x = 195, y = 290)
+        btn_login.place(x = 195 + 10, y = 290 + 50)
+
+        # Image
 
 
 class App(Tk):
@@ -268,18 +280,20 @@ class App(Tk):
         Tk.__init__(self)
 
         self.title("Application")
-        self.geometry("450x550")
+        self.geometry("1000x600")
         self.resizable(width = False, height = False)
         self.attributes("-topmost", False)
-        # self["bg"] = "white"
-        # login_frame = LoginPage(container)
-        # home_frame = HomePage(container)
+        
+        # Favicon
+        icon = PhotoImage(file = "./img/icons8-internet-96.png")
+        self.iconphoto(False, icon)
 
         # Đoạn code dùng nếu muốn thay đổi các frame
         container = Frame(self)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
+        # container["bg"] = "#161D6F"
 
         # Tạo một dictionary để lưu các class page
         # Dùng vòng for để grid các frame này, thay vì làm tuần tự
