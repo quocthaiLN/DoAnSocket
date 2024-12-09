@@ -85,17 +85,7 @@ def uploadFile(client, msg):
     else:
         print(f"Sever: Upload file {msg} len sever that bai. {respSta}")
 
-def downloadFile(client):
-    #Nhan yeu cau nhap duong dan tu sever
-    resp = client.recv(10240).decode("utf-8")
-    print("Nhap CANCEL de thoat!!!")
-    #nhap vao ten file
-    msg = input(f"(Sever request) - {resp}")
-    if msg == "CANCEL":
-        client.sendall(msg.encode("utf-8"))
-        return
-    #gui ten file hoac duong dan
-    client.sendall(msg.encode("utf-8"))
+def downloadFile(client, msg):
     #gui trang thai xem file co ton tai tren sever hay khong
     checkStatus = client.recv(10240).decode("utf-8")
     if checkStatus == "ff":
@@ -242,7 +232,12 @@ def main():
         connect = True
         while connect:
             menu()
-            choice = int(input("Nhap lua chon cua ban: "))
+            choice = input("Nhap lua chon cua ban: ")
+            if choice > '9' and choice < '0':
+                print("Yeu cau ban nhap vao khong hop le. Vui long nhap lai")
+                continue
+            else:
+                choice = int(choice)
             match choice:
                 case 0:
                     msg = "exit"
@@ -279,7 +274,20 @@ def main():
                 case 2:
                     msg = "downloadFile"
                     client.sendall(msg.encode("utf-8"))
-                    downloadFile(client)
+                    flag = True
+                    #Nhan yeu cau nhap duong dan file tu sever
+                    resp = client.recv(10240).decode("utf-8")
+                    while 1:
+                        print("Nhap CANCEL de thoat!!!")
+                        msg = input(f"(Sever request) - {resp}")
+                        if msg == "CANCEL":
+                            client.sendall(msg.encode("utf-8"))
+                            flag = False
+                            break
+                        client.sendall(msg.encode("utf-8"))
+                        break
+                    if flag == True:
+                        downloadFile(client, msg)
                 case 3:
                     msg = "uploadFilesInFolderSequentially"
                     client.sendall(msg.encode("utf-8"))

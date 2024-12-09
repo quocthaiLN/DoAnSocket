@@ -61,7 +61,7 @@ def getTime():
     return localTime
 
 def operationHistory(msg):
-    ofs = open(PATH_HISTORY, "a")
+    ofs = open(PATH_HISTORY, "a", encoding = "utf-8")
     ofs.write(msg)
     ofs.close()
 
@@ -116,26 +116,8 @@ def isForbiddenFile(file_name):
             return True
     return False
 
-def downloadFile(client, file_name, addr):
-    tmp = name(file_name)
-    if not check(tmp):
-        tmp = "/" + tmp
-    Path = PATH_SERVER + tmp
-    if isForbiddenFile(Path):
-        msg = "File is in list forbidden file. Can't download this file"
-        print(msg)
-        client.sendall("ff".encode("utf-8"))
-        return
-    if (check1(file_name) and Path != file_name) or not checkExist(Path):
-        msg = "Not exist"
-        print("File is not exist")
-        client.sendall(msg.encode("utf-8"))
-
-        return
-    else:
-        msg = "Exist"
-        client.sendall(msg.encode(FORMAT))
-        respMsg = client.recv(10240).decode(FORMAT)
+def downloadFile(client, Path, addr):
+    
     size = os.path.getsize(Path)
     client.sendall(str(size).encode(FORMAT))
     sizeResp = client.recv(10240).decode(FORMAT)
@@ -147,12 +129,12 @@ def downloadFile(client, file_name, addr):
         try:
             client.sendall(data)
         except:
-            print(f"Co loi khi download file {file_name}/ Connect Error:[{addr}].")
+            print(f"Co loi khi download file {Path}/ Connect Error:[{addr}].")
             return False   
         try:
             resp = client.recv(10240).decode("utf-8")
         except:
-            print(f"Co loi khi download file {file_name}/ Connect Error:[{addr}].")
+            print(f"Co loi khi download file {Path}/ Connect Error:[{addr}].")
             return False
     ifs.close()
     print(f"Yeu cau download file cua client {addr} hoan thanh.")
@@ -181,11 +163,11 @@ def uploadFilesInFolderSequentially(client, path_folder, addr):
             client.sendall(resp.encode(FORMAT))
     tmp = client.recv(10240).decode(FORMAT)
     if cnt > 0:
-        #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da upload folder voi duong dan {path_folder}. Co {cnt} file khong duoc upload")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da upload folder voi duong dan {path_folder}. Co {cnt} file khong duoc upload")
         client.sendall(f"Sever: Upload khong thanh cong {cnt} file".encode("utf-8"))
         print(f"Sever: Upload folder {path_folder} khong thanh cong {cnt} file")
     else:
-        #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da upload folder voi duong dan {path_folder} thanh cong")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da upload folder voi duong dan {path_folder} thanh cong")
         client.sendall(f"Sever: Upload thanh cong toan bo folder".encode("utf-8"))
         print(f"Sever: Upload thanh cong toan bo folder")
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
@@ -213,17 +195,17 @@ def serverReceive(client, addr, list_connection):
             return message
     except socket.timeout:
         print(f"Client {addr}: TimeOut.")
-        #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever do qua timeout")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever do qua timeout")
         list_connection.remove((client, addr))
         client.close()
     except ConnectionResetError:
         print(f"Client {addr}: đột ngột ngắt kết nối.")
-        #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dot ngot ngat ket noi toi sever")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dot ngot ngat ket noi toi sever")
         list_connection.remove((client, addr))
         client.close()
     except Exception as e:
         print(f"Có lỗi {e} khi nhận dữ liệu từ:{addr}.")
-        #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever chua ro ly do")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever chua ro ly do")
         list_connection.remove((client, addr))
         client.close()
     return None
@@ -236,17 +218,17 @@ def serverSend(client, addr, list_connection ,message):
         client.sendall(message.encode(FORMAT))
     except socket.error:
         print(f"Client {addr} đã ngắt kết nối.")
-        #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever")
         list_connection.remove((client, addr))
         client.close()
     except ConnectionResetError:
         print(f"Client {addr} đột ngột ngắt kết nối.")
-        #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dot ngot ngat ket noi toi sever")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dot ngot ngat ket noi toi sever")
         list_connection.remove((client, addr))
         client.close()
     except Exception as e:
         print(f"Có lỗi {e} khi gửi dữ liệu đến Client: {addr}.")
-        #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever chua ro ly do")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever chua ro ly do")
         list_connection.remove((client, addr))
         client.close()
 
@@ -273,7 +255,7 @@ def handleClient(client, addr, list_connection) :
             username, password = login_information.split(",")
             if(authenticateClient(username, password)):
 
-                #operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dang nhap voi ten tai khoan la {username}")
+                operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dang nhap voi ten tai khoan la {username}")
                 #client.sendall("Successful".encode("utf-8"))
                 print(f"Server: Login successfully towards account {username}")
                 serverSend(client, addr, list_connection, "Successful")
@@ -300,7 +282,7 @@ def handleClient(client, addr, list_connection) :
 
                 print(f"Client {addr}: Đã đăng xuất khỏi Server.")
 
-                #operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da ngat ket noi voi sever")
+                operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da ngat ket noi voi sever")
 
                 list_connection.remove((client, addr))
                 break
@@ -316,10 +298,10 @@ def handleClient(client, addr, list_connection) :
                 serverSend(client, addr, list_connection, "da nhan")
                 if msg == "CANCEL":
                     continue
-                # operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da yeu cau upload file voi duong dan {msg}")
+                operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da yeu cau upload file voi duong dan {msg}")
                 print(f"Client {addr}: Upload file voi duong dan {msg}")
                 if uploadFile(client, msg, addr):
-                    #operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da upload file voi duong dan {msg} thanh cong")
+                    operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da upload file voi duong dan {msg} thanh cong")
                     resp = "Success"
                     serverSend(client, addr, list_connection, resp)
                 else:
@@ -333,10 +315,28 @@ def handleClient(client, addr, list_connection) :
                 msg = serverReceive(client, addr, list_connection)
                 if msg == "CANCEL":
                     continue
-                #operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da yeu cau download file voi duong dan {msg}")
+                tmp = name(msg)
+                if not check(tmp):
+                    tmp = "/" + tmp
+                Path = PATH_SERVER + tmp
+                if isForbiddenFile(Path):
+                    msg = "File is in list forbidden file. Can't download this file"
+                    print(msg)
+                    client.sendall("ff".encode("utf-8"))
+                    continue
+                if (check1(msg) and Path != msg) or not checkExist(Path):
+                    msg = "Not exist"
+                    print("File is not exist")
+                    client.sendall(msg.encode("utf-8"))
+                    continue
+                else:
+                    message = "Exist"
+                    client.sendall(message.encode(FORMAT))
+                    respMsg = client.recv(10240).decode(FORMAT)
+                operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da yeu cau download file voi duong dan {msg}")
                 print(f"Client {addr}: Download file voi duong dan {msg}")
-                if downloadFile(client, msg, addr):
-                    #operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da download file voi duong dan {msg} thanh cong")
+                if downloadFile(client, Path, addr):
+                    operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da download file voi duong dan {msg} thanh cong")
                     resp = "Success"
                     serverSend(client, addr, list_connection, resp)
                 else:
