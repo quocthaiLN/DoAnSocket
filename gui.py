@@ -7,12 +7,12 @@ import socket
 import os
 import time
 
-FONT = "JetBrains Mono"
+FONT = "Inter"
 BTN_COLOR = "#A1EEBD"
 MAIN_COLOR = "#6c63ff"
 WIDTH_BTN = 18 # width of featured buttons
 PathClient = "DataClient"
-PathSever = "DataSever"  
+PathSever = "DataServer"  
 PathUsers = "users.csv"
 
 # Các hàm để xử lý đường dẫn
@@ -59,6 +59,39 @@ def checkFolderExist(path):
         return True
     return False
 
+def client_send(client, data):
+    try:
+        client.sendall(data.encode('utf-8'))
+    except socket.error: #BẮT LỖI TIME-OUT, SERVER TỰ NGẮT KẾT NỐI BẰNG CLOSE()
+        print(f"Server: Đã ngắt kết nối.")
+        client.close()
+    except ConnectionResetError:
+        print(f"Server đột ngột ngắt kết nối.")
+        client.close()
+    except Exception as e:
+        print(f"Có lỗi {e} khi gửi dữ liệu đến Server.")
+        client.close()
+
+def client_receive(client):
+    try:
+        data = client.recv(1024).decode('utf-8')
+        if not data:
+            print("Server đã đóng kết nối.")
+            client.close()
+        else:
+            #print(f"Server: {data}.")
+            return data
+    except socket.error: #BẮT LỖI TIME-OUT, SERVER TỰ NGẮT KẾT NỐI BẰNG CLOSE()
+        print(f"Server: Đã ngắt kết nối.")
+        client.close()
+    except ConnectionResetError:
+        print("Server đột ngột ngắt kết nối.")
+        client.close()
+    except Exception as e:
+        print(f"Có lỗi {e} khi nhận dữ liệu từ Server.")
+        client.close()
+    return None
+
 
 class DownloadFilePage(Frame):
 
@@ -81,15 +114,26 @@ class DownloadFilePage(Frame):
         if filename:
             filename_only = os.path.basename(filename)
             path_for_download = PathSever + "/" + filename_only
-            entry_var.set(path_for_download)  # Cập nhật giá trị cho StringVar
+            entry_var.set(path_for_download)
+    
+    def click_button(self, current_choice_in_combobox: str, filename:str, app_pointer):
+        if current_choice_in_combobox == "Download File":
+            if filename != "":
+                app_pointer.downloadFile_thread(self, client)
+            else:
+                print("Chuong trinh chua cai dat")
 
+    # Con ham browse
+    
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
+        
+        self["bg"] = "white"
         # Main label
-        mainLabel = Label(self, text="Download Page", font=(FONT, 22, "bold"))
+        mainLabel = Label(self, text="Download Page", font=(FONT, 22, "bold"), bg = "white", fg = MAIN_COLOR)
         mainLabel.place(x = 100, y = 70) # 50
         # Note label
-        lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
+        lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"), bg = "white")
         lb_note.place(x = 20, y = 150)
 
         # Notice label
@@ -99,26 +143,42 @@ class DownloadFilePage(Frame):
         # Entry path file
         self.text_entry = StringVar()
 
-        self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue", textvariable = self.text_entry)
+        self.entry_path = Entry(self, width = 45, font = (FONT, 10), fg = "blue", textvariable = self.text_entry, bg = "#f5f5f5")
         self.entry_path.focus()
         self.entry_path.place(x = 75, y = 150, height = 24)
 
-        # Button 
-        btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
-                                 command = lambda: self.check_entry_path(self.entry_path.get(), app_pointer))
-        btn_select_file.place(x = 125, y = 225)
+        # combo box
+        self.combo_box = ttk.Combobox(self, values = ["Download File", "Download Folder"])
+        self.combo_box.set("Download File")
+        self.combo_box.place(x = 290, y = 220)
 
-        btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
-                          command = lambda: app_pointer.show_page(MainMenu))
-        btn_back.place(x = 125, y = 265)
+
+        # Button 
+        btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = MAIN_COLOR, fg = "white",
+                                 bd = 0.01, command = lambda: self.click_button(self.combo_box.get(), self.entry_path.get(), app_pointer))
+        btn_select_file.place(x = 125, y = 290)
+
+        btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = MAIN_COLOR, fg = "white", width = WIDTH_BTN,
+                          bd = 0.01, command = lambda: app_pointer.show_page(MainMenu))
+        btn_back.place(x = 125, y = 330) #40
 
         # File Explorer StringVar() -> to get filename
-        btn_explore = Button(self, text = "...", font = (FONT, 5, "bold"), fg = "blue",
+        btn_explore = Button(self, text = "...", font = (FONT, 6, "bold"), fg = "blue",
                              command = lambda: self.browseFiles(self.text_entry))
-        btn_explore.place(x = 400, y = 158)
+        btn_explore.place(x = 400, y = 155)
+
+        # Image
+        self.img = PhotoImage(file = "./img/undraw_Filing_system_re_56h6.png")
+        lb_img = Label(self, image = self.img, width = 163, height = 102, bg = "white")
+        lb_img.place(x = 287, y = 448) # -30
         
 
 class UploadFilePage(Frame):
+
+    def browse_folder(self, entry_var: StringVar):
+        foldername = filedialog.askdirectory(initialdir="/", title="Select a Directory")
+        if foldername:
+            entry_var.set(foldername) 
 
     def browseFiles(self, entry_var: StringVar):
         filename = filedialog.askopenfilename(initialdir = "/",
@@ -128,15 +188,32 @@ class UploadFilePage(Frame):
                                                         ("all files",
                                                             "*.*")))
         if filename:
-            entry_var.set(filename)  # Cập nhật giá trị cho StringVar
+            entry_var.set(filename)  
+
+    def browse(self, current_choice_in_combobox: str, entry_var:StringVar):
+        if(current_choice_in_combobox == "Upload File"):
+            self.browseFiles(entry_var)
+        else:
+            self.browse_folder(entry_var)
+
+    def click_button(self, current_choice_in_combobox: str, filename: str, app_pointer):
+        if(current_choice_in_combobox == "Upload File"):
+            if filename != "":
+                app_pointer.uploadFile_support_gui(self, client)
+        elif current_choice_in_combobox == "Upload Folder":
+            if(filename != ""):
+                app_pointer.uploadFolder_support_gui(self, client)
+
 
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
+        
+        self["bg"] = "white"
         # Main label
-        mainLabel = Label(self, text="Upload File Page", font=(FONT, 22, "bold"))
-        mainLabel.place(x = 100, y = 70) # 50
+        mainLabel = Label(self, text="Upload Page", font=(FONT, 22, "bold"), bg = "white", fg = MAIN_COLOR)
+        mainLabel.place(x = 110, y = 70) # 50
         # Note label
-        lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
+        lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"), bg = "white")
         lb_note.place(x = 20, y = 150)
 
         # Notice label
@@ -145,132 +222,185 @@ class UploadFilePage(Frame):
 
         # Entry path file
         self.text_entry = StringVar()
-        self.entry_path = Entry(self, width = 40, font = (FONT, 10), fg = "blue", textvariable = self.text_entry)
+
+        self.entry_path = Entry(self, width = 45, font = (FONT, 10), fg = "blue", textvariable = self.text_entry, bg = "#f5f5f5")
         self.entry_path.focus()
         self.entry_path.place(x = 75, y = 150, height = 24)
 
-        # Button 
-        btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
-                                 command = lambda: app_pointer.uploadFile_support_gui(self, client))
-        btn_select_file.place(x = 125, y = 225)
+        # combo box
+        self.combo_box = ttk.Combobox(self, values = ["Upload File", "Upload Folder"])
+        self.combo_box.set("Upload File")
+        self.combo_box.place(x = 290, y = 220)
 
-        btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
-                          command = lambda: app_pointer.show_page(MainMenu))
-        btn_back.place(x = 125, y = 265)
-
-        # File Explorer StringVar -> to get filename
-        btn_explore = Button(self, text = "...", font = (FONT, 5, "bold"), fg = "blue",
-                             command = lambda: self.browseFiles(self.text_entry))
-        btn_explore.place(x = 400, y = 158)
-
-class UploadFolderPage(Frame):
-    def __init__(self, parent, app_pointer):
-        Frame.__init__(self, parent)
-        # Main label
-        mainLabel = Label(self, text="Upload Folder Page", font=(FONT, 22, "bold"))
-        mainLabel.place(x = 100, y = 70) # 50
-        # Note label
-        lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
-        lb_note.place(x = 20, y = 150)
-
-        # Notice label
-        self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red")
-        self.lb_notice.place(x = 10, y = 185)
-
-        # Entry path file
-        self.folder_path = StringVar()
-        self.entry_path_upFolder = Entry(self, width = 40, font = (FONT, 10), fg = "blue", textvariable = self.folder_path)
-        self.entry_path_upFolder.focus()
-        self.entry_path_upFolder.place(x = 75, y = 150, height = 24)
 
         # Button 
-        btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
-                                 command = lambda: app_pointer.uploadFolder_support_gui(self, client))
-        btn_select_file.place(x = 125, y = 225)
+        btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = MAIN_COLOR, fg = "white",
+                                 bd = 0.01, command = lambda: self.click_button(self.combo_box.get(), self.entry_path.get(), app_pointer))
+        btn_select_file.place(x = 125, y = 290)
 
-        btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
-                          command = lambda: app_pointer.show_page(MainMenu))
-        btn_back.place(x = 125, y = 265)
+        btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = MAIN_COLOR, fg = "white", width = WIDTH_BTN,
+                          bd = 0.01, command = lambda: app_pointer.show_page(MainMenu))
+        btn_back.place(x = 125, y = 330) #40
 
-        # File Explorer StringVar -> to get filename
-        btn_explore = Button(self, text = "...", font = (FONT, 5, "bold"), fg = "blue",
-                             command = lambda: self.browse_folder())
-        btn_explore.place(x = 400, y = 158)
+        # File Explorer StringVar() -> to get filename
+        btn_explore = Button(self, text = "...", font = (FONT, 6, "bold"), fg = "blue",
+                             command = lambda: self.browse(self.combo_box.get(), self.text_entry))
+        btn_explore.place(x = 400, y = 155)
 
-    def browse_folder(self):
-        foldername = filedialog.askdirectory(initialdir="/", title="Select a Directory")
-        if foldername:
-            self.folder_path.set(foldername)  # Cập nhật StringVar với đường dẫn đã chọn
+        # Image
+        self.img = PhotoImage(file = "./img/undraw_Filing_system_re_56h6.png")
+        lb_img = Label(self, image = self.img, width = 163, height = 102, bg = "white")
+        lb_img.place(x = 287, y = 448) # -30
 
+# # class UploadFolderPage(Frame):
+#     def __init__(self, parent, app_pointer):
+#         Frame.__init__(self, parent)
+#         # Main label
+#         mainLabel = Label(self, text="Upload Folder Page", font=(FONT, 22, "bold"))
+#         mainLabel.place(x = 100, y = 70) # 50
+#         # Note label
+#         lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"))
+#         lb_note.place(x = 20, y = 150)
 
+#         # Notice label
+#         self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red")
+#         self.lb_notice.place(x = 10, y = 185)
+
+#         # Entry path file
+#         self.folder_path = StringVar()
+#         self.entry_path_upFolder = Entry(self, width = 40, font = (FONT, 10), fg = "blue", textvariable = self.folder_path)
+#         self.entry_path_upFolder.focus()
+#         self.entry_path_upFolder.place(x = 75, y = 150, height = 24)
+
+#         # Button 
+#         btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = BTN_COLOR,
+#                                  command = lambda: app_pointer.uploadFolder_support_gui(self, client))
+#         btn_select_file.place(x = 125, y = 225)
+
+#         btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = BTN_COLOR, width = WIDTH_BTN,
+#                           command = lambda: app_pointer.show_page(MainMenu))
+#         btn_back.place(x = 125, y = 265)
+
+#         # File Explorer StringVar -> to get filename
+#         btn_explore = Button(self, text = "...", font = (FONT, 5, "bold"), fg = "blue",
+#                              command = lambda: self.browse_folder())
+#         btn_explore.place(x = 400, y = 158)
+
+#     def browse_folder(self):
+#         foldername = filedialog.askdirectory(initialdir="/", title="Select a Directory")
+#         if foldername:
+#             self.folder_path.set(foldername)  # Cập nhật StringVar với đường dẫn đã chọn
 
 class MainMenu(Frame):
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
+
+        self["bg"] = "white"
         # ----------------- Widget --------------------------
-        lb_main = Label(self, text = "Main Menu", font = (FONT, 20, "bold"))
-        lb_main.place(x = 150, y = 30)
+        lb_main = Label(self, text = "Main Menu", font = (FONT, 22, "bold"), bg = "white", fg = MAIN_COLOR)
+        lb_main.place(x = 340, y = 30)
 
         # Button
-        btn_download_file = Button(self, text = "Download file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
-                                    command = lambda: app_pointer.show_page(DownloadFilePage))
-        btn_download_file.place(x = 130, y = 120)
+        # btn_download_file = Button(self, text = "Download file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
+        #                             command = lambda: app_pointer.show_page(DownloadFilePage))
+        # btn_download_file.place(x = 130, y = 120)
 
-        btn_download_folder = Button(self, text = "Download folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
-        btn_download_folder.place(x = 130, y = 160)
+        # btn_download_folder = Button(self, text = "Download folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN)
+        # btn_download_folder.place(x = 130, y = 160)
 
-        btn_upload_file = Button(self, text = "Upload file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
-                                    command = lambda: app_pointer.show_page(UploadFilePage))
-        btn_upload_file.place(x = 130, y = 200)
+        # btn_upload_file = Button(self, text = "Upload file", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
+        #                             command = lambda: app_pointer.show_page(UploadFilePage))
+        # btn_upload_file.place(x = 130, y = 200)
 
-        btn_upload_folder = Button(self, text = "Upload folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
-                                    command = lambda: app_pointer.show_page(UploadFolderPage))
-        btn_upload_folder.place(x = 130, y = 240)
+        # btn_upload_folder = Button(self, text = "Upload folder", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
+        #                             command = lambda: app_pointer.show_page(UploadFolderPage))
+        # btn_upload_folder.place(x = 130, y = 240)
 
-        btn_exit = Button(self, text = "Exit", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
-                            command = lambda: app_pointer.exit(self, client))
-        btn_exit.place(x = 130, y = 280)
+        # btn_exit = Button(self, text = "Exit", font = (FONT, 12), bg = BTN_COLOR, width = WIDTH_BTN,
+        #                     command = lambda: app_pointer.exit(self, client))
+        # btn_exit.place(x = 130, y = 280)
 
+        # Img 1
+        self.img_download = PhotoImage(file = "./img/undraw_Download_re_li50.png")
+        lb_img_download = Label(self, image = self.img_download, width = 339, height = 300, bg = "white")
+        lb_img_download.place(x = 40, y = 90) # -30
+
+        # Img 2
+        self.img_upload = PhotoImage(file = "./img/upload.png")
+        lb_img_upload = Label(self, image = self.img_upload, width = 409, height = 300, bg = "white")
+        lb_img_upload.place(x = 490 - 30, y = 80) # -80
+
+        # Button download
+        btn_download = Button(self, text = "Download", font = (FONT, 14, "bold"), bg = MAIN_COLOR, width = 10, fg = "white", bd = 0.01,
+                            command = lambda: self.resize_geometry(app_pointer, DownloadFilePage))
+        btn_download.place(x = 170 - 30, y = 450)
+
+        # Button upload
+        btn_upload = Button(self, text = "Upload", font = (FONT, 14, "bold"), bg = MAIN_COLOR, width = 10, fg = "white", bd = 0.01,
+                            command = lambda: self.resize_geometry(app_pointer, UploadFilePage))
+        btn_upload.place(x = 610 - 30, y = 450)
     
+    def resize_geometry(self, app_pointer, name_page):
+        app_pointer.geometry("450x550")
+        app_pointer.show_page(name_page)
+
+ 
 class LoginPage(Frame):
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
 
         self["bg"] = "white"
-        # Image
-        self.img = PhotoImage(file = "./img/background_login-Photoroom.png")
-        lb_img = Label(self, image = self.img, width = 500, height = 600, bg = "#f2f2f2")
-        lb_img.place(x = 500, y = 2)
+        
+        # Main picture
+        self.img = PhotoImage(file = "./img/undraw_Internet_on_the_go_re_vben.png")
+        lb_img = Label(self, image = self.img, width = 496, height = 600, bg = MAIN_COLOR)
+        lb_img.place(x = 498, y = 0)
+
+        # Sub picture
+        self.sub_img = PhotoImage(file = "./img/undraw_Fingerprint_re_uf3f.png")
+        lb_sub_img = Label(self, image = self.sub_img, width = 171, height = 120, bg = "white")
+        lb_sub_img.place(x = 0, y = 480)
+
+        # Extra label
+        lb_title = Label(self, text = "Computer Networking", font = (FONT, 25, "bold"), fg = "white", bg = MAIN_COLOR)
+        lb_title.place(x = 585, y = 30)
 
         # Label - header
-        lb_head = Label(self, text = "Login", font = (FONT, 15, "bold"), bg = "white")
-        lb_head.place(x = 200 + 10, y = 140 + 50) # 10
+        lb_head = Label(self, text = "LOGIN", font = (FONT, 25, "bold"), bg = "white", fg = MAIN_COLOR,
+                        width = 10, height = 5)
+        lb_head.place(x = 130, y = 20) # 10
         # Label username
-        lb_username = Label(self, text = "username", font = (FONT, 11), bg = "white")
-        lb_username.place(x = 70 , y = 190 + 50)
+        lb_username = Label(self, text = "Username", font = (FONT, 12), bg = "white", fg = MAIN_COLOR,
+                            width = 10, height = 3)
+        lb_username.place(x = 83, y = 167)
 
         # Label password
-        lb_password = Label(self, text = "password", font = (FONT, 11), bg = "white")
-        lb_password.place(x = 70, y = 240 + 50)
+        lb_password = Label(self, text = "Password", font = (FONT, 12), bg = "white", fg = MAIN_COLOR,
+                            width = 10, height = 3)
+        lb_password.place(x = 83, y = 268)
 
         # Label notice
-        self.lb_notice = Label(self, text = "", font = (FONT, 8), fg = "red", bg = "white")
-        self.lb_notice.place(x = 165, y = 267 + 50)
+        self.lb_notice = Label(self, text = "", font = (FONT, 12), fg = "red", bg = "white")
+        self.lb_notice.place(x = 90, y = 350)
         # Entry username
 
-        self.entry_username = Entry(self, width = 25, font = (FONT, 12), bd = 0.25, bg = "white", border = 0.5)
-        self.entry_username.place(x = 165, y = 192 + 50)
+        self.entry_username = Entry(self, width = 28, font = (FONT, 14), bd = 0.25, bg = "#e1e1e1")
+        self.entry_username.place(x = 98, y = 220)
         self.entry_username.focus()
         
-
         # Entry password
-        self.entry_password = Entry(self, width = 25, font = (FONT, 12), bd = 0.25, border = 0.5)
-        self.entry_password.place(x = 165, y = 242 + 50)
+        self.entry_password = Entry(self, width = 28, font = (FONT, 14), bd = 0.25, bg = "#e1e1e1")
+        self.entry_password.place(x = 98, y = 321)
 
         # Button
-        btn_login = Button(self, text = "Sign in", font = (FONT, 9, "bold"), bg = "#80C4E9",
-         command = lambda: app_pointer.login(self, client))
-        btn_login.place(x = 195 + 10, y = 290 + 50)
+
+        # def click_operation(self, sck: socket):
+
+
+
+        btn_login = Button(self, text = "Sign in", font = (FONT, 14, "bold"), bg = MAIN_COLOR, width = 10, fg = "white",
+                           command = lambda: app_pointer.login(self, client), bd = 0.01)
+        btn_login.place(x = 177, y = 406)
 
         # Image
 
@@ -293,12 +423,11 @@ class App(Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
-        # container["bg"] = "#161D6F"
 
         # Tạo một dictionary để lưu các class page
         # Dùng vòng for để grid các frame này, thay vì làm tuần tự
         self.frames = {}
-        for F in (LoginPage, MainMenu, DownloadFilePage, UploadFilePage, UploadFolderPage):
+        for F in (LoginPage, MainMenu, DownloadFilePage, UploadFilePage):
             frame = F(container, self)
             frame.grid(row = 0, column = 0, sticky = "nsew")
             self.frames[F] = frame
@@ -308,10 +437,40 @@ class App(Tk):
     def show_page(self, class_name):
         self.frames[class_name].tkraise()
 
+    # def login(self, curFrame: Frame, sck: socket):
+    #     # Nhận yêu cầu từ server để nhập thông tin
+    #     request = sck.recv(1024).decode('utf-8')
+    #     print(request)
+    #     try:
+    #         username = curFrame.entry_username.get()
+    #         password = curFrame.entry_password.get()
+
+    #         if username == "" or password == "":
+    #             curFrame.lb_notice["text"] = "Fields cannot be empty"
+    #             return
+
+    #         print(username, password)
+    #         login_information = f"{username},{password}"
+    #         sck.sendall(login_information.encode('utf-8'))
+
+    #         # # Nhận phản hồi từ server
+    #         resp = sck.recv(1024).decode('utf-8')
+    #         if resp == "Successful":
+    #             self.show_page(MainMenu)
+    #             return True
+    #         else:
+    #             curFrame.lb_notice["text"] = "Invalid username/password"
+    #             return False
+    #     except:
+    #         print("Server is not responding")
+
     def login(self, curFrame: Frame, sck: socket):
-        # Nhận yêu cầu từ server để nhập thông tin
-        request = sck.recv(1024).decode('utf-8')
-        print(request)
+        status = client_receive(sck)
+        os.system('cls')
+        print(status)
+        res = client_send(sck, "da nhan")
+        reply = client_receive(sck)
+        print(reply)
         try:
             username = curFrame.entry_username.get()
             password = curFrame.entry_password.get()
@@ -320,21 +479,18 @@ class App(Tk):
                 curFrame.lb_notice["text"] = "Fields cannot be empty"
                 return
 
-            print(username, password)
             login_information = f"{username},{password}"
-            sck.sendall(login_information.encode('utf-8'))
+            client_send(sck, login_information)
 
-            # # Nhận phản hồi từ server
-            resp = sck.recv(1024).decode('utf-8')
+            # Nhận phản hồi từ server
+            resp = client_receive(sck)
             if resp == "Successful":
+                self.geometry("860x600")
                 self.show_page(MainMenu)
-                return True
             else:
                 curFrame.lb_notice["text"] = "Invalid username/password"
-                return False
         except:
             print("Server is not responding")
-
     # ------------------------------------------------
     def downloadFile_thread(self, curFrame: Frame, sck: socket):
         # Tạo một luồng mới để chạy hàm download mà không làm đơ UI
@@ -385,6 +541,7 @@ class App(Tk):
         size = int(sizeRecv) # total_size
         sizeResp = "Nhan thanh cong"
         sck.sendall(sizeResp.encode('utf-8'))
+
         # Progess bar GUI
         progress = Toplevel(self)
         progress.title("Download")
@@ -450,9 +607,13 @@ class App(Tk):
             data = ifs.read(1024)
             if not data:
                 break
-            sck.sendall(data)
             try:
-                resp = sck.recv(1024)
+                sck.sendall(data)
+            except Exception as e:
+                print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
+                return False
+            try:
+                resp = sck.recv(1024).decode('utf-8')
             except Exception as e:
                 print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
                 return False
@@ -477,12 +638,14 @@ class App(Tk):
             msg = curFrame.entry_path.get()
             if msg == 'CANCEL':
                 sck.sendall(msg.encode('utf-8'))
+                Bin = client_receive(sck)
                 flag = False
                 break
             if not checkExist(msg):
                 print("File khong ton tai. Yeu cau nhap lai!!!")
                 continue
             sck.sendall(msg.encode('utf-8'))
+            Bin = client_receive(sck)
             break
         if flag == True:
             self.uploadFile(sck, msg)
@@ -511,15 +674,17 @@ class App(Tk):
         while 1:
             print("Nhap CANCEL de thoat!!!")
             # msg = input(f"(Sever request) - {resp}")
-            msg = curFrame.entry_path_upFolder.get()
+            msg = curFrame.entry_path.get()
             if msg == 'CANCEL':
                 sck.sendall(msg.encode('utf-8'))
+                Bin = client_receive(sck)
                 flag = False
                 break
             if not checkFolderExist(msg):
                 print("Folder khong ton tai. Yeu cau nhap lai!!!")
                 continue
             sck.sendall(msg.encode('utf-8'))
+            Bin = client_receive(sck)
             break
         if flag == True:
             self.uploadFilesInFolderSequentially(sck, msg)

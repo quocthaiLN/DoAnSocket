@@ -1,0 +1,326 @@
+
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 16:16:48:Sever mo ket noi
+Sat 07-12-2024 16:17:10:Client ('192.168.1.3', 61054) da ket noi toi sever
+Sat 07-12-2024 16:17:10: Client ('192.168.1.3', 61054) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 16:17:30: Client qthang ('192.168.1.3', 61054) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 16:20:25:Sever mo ket noi
+Sat 07-12-2024 16:20:40:Client ('192.168.1.3', 61083) da ket noi toi sever
+Sat 07-12-2024 16:20:44: Client ('192.168.1.3', 61083) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 16:20:52: Client ('192.168.1.3', 61083) da dot ngot ngat ket noi toi sever
+Sat 07-12-2024 16:20:52: Client ('192.168.1.3', 61083) da ngat ket noi toi sever
+Sat 07-12-2024 16:21:04:Client ('192.168.1.3', 61092) da ket noi toi sever
+Sat 07-12-2024 16:21:16: Client ('192.168.1.3', 61092) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 16:21:27: Client ('192.168.1.3', 61092) da dot ngot ngat ket noi toi sever
+Sat 07-12-2024 16:22:37:Client ('192.168.1.3', 61125) da ket noi toi sever
+Sat 07-12-2024 16:22:37: Client ('192.168.1.3', 61125) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 16:22:49:Client ('192.168.1.3', 61126) da ket noi toi sever
+Sat 07-12-2024 16:22:49: Client ('192.168.1.3', 61126) da dang nhap voi ten tai khoan la hthang
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 16:23:55:Sever mo ket noi
+Sat 07-12-2024 16:24:42:Client ('192.168.1.3', 61152) da ket noi toi sever
+Sat 07-12-2024 16:24:45: Client ('192.168.1.3', 61152) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 16:25:12: Client qthang ('192.168.1.3', 61152) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 16:29:06:Sever mo ket noi
+Sat 07-12-2024 16:29:44:Client ('192.168.1.3', 61199) da ket noi toi sever
+Sat 07-12-2024 16:29:44: Client ('192.168.1.3', 61199) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 16:30:04: Client hthang ('192.168.1.3', 61199) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 16:37:36:Sever mo ket noi
+Sat 07-12-2024 16:38:00:Client ('192.168.1.3', 61398) da ket noi toi sever
+Sat 07-12-2024 16:38:00: Client ('192.168.1.3', 61398) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 16:38:12: Client hthang ('192.168.1.3', 61398) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+Sat 07-12-2024 16:38:20: Client hthang ('192.168.1.3', 61398) da upload file voi duong dan D:/Code Certification/PostgeSQL.pdf thanh cong
+Sat 07-12-2024 16:38:53: Client ('192.168.1.3', 61398) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 16:55:44:Sever mo ket noi
+Sat 07-12-2024 16:56:17: Client ('192.168.1.3', 61882) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:01:32:Sever mo ket noi
+Sat 07-12-2024 17:01:41: Client ('192.168.1.3', 62069) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:02:58:Sever mo ket noi
+Sat 07-12-2024 17:04:16: Client ('192.168.1.3', 62102) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:06:28:Sever mo ket noi
+Sat 07-12-2024 17:06:43: Client ('192.168.1.3', 62167) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:07:56:Sever mo ket noi
+Sat 07-12-2024 17:08:31: Client ('192.168.1.3', 62193) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:08:48:Sever mo ket noi
+Sat 07-12-2024 17:08:56:Client ('192.168.1.3', 62194) da ket noi toi sever
+Sat 07-12-2024 17:09:00: Client ('192.168.1.3', 62194) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:14:08:Sever mo ket noi
+Sat 07-12-2024 17:15:28: Client ('192.168.1.3', 62361) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:15:32:Sever mo ket noi
+Sat 07-12-2024 17:16:47: Client ('192.168.1.3', 62379) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:16:49:Sever mo ket noi
+Sat 07-12-2024 17:17:50: Client ('192.168.1.3', 62414) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:17:53:Sever mo ket noi
+Sat 07-12-2024 17:18:17: Client ('192.168.1.3', 62438) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:18:35:Sever mo ket noi
+Sat 07-12-2024 17:19:17: Client ('192.168.1.3', 62449) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:19:20:Sever mo ket noi
+Sat 07-12-2024 17:20:04: Client ('192.168.1.3', 62478) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:20:07:Sever mo ket noi
+Sat 07-12-2024 17:20:40: Client ('192.168.1.3', 62545) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:20:42:Sever mo ket noi
+Sat 07-12-2024 17:20:50: Client ('192.168.1.3', 62558) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:22:02:Sever mo ket noi
+Sat 07-12-2024 17:23:40: Client ('192.168.1.3', 62587) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:23:45:Sever mo ket noi
+Sat 07-12-2024 17:24:43: Client ('192.168.1.3', 62623) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:25:18:Sever mo ket noi
+Sat 07-12-2024 17:25:34: Client ('192.168.1.3', 62648) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:27:25:Sever mo ket noi
+Sat 07-12-2024 17:27:52: Client ('192.168.1.3', 62848) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:28:48:Sever mo ket noi
+Sat 07-12-2024 17:29:02: Client ('192.168.1.3', 62916) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:30:28:Sever mo ket noi
+Sat 07-12-2024 17:30:35: Client ('192.168.1.3', 62988) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:30:57:Sever mo ket noi
+Sat 07-12-2024 17:31:29: Client ('192.168.1.3', 63013) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:32:40:Sever mo ket noi
+Sat 07-12-2024 17:33:09: Client ('192.168.1.3', 63090) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:35:38:Sever mo ket noi
+Sat 07-12-2024 17:37:05: Client ('192.168.1.3', 63698) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:37:12:Sever mo ket noi
+Sat 07-12-2024 17:37:15: Client ('192.168.1.3', 63788) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:37:31:Sever mo ket noi
+Sat 07-12-2024 17:37:56: Client ('192.168.1.3', 63829) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:38:07:Sever mo ket noi
+Sat 07-12-2024 17:38:15: Client ('192.168.1.3', 63849) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:38:38:Sever mo ket noi
+Sat 07-12-2024 17:38:52: Client ('192.168.1.3', 63870) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:39:10:Sever mo ket noi
+Sat 07-12-2024 17:39:22: Client ('192.168.1.3', 63898) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:40:03:Sever mo ket noi
+Sat 07-12-2024 17:40:15: Client ('192.168.1.3', 64001) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:45:23:Sever mo ket noi
+Sat 07-12-2024 17:45:34:Client ('192.168.1.3', 64512) da ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:47:10:Sever mo ket noi
+Sat 07-12-2024 17:47:18:Client ('192.168.1.3', 64586) da ket noi toi sever
+Sat 07-12-2024 17:47:58: Client ('192.168.1.3', 64586) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:48:33:Sever mo ket noi
+Sat 07-12-2024 17:49:09:Client ('192.168.1.3', 64714) da ket noi toi sever
+Sat 07-12-2024 17:49:09: Client ('192.168.1.3', 64714) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 17:49:37: Client ('192.168.1.3', 64725) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:51:13:Sever mo ket noi
+Sat 07-12-2024 17:52:02: Client ('192.168.1.3', 64806) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:52:05:Sever mo ket noi
+Sat 07-12-2024 17:52:32: Client ('192.168.1.3', 64908) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:52:35:Sever mo ket noi
+Sat 07-12-2024 17:52:59: Client ('192.168.1.3', 64937) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:53:06:Sever mo ket noi
+Sat 07-12-2024 17:53:20:Client ('192.168.1.3', 64961) da ket noi toi sever
+Sat 07-12-2024 17:55:08: Client ('192.168.1.3', 65010) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 17:55:29:Sever mo ket noi
+Sat 07-12-2024 17:55:45:Client ('192.168.1.3', 65033) da ket noi toi sever
+Sat 07-12-2024 17:56:57: Client ('192.168.1.3', 65060) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 23:09:51:Sever mo ket noi
+Sat 07-12-2024 23:10:30: Client ('192.168.1.3', 53274) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 23:10:35:Sever mo ket noi
+Sat 07-12-2024 23:11:10: Client ('192.168.1.3', 53295) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 23:13:30:Sever mo ket noi
+Sat 07-12-2024 23:13:39:Client ('192.168.1.3', 53373) da ket noi toi sever
+Sat 07-12-2024 23:13:39: Client ('192.168.1.3', 53373) da dang nhap voi ten tai khoan la hthang
+------------------------------------------------------------------------------------------------------------------------------------
+Sat 07-12-2024 23:16:09:Sever mo ket noi
+Sat 07-12-2024 23:16:22:Client ('192.168.1.3', 53417) da ket noi toi sever
+Sat 07-12-2024 23:16:22: Client ('192.168.1.3', 53417) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:18:22:Client ('192.168.1.3', 53454) da ket noi toi sever
+Sat 07-12-2024 23:18:23: Client ('192.168.1.3', 53454) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:19:44:Client ('192.168.1.3', 53469) da ket noi toi sever
+Sat 07-12-2024 23:19:45: Client ('192.168.1.3', 53469) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:20:35:Client ('192.168.1.3', 53502) da ket noi toi sever
+Sat 07-12-2024 23:20:35: Client ('192.168.1.3', 53502) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:21:15:Client ('192.168.1.3', 53514) da ket noi toi sever
+Sat 07-12-2024 23:21:15: Client ('192.168.1.3', 53514) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:22:05:Client ('192.168.1.3', 53526) da ket noi toi sever
+Sat 07-12-2024 23:22:05: Client ('192.168.1.3', 53526) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:25:29:Client ('192.168.1.3', 53698) da ket noi toi sever
+Sat 07-12-2024 23:25:29: Client ('192.168.1.3', 53698) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:26:12:Client ('192.168.1.3', 53702) da ket noi toi sever
+Sat 07-12-2024 23:26:12: Client ('192.168.1.3', 53702) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:26:47:Client ('192.168.1.3', 53708) da ket noi toi sever
+Sat 07-12-2024 23:26:47: Client ('192.168.1.3', 53708) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:27:23:Client ('192.168.1.3', 53712) da ket noi toi sever
+Sat 07-12-2024 23:27:24: Client ('192.168.1.3', 53712) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:29:40:Client ('192.168.1.3', 53799) da ket noi toi sever
+Sat 07-12-2024 23:29:40: Client ('192.168.1.3', 53799) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:30:12:Client ('192.168.1.3', 53817) da ket noi toi sever
+Sat 07-12-2024 23:30:12: Client ('192.168.1.3', 53817) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:31:03:Client ('192.168.1.3', 53828) da ket noi toi sever
+Sat 07-12-2024 23:31:03: Client ('192.168.1.3', 53828) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:32:42:Client ('192.168.1.3', 53855) da ket noi toi sever
+Sat 07-12-2024 23:32:42: Client ('192.168.1.3', 53855) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:33:50:Client ('192.168.1.3', 53880) da ket noi toi sever
+Sat 07-12-2024 23:33:51: Client ('192.168.1.3', 53880) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:34:09:Client ('192.168.1.3', 53884) da ket noi toi sever
+Sat 07-12-2024 23:34:09: Client ('192.168.1.3', 53884) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:34:32:Client ('192.168.1.3', 53888) da ket noi toi sever
+Sat 07-12-2024 23:34:32: Client ('192.168.1.3', 53888) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 23:35:14:Client ('192.168.1.3', 53896) da ket noi toi sever
+Sat 07-12-2024 23:35:14: Client ('192.168.1.3', 53896) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:35:36:Client ('192.168.1.3', 53899) da ket noi toi sever
+Sat 07-12-2024 23:35:36: Client ('192.168.1.3', 53899) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 23:37:09:Client ('192.168.1.3', 53929) da ket noi toi sever
+Sat 07-12-2024 23:37:10: Client ('192.168.1.3', 53929) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:37:29:Client ('192.168.1.3', 53932) da ket noi toi sever
+Sat 07-12-2024 23:37:29: Client ('192.168.1.3', 53932) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:37:43:Client ('192.168.1.3', 53935) da ket noi toi sever
+Sat 07-12-2024 23:37:44: Client ('192.168.1.3', 53935) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:37:58:Client ('192.168.1.3', 53940) da ket noi toi sever
+Sat 07-12-2024 23:37:58: Client ('192.168.1.3', 53940) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:38:46:Client ('192.168.1.3', 53953) da ket noi toi sever
+Sat 07-12-2024 23:38:47: Client ('192.168.1.3', 53953) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:39:19:Client ('192.168.1.3', 53960) da ket noi toi sever
+Sat 07-12-2024 23:39:19: Client ('192.168.1.3', 53960) da dang nhap voi ten tai khoan la hthang
+Sat 07-12-2024 23:41:22:Client ('192.168.1.3', 54003) da ket noi toi sever
+Sat 07-12-2024 23:41:22: Client ('192.168.1.3', 54003) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:41:58:Client ('192.168.1.3', 54007) da ket noi toi sever
+Sat 07-12-2024 23:41:59: Client ('192.168.1.3', 54007) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:43:19:Client ('192.168.1.3', 54035) da ket noi toi sever
+Sat 07-12-2024 23:43:19: Client ('192.168.1.3', 54035) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:44:06:Client ('192.168.1.3', 54042) da ket noi toi sever
+Sat 07-12-2024 23:44:06: Client ('192.168.1.3', 54042) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:44:23:Client ('192.168.1.3', 54045) da ket noi toi sever
+Sat 07-12-2024 23:44:24: Client ('192.168.1.3', 54045) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:44:53:Client ('192.168.1.3', 54049) da ket noi toi sever
+Sat 07-12-2024 23:44:53: Client ('192.168.1.3', 54049) da dang nhap voi ten tai khoan la qthang
+Sat 07-12-2024 23:47:08:Client ('192.168.1.3', 54189) da ket noi toi sever
+Sat 07-12-2024 23:47:08: Client ('192.168.1.3', 54189) da dang nhap voi ten tai khoan la qthang
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 09:14:33:Sever mo ket noi
+Sun 08-12-2024 09:15:14:Client ('192.168.1.3', 55540) da ket noi toi sever
+Sun 08-12-2024 09:15:14: Client ('192.168.1.3', 55540) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:17:03: Client ('192.168.1.3', 55663) da dot ngot ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 09:18:41:Sever mo ket noi
+Sun 08-12-2024 09:18:51:Client ('192.168.1.3', 55710) da ket noi toi sever
+Sun 08-12-2024 09:18:51: Client ('192.168.1.3', 55710) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:23:52:Client ('192.168.1.3', 55969) da ket noi toi sever
+Sun 08-12-2024 09:23:52: Client ('192.168.1.3', 55969) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:25:15:Client ('192.168.1.3', 55986) da ket noi toi sever
+Sun 08-12-2024 09:25:15: Client ('192.168.1.3', 55986) da dang nhap voi ten tai khoan la hthang
+Sun 08-12-2024 09:28:58:Client ('192.168.1.3', 56260) da ket noi toi sever
+Sun 08-12-2024 09:28:58: Client ('192.168.1.3', 56260) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:31:37:Client ('192.168.1.3', 56391) da ket noi toi sever
+Sun 08-12-2024 09:31:38: Client ('192.168.1.3', 56391) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:33:15:Client ('192.168.1.3', 56485) da ket noi toi sever
+Sun 08-12-2024 09:33:16: Client ('192.168.1.3', 56485) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:37:14:Client ('192.168.1.3', 56740) da ket noi toi sever
+Sun 08-12-2024 09:37:15: Client ('192.168.1.3', 56740) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:43:13:Client ('192.168.1.3', 56873) da ket noi toi sever
+Sun 08-12-2024 09:43:13: Client ('192.168.1.3', 56873) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:43:58:Client ('192.168.1.3', 56908) da ket noi toi sever
+Sun 08-12-2024 09:43:58: Client ('192.168.1.3', 56908) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:44:47:Client ('192.168.1.3', 56917) da ket noi toi sever
+Sun 08-12-2024 09:44:47: Client ('192.168.1.3', 56917) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:47:35:Client ('192.168.1.3', 56976) da ket noi toi sever
+Sun 08-12-2024 09:47:35: Client ('192.168.1.3', 56976) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:54:31:Client ('192.168.1.3', 57271) da ket noi toi sever
+Sun 08-12-2024 09:54:31: Client ('192.168.1.3', 57271) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:56:31:Client ('192.168.1.3', 57324) da ket noi toi sever
+Sun 08-12-2024 09:56:31: Client ('192.168.1.3', 57324) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:57:20:Client ('192.168.1.3', 57337) da ket noi toi sever
+Sun 08-12-2024 09:57:20: Client ('192.168.1.3', 57337) da dang nhap voi ten tai khoan la hthang
+Sun 08-12-2024 09:59:20:Client ('192.168.1.3', 57355) da ket noi toi sever
+Sun 08-12-2024 09:59:21: Client ('192.168.1.3', 57355) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 09:59:44:Client ('192.168.1.3', 57356) da ket noi toi sever
+Sun 08-12-2024 09:59:44: Client ('192.168.1.3', 57356) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 10:01:03:Client ('192.168.1.3', 57363) da ket noi toi sever
+Sun 08-12-2024 10:01:03: Client ('192.168.1.3', 57363) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 10:01:20:Client ('192.168.1.3', 57365) da ket noi toi sever
+Sun 08-12-2024 10:01:20: Client ('192.168.1.3', 57365) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 10:11:20: Client ('192.168.1.3', 57365) da ngat ket noi toi sever do qua timeout
+Sun 08-12-2024 10:18:18:Client ('192.168.1.3', 58531) da ket noi toi sever
+Sun 08-12-2024 10:18:18: Client ('192.168.1.3', 58531) da dang nhap voi ten tai khoan la qthang
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 13:53:44:Sever mo ket noi
+Sun 08-12-2024 13:54:17:Client ('192.168.1.3', 59305) da ket noi toi sever
+Sun 08-12-2024 13:54:17: Client ('192.168.1.3', 59305) da dang nhap voi ten tai khoan la hthang
+Sun 08-12-2024 13:56:25:Client ('192.168.1.3', 59320) da ket noi toi sever
+Sun 08-12-2024 13:56:26: Client ('192.168.1.3', 59320) da dang nhap voi ten tai khoan la hthang
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 14:04:19:Sever mo ket noi
+Sun 08-12-2024 14:04:29:Client ('192.168.1.3', 59347) da ket noi toi sever
+Sun 08-12-2024 14:04:29: Client ('192.168.1.3', 59347) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 14:05:15: Client qthang ('192.168.1.3', 59347) da yeu cau upload file voi duong dan D:/University/Practical DSA/Week6/Lab 5.pdf
+Sun 08-12-2024 14:05:17: Client qthang ('192.168.1.3', 59347) da upload file voi duong dan D:/University/Practical DSA/Week6/Lab 5.pdf thanh cong
+Sun 08-12-2024 14:05:34: Client qthang ('192.168.1.3', 59347) da yeu cau upload file voi duong dan D:/Code Certification/Data Structure & Algorithm.pdf
+Sun 08-12-2024 14:05:41: Client qthang ('192.168.1.3', 59347) da upload file voi duong dan D:/Code Certification/Data Structure & Algorithm.pdf thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 14:06:51:Sever mo ket noi
+Sun 08-12-2024 14:06:57:Client ('192.168.1.3', 59356) da ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 14:07:38:Sever mo ket noi
+Sun 08-12-2024 14:08:24:Client ('192.168.1.3', 59358) da ket noi toi sever
+Sun 08-12-2024 14:08:24: Client ('192.168.1.3', 59358) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 14:08:37:Client ('192.168.1.3', 59362) da ket noi toi sever
+Sun 08-12-2024 14:08:40: Client ('192.168.1.3', 59362) da dang nhap voi ten tai khoan la qthang
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 14:11:33:Sever mo ket noi
+Sun 08-12-2024 14:11:58:Client ('192.168.1.3', 59448) da ket noi toi sever
+Sun 08-12-2024 14:11:58: Client ('192.168.1.3', 59448) da dang nhap voi ten tai khoan la hthang
+Sun 08-12-2024 14:14:16: Client ('192.168.1.3', 59448) da ngat ket noi toi sever
+Sun 08-12-2024 14:14:25:Client ('192.168.1.3', 59461) da ket noi toi sever
+Sun 08-12-2024 14:14:25: Client ('192.168.1.3', 59461) da dang nhap voi ten tai khoan la hthang
+Sun 08-12-2024 14:14:48: Client hthang ('192.168.1.3', 59461) da yeu cau upload folder voi duong dan D:/University/Computer Network/Project_Socket/folder_test
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 14:20:22:Sever mo ket noi
+Sun 08-12-2024 14:20:29:Client ('192.168.1.3', 59483) da ket noi toi sever
+Sun 08-12-2024 14:20:29: Client ('192.168.1.3', 59483) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 14:21:20:Client ('192.168.1.3', 59484) da ket noi toi sever
+Sun 08-12-2024 14:21:20: Client ('192.168.1.3', 59484) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 14:21:55: Client qthang ('192.168.1.3', 59484) da yeu cau upload folder voi duong dan D:/University/Computer Network/Project_Socket/folder_test6
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 14:22:22:Sever mo ket noi
+Sun 08-12-2024 14:23:03:Client ('192.168.1.3', 59486) da ket noi toi sever
+Sun 08-12-2024 14:23:07: Client ('192.168.1.3', 59486) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 14:23:35: Client qthang ('192.168.1.3', 59486) da yeu cau upload folder voi duong dan D:/University/Computer Network/Project_Socket/folder_test
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 14:25:05:Sever mo ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Sun 08-12-2024 14:37:21:Sever mo ket noi
+Sun 08-12-2024 14:37:49:Client ('192.168.1.3', 59638) da ket noi toi sever
+Sun 08-12-2024 14:37:50: Client ('192.168.1.3', 59638) da dang nhap voi ten tai khoan la qthang
+Sun 08-12-2024 14:38:07: Client qthang ('192.168.1.3', 59638) da yeu cau download file voi duong dan DataServer/Content of middle exam.jpg
+Sun 08-12-2024 14:38:19: Client qthang ('192.168.1.3', 59638) da download file voi duong dan DataServer/Content of middle exam.jpg thanh cong
