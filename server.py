@@ -61,7 +61,7 @@ def getTime():
     return localTime
 
 def operationHistory(msg):
-    ofs = open(PATH_HISTORY, "a", encoding = "utf-8")
+    ofs = open(PATH_HISTORY, "a", encoding = FORMAT)
     ofs.write(msg)
     ofs.close()
 

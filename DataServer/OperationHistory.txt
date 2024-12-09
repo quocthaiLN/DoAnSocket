@@ -325,117 +325,70 @@ Sun 08-12-2024 14:37:50: Client ('192.168.1.3', 59638) da dang nhap voi ten tai 
 Sun 08-12-2024 14:38:07: Client qthang ('192.168.1.3', 59638) da yeu cau download file voi duong dan DataServer/Content of middle exam.jpg
 Sun 08-12-2024 14:38:19: Client qthang ('192.168.1.3', 59638) da download file voi duong dan DataServer/Content of middle exam.jpg thanh cong
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 17:32:05:Sever mo ket noi
-Mon 09-12-2024 17:32:07:Client ('192.168.102.40', 59932) da ket noi toi sever
-Mon 09-12-2024 17:32:22:Client ('192.168.102.40', 59934) da ket noi toi sever
+Mon 09-12-2024 20:53:18:Sever mo ket noi
+Mon 09-12-2024 20:53:30:Client ('192.168.1.7', 50215) da ket noi toi sever
+Mon 09-12-2024 20:53:59:Client ('192.168.1.7', 50216) da ket noi toi sever
+Mon 09-12-2024 20:57:29:Client ('192.168.1.7', 50250) da ket noi toi sever
+Mon 09-12-2024 21:01:43:Client ('192.168.1.7', 50280) da ket noi toi sever
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 17:43:46:Sever mo ket noi
-Mon 09-12-2024 17:43:49:Client ('192.168.102.40', 60061) da ket noi toi sever
-Mon 09-12-2024 17:44:05:Client ('192.168.102.40', 60062) da ket noi toi sever
+Mon 09-12-2024 21:03:47:Sever mo ket noi
+Mon 09-12-2024 21:03:52:Client ('192.168.1.7', 50289) da ket noi toi sever
+Mon 09-12-2024 21:09:36:Client ('192.168.1.7', 50313) da ket noi toi sever
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 17:46:44:Sever mo ket noi
-Mon 09-12-2024 17:46:46:Client ('192.168.102.40', 60091) da ket noi toi sever
-Mon 09-12-2024 17:46:49: Client ('192.168.102.40', 60091) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 21:18:20:Sever mo ket noi
+Mon 09-12-2024 21:18:24:Client ('192.168.1.7', 50363) da ket noi toi sever
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 17:47:45:Sever mo ket noi
-Mon 09-12-2024 17:47:50:Client ('192.168.102.40', 60096) da ket noi toi sever
-Mon 09-12-2024 17:47:52: Client ('192.168.102.40', 60096) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 17:47:55: Client qthang ('192.168.102.40', 60096) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
-Mon 09-12-2024 17:47:55: Client qthang ('192.168.102.40', 60096) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
-Mon 09-12-2024 17:48:03: Client qthang ('192.168.102.40', 60096) da ngat ket noi voi sever
+Mon 09-12-2024 21:20:22:Sever mo ket noi
+Mon 09-12-2024 21:20:25:Client ('192.168.1.7', 50372) da ket noi toi sever
+Mon 09-12-2024 21:28:13:Client ('192.168.1.7', 50435) da ket noi toi sever
+Mon 09-12-2024 21:33:56:Client ('192.168.1.7', 50520) da ket noi toi sever
+Mon 09-12-2024 21:39:52:Client ('192.168.1.7', 50562) da ket noi toi sever
+Mon 09-12-2024 21:40:03:Client ('192.168.1.7', 50566) da ket noi toi sever
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 17:51:28:Sever mo ket noi
-Mon 09-12-2024 17:51:30:Client ('192.168.102.40', 60126) da ket noi toi sever
-Mon 09-12-2024 17:51:33: Client ('192.168.102.40', 60126) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 17:52:09: Client qthang ('192.168.102.40', 60126) da yeu cau download file voi duong dan jh
-Mon 09-12-2024 17:52:15: Client ('192.168.102.40', 60126) da dot ngot ngat ket noi toi sever
-Mon 09-12-2024 17:52:15: Client ('192.168.102.40', 60126) da ngat ket noi toi sever
+Mon 09-12-2024 21:43:49:Sever mo ket noi
+Mon 09-12-2024 21:43:53:Client ('192.168.1.7', 50587) da ket noi toi sever
+Mon 09-12-2024 21:46:45:Client ('192.168.1.7', 50601) da ket noi toi sever
+Mon 09-12-2024 21:48:01:Client ('192.168.1.7', 50615) da ket noi toi sever
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:01:33:Sever mo ket noi
-Mon 09-12-2024 21:01:35:Client ('192.168.102.40', 61118) da ket noi toi sever
-Mon 09-12-2024 21:01:42: Client ('192.168.102.40', 61118) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:28:19:Sever mo ket noi
+Mon 09-12-2024 22:28:31:Client ('192.168.1.7', 50964) da ket noi toi sever
+Mon 09-12-2024 22:28:37: Client ('192.168.1.7', 50964) da dot ngot ngat ket noi toi sever
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:08:07:Sever mo ket noi
-Mon 09-12-2024 21:08:10:Client ('192.168.102.40', 61196) da ket noi toi sever
-Mon 09-12-2024 21:08:13: Client ('192.168.102.40', 61196) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:28:59:Sever mo ket noi
+Mon 09-12-2024 22:29:13:Client ('192.168.1.7', 50967) da ket noi toi sever
+Mon 09-12-2024 22:29:24: Client ('192.168.1.7', 50967) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:30:17:Client ('192.168.1.7', 50970) da ket noi toi sever
+Mon 09-12-2024 22:30:23: Client ('192.168.1.7', 50970) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:30:43: Client qthang ('192.168.1.7', 50970) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:09:09:Sever mo ket noi
-Mon 09-12-2024 21:09:11:Client ('192.168.102.40', 61198) da ket noi toi sever
-Mon 09-12-2024 21:09:17: Client ('192.168.102.40', 61198) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:09:30: Client qthang ('192.168.102.40', 61198) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
-Mon 09-12-2024 21:09:30: Client qthang ('192.168.102.40', 61198) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
-Mon 09-12-2024 21:09:51: Client ('192.168.102.40', 61198) da dot ngot ngat ket noi toi sever
-Mon 09-12-2024 21:09:51: Client qthang ('192.168.102.40', 61198) da yeu cau download file voi duong dan None
+Mon 09-12-2024 22:35:17:Sever mo ket noi
+Mon 09-12-2024 22:35:35:Client ('192.168.1.7', 51024) da ket noi toi sever
+Mon 09-12-2024 22:35:46: Client ('192.168.1.7', 51024) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:36:00: Client qthang ('192.168.1.7', 51024) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:10:24:Sever mo ket noi
-Mon 09-12-2024 21:10:26:Client ('192.168.102.40', 61209) da ket noi toi sever
-Mon 09-12-2024 21:10:28: Client ('192.168.102.40', 61209) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:10:32: Client qthang ('192.168.102.40', 61209) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
-Mon 09-12-2024 21:10:32: Client qthang ('192.168.102.40', 61209) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
-Mon 09-12-2024 21:10:35: Client qthang ('192.168.102.40', 61209) da yeu cau download file voi duong dan chương trình đào tạo k21.pdf
+Mon 09-12-2024 22:38:06:Sever mo ket noi
+Mon 09-12-2024 22:38:08:Client ('192.168.1.7', 51045) da ket noi toi sever
+Mon 09-12-2024 22:38:14: Client ('192.168.1.7', 51045) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:38:55: Client qthang ('192.168.1.7', 51045) da yeu cau upload file voi duong dan D:/Career/data-science-roadmap.pdf
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:22:26:Sever mo ket noi
-Mon 09-12-2024 21:22:30:Client ('192.168.102.40', 61264) da ket noi toi sever
-Mon 09-12-2024 21:22:35: Client ('192.168.102.40', 61264) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:22:39:Client ('192.168.102.40', 61267) da ket noi toi sever
-Mon 09-12-2024 21:22:43: Client ('192.168.102.40', 61267) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:22:50: Client ('192.168.102.40', 61267) da dot ngot ngat ket noi toi sever
-Mon 09-12-2024 21:22:56:Client ('192.168.102.40', 61269) da ket noi toi sever
-Mon 09-12-2024 21:22:59: Client ('192.168.102.40', 61269) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:40:04:Sever mo ket noi
+Mon 09-12-2024 22:40:12:Client ('192.168.1.7', 51050) da ket noi toi sever
+Mon 09-12-2024 22:40:14: Client ('192.168.1.7', 51050) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:40:48: Client qthang ('192.168.1.7', 51050) da yeu cau upload file voi duong dan D:/Career/data-science-roadmap.pdf
+Mon 09-12-2024 22:40:48: Client qthang ('192.168.1.7', 51050) da upload file voi duong dan D:/Career/data-science-roadmap.pdf thanh cong
+Mon 09-12-2024 22:45:16: Client ('192.168.1.7', 51050) da dot ngot ngat ket noi toi sever
+Mon 09-12-2024 22:45:26:Client ('192.168.1.7', 51073) da ket noi toi sever
+Mon 09-12-2024 22:45:34: Client ('192.168.1.7', 51073) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:45:58: Client qthang ('192.168.1.7', 51073) da yeu cau upload file voi duong dan D:/Career/data-science-roadmap.pdf
 ------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:26:49:Sever mo ket noi
-Mon 09-12-2024 21:26:51:Client ('192.168.102.40', 61287) da ket noi toi sever
-Mon 09-12-2024 21:26:54: Client ('192.168.102.40', 61287) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:27:41: Client qthang ('192.168.102.40', 61287) da yeu cau download file voi duong dan Exist
-Mon 09-12-2024 21:27:41: Client qthang ('192.168.102.40', 61287) da download file voi duong dan Exist thanh cong
-Mon 09-12-2024 21:27:54: Client qthang ('192.168.102.40', 61287) da yeu cau download file voi duong dan Exist
-Mon 09-12-2024 21:27:54: Client qthang ('192.168.102.40', 61287) da download file voi duong dan Exist thanh cong
-Mon 09-12-2024 21:28:13: Client qthang ('192.168.102.40', 61287) da yeu cau upload folder voi duong dan D:\23120353\DoAnSocket\DataClient
-Mon 09-12-2024 21:28:14: Client ('192.168.102.40', 61287) da upload folder voi duong dan D:\23120353\DoAnSocket\DataClient thanh cong
-Mon 09-12-2024 21:28:37: Client qthang ('192.168.102.40', 61287) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
-Mon 09-12-2024 21:28:37: Client qthang ('192.168.102.40', 61287) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
-Mon 09-12-2024 21:29:14: Client ('192.168.102.40', 61287) da dot ngot ngat ket noi toi sever
-Mon 09-12-2024 21:29:52:Client ('192.168.102.40', 61292) da ket noi toi sever
-Mon 09-12-2024 21:29:54: Client ('192.168.102.40', 61292) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:30:13: Client qthang ('192.168.102.40', 61292) da ngat ket noi voi sever
-Mon 09-12-2024 21:31:26:Client ('192.168.102.40', 61304) da ket noi toi sever
-Mon 09-12-2024 21:31:29: Client ('192.168.102.40', 61304) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:31:34: Client qthang ('192.168.102.40', 61304) da yeu cau download file voi duong dan Exist
-Mon 09-12-2024 21:31:34: Client qthang ('192.168.102.40', 61304) da download file voi duong dan Exist thanh cong
-Mon 09-12-2024 21:31:35: Client ('192.168.102.40', 61304) da dot ngot ngat ket noi toi sever
-------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:34:57:Sever mo ket noi
-Mon 09-12-2024 21:34:59:Client ('192.168.102.40', 61318) da ket noi toi sever
-Mon 09-12-2024 21:35:05: Client ('192.168.102.40', 61318) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:35:28: Client qthang ('192.168.102.40', 61318) da yeu cau download file voi duong dan chương trình đào tạo k21.pdf
-Mon 09-12-2024 21:35:29: Client qthang ('192.168.102.40', 61318) da download file voi duong dan chương trình đào tạo k21.pdf thanh cong
-------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:37:49:Sever mo ket noi
-Mon 09-12-2024 21:37:51:Client ('192.168.102.40', 61323) da ket noi toi sever
-Mon 09-12-2024 21:37:54: Client ('192.168.102.40', 61323) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:37:59: Client qthang ('192.168.102.40', 61323) da yeu cau download file voi duong dan chương trình đào tạo k21.pdf
-Mon 09-12-2024 21:37:59: Client qthang ('192.168.102.40', 61323) da download file voi duong dan chương trình đào tạo k21.pdf thanh cong
-Mon 09-12-2024 21:37:59: Client ('192.168.102.40', 61323) da dot ngot ngat ket noi toi sever
-Mon 09-12-2024 21:38:25:Client ('192.168.102.40', 61325) da ket noi toi sever
-Mon 09-12-2024 21:38:28: Client ('192.168.102.40', 61325) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:38:32: Client qthang ('192.168.102.40', 61325) da yeu cau download file voi duong dan chương trình đào tạo k21.pdf
-Mon 09-12-2024 21:38:32: Client qthang ('192.168.102.40', 61325) da download file voi duong dan chương trình đào tạo k21.pdf thanh cong
-Mon 09-12-2024 21:38:32: Client ('192.168.102.40', 61325) da dot ngot ngat ket noi toi sever
-------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:39:05:Sever mo ket noi
-Mon 09-12-2024 21:39:07:Client ('192.168.102.40', 61326) da ket noi toi sever
-Mon 09-12-2024 21:39:10: Client ('192.168.102.40', 61326) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:39:23:Client ('192.168.102.40', 61328) da ket noi toi sever
-Mon 09-12-2024 21:39:26: Client ('192.168.102.40', 61328) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:39:38: Client ('192.168.102.40', 61328) da dot ngot ngat ket noi toi sever
-Mon 09-12-2024 21:39:40:Client ('192.168.102.40', 61329) da ket noi toi sever
-Mon 09-12-2024 21:39:43: Client ('192.168.102.40', 61329) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:39:59: Client ('192.168.102.40', 61329) da dot ngot ngat ket noi toi sever
-Mon 09-12-2024 21:40:52:Client ('192.168.102.40', 61332) da ket noi toi sever
-Mon 09-12-2024 21:40:54: Client ('192.168.102.40', 61332) da dang nhap voi ten tai khoan la qthang
-------------------------------------------------------------------------------------------------------------------------------------
-Mon 09-12-2024 21:42:51:Sever mo ket noi
-Mon 09-12-2024 21:42:53:Client ('192.168.102.40', 61340) da ket noi toi sever
-Mon 09-12-2024 21:42:56: Client ('192.168.102.40', 61340) da dang nhap voi ten tai khoan la qthang
-Mon 09-12-2024 21:43:00: Client qthang ('192.168.102.40', 61340) da yeu cau download file voi duong dan 1.mp4
-Mon 09-12-2024 21:43:02: Client ('192.168.102.40', 61340) da ngat ket noi toi sever
+Mon 09-12-2024 22:54:40:Sever mo ket noi
+Mon 09-12-2024 22:54:52:Client ('192.168.1.7', 51141) da ket noi toi sever
+Mon 09-12-2024 22:55:00: Client ('192.168.1.7', 51141) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:55:18: Client qthang ('192.168.1.7', 51141) da yeu cau upload file voi duong dan D:/Code Certification/PostgeSQL.pdf
+Mon 09-12-2024 22:55:20: Client qthang ('192.168.1.7', 51141) da upload file voi duong dan D:/Code Certification/PostgeSQL.pdf thanh cong
+Mon 09-12-2024 22:57:20: Client qthang ('192.168.1.7', 51141) da yeu cau upload file voi duong dan D:/University/Computer Network/Project_Socket/DoAnSocket/50mb.pdf
+Mon 09-12-2024 22:57:28: Client qthang ('192.168.1.7', 51141) da upload file voi duong dan D:/University/Computer Network/Project_Socket/DoAnSocket/50mb.pdf thanh cong
+Mon 09-12-2024 22:57:51:Client ('192.168.1.7', 51203) da ket noi toi sever
+Mon 09-12-2024 22:57:59: Client ('192.168.1.7', 51203) da dang nhap voi ten tai khoan la qthang
+Mon 09-12-2024 22:59:22: Client qthang ('192.168.1.7', 51203) da yeu cau upload folder voi duong dan D:/University/Computer Network/Project_Socket/DoAnSocket/img
+Mon 09-12-2024 22:59:38: Client ('192.168.1.7', 51203) da upload folder voi duong dan D:/University/Computer Network/Project_Socket/DoAnSocket/img thanh cong
