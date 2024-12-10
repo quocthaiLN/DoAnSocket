@@ -439,3 +439,149 @@ Mon 09-12-2024 21:42:53:Client ('192.168.102.40', 61340) da ket noi toi sever
 Mon 09-12-2024 21:42:56: Client ('192.168.102.40', 61340) da dang nhap voi ten tai khoan la qthang
 Mon 09-12-2024 21:43:00: Client qthang ('192.168.102.40', 61340) da yeu cau download file voi duong dan 1.mp4
 Mon 09-12-2024 21:43:02: Client ('192.168.102.40', 61340) da ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 18:43:38:Sever mo ket noi
+Tue 10-12-2024 18:43:42:Client ('10.0.110.89', 55593) da ket noi toi sever
+Tue 10-12-2024 18:44:12: Client ('10.0.110.89', 55593) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 18:44:32: Client qthai ('10.0.110.89', 55593) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
+Tue 10-12-2024 18:44:32: Client qthai ('10.0.110.89', 55593) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
+Tue 10-12-2024 18:44:51:Client ('10.0.110.89', 55611) da ket noi toi sever
+Tue 10-12-2024 18:45:07: Client ('10.0.110.89', 55611) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 18:45:16: Client qthai ('10.0.110.89', 55593) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
+Tue 10-12-2024 18:45:16: Client qthai ('10.0.110.89', 55593) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
+Tue 10-12-2024 18:45:17: Client qthai ('10.0.110.89', 55611) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
+Tue 10-12-2024 18:45:18: Client qthai ('10.0.110.89', 55611) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 18:51:14:Sever mo ket noi
+Tue 10-12-2024 18:51:19:Client ('10.0.110.89', 55934) da ket noi toi sever
+Tue 10-12-2024 18:51:20:Client ('10.0.110.89', 55935) da ket noi toi sever
+Tue 10-12-2024 18:51:38: Client ('10.0.110.89', 55935) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 18:51:41: Client ('10.0.110.89', 55934) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 18:51:49: Client qthai ('10.0.110.89', 55935) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
+Tue 10-12-2024 18:51:49: Client qthai ('10.0.110.89', 55935) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
+Tue 10-12-2024 18:51:52: Client qthai ('10.0.110.89', 55934) da yeu cau upload file voi duong dan chương trình đào tạo k21.pdf
+Tue 10-12-2024 18:51:52: Client qthai ('10.0.110.89', 55934) da upload file voi duong dan chương trình đào tạo k21.pdf thanh cong
+Tue 10-12-2024 18:57:24: Client qthai ('10.0.110.89', 55935) da yeu cau upload file voi duong dan GenshinImpact.exe
+Tue 10-12-2024 18:57:27: Client ('10.0.110.89', 55935) da ngat ket noi toi sever
+Tue 10-12-2024 18:57:37: Client qthai ('10.0.110.89', 55934) da yeu cau upload file voi duong dan GenshinImpact.exe
+Tue 10-12-2024 18:57:47: Client qthai ('10.0.110.89', 55934) da upload file voi duong dan GenshinImpact.exe thanh cong
+Tue 10-12-2024 18:58:32: Client qthai ('10.0.110.89', 55934) da yeu cau upload file voi duong dan GenshinImpact.exe
+Tue 10-12-2024 18:58:38: Client qthai ('10.0.110.89', 55934) da upload file voi duong dan GenshinImpact.exe thanh cong
+Tue 10-12-2024 18:58:42: Client qthai ('10.0.110.89', 55934) da yeu cau download file voi duong dan GenshinImpact.exe
+Tue 10-12-2024 18:58:49: Client qthai ('10.0.110.89', 55934) da download file voi duong dan GenshinImpact.exe thanh cong
+Tue 10-12-2024 18:59:00: Client qthai ('10.0.110.89', 55934) da yeu cau download file voi duong dan GenshinImpact.exe
+Tue 10-12-2024 18:59:01: Client ('10.0.110.89', 55934) da ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 19:30:21:Sever mo ket noi
+Tue 10-12-2024 19:30:24:Client ('10.0.110.89', 56944) da ket noi toi sever
+Tue 10-12-2024 19:30:35: Client ('10.0.110.89', 56944) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 19:31:02: Client qthai ('10.0.110.89', 56944) da yeu cau download file voi duong dan GenshinImpact.exe
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 19:32:16:Sever mo ket noi
+Tue 10-12-2024 19:32:18:Client ('10.0.110.89', 56981) da ket noi toi sever
+Tue 10-12-2024 19:32:26: Client ('10.0.110.89', 56981) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 19:32:29: Client qthai ('10.0.110.89', 56981) da yeu cau download file voi duong dan GenshinImpact.exe
+Tue 10-12-2024 19:32:30: Client ('10.0.110.89', 56981) da ngat ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 20:29:46:Sever mo ket noi
+Tue 10-12-2024 20:29:49:Client ('10.0.110.89', 58874) da ket noi toi sever
+Tue 10-12-2024 20:29:59: Client ('10.0.110.89', 58874) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 20:30:16: Client qthai ('10.0.110.89', 58874) da yeu cau download file voi duong dan GenshinImpact.exe
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 20:31:06:Sever mo ket noi
+Tue 10-12-2024 20:31:13:Client ('10.0.110.89', 58890) da ket noi toi sever
+Tue 10-12-2024 20:31:22: Client ('10.0.110.89', 58890) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 20:31:25: Client qthai ('10.0.110.89', 58890) da yeu cau download file voi duong dan GenshinImpact.exe
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 20:31:41:Sever mo ket noi
+Tue 10-12-2024 20:31:45:Client ('10.0.110.89', 58906) da ket noi toi sever
+Tue 10-12-2024 20:31:48: Client ('10.0.110.89', 58906) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 20:31:52: Client qthai ('10.0.110.89', 58906) da yeu cau download file voi duong dan GenshinImpact.exe
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 21:49:25:Sever mo ket noi
+Tue 10-12-2024 21:49:28:Client ('10.0.110.89', 61049) da ket noi toi sever
+Tue 10-12-2024 21:49:34: Client ('10.0.110.89', 61049) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 21:56:29: Client qthai ('10.0.110.89', 61049) da yeu cau download file voi duong dan GenshinImpact.exe
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 22:44:31:Sever mo ket noi
+Tue 10-12-2024 22:44:34:Client ('10.0.110.89', 64957) da ket noi toi sever
+Tue 10-12-2024 22:44:47: Client ('10.0.110.89', 64957) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 22:45:11: Client qthai ('10.0.110.89', 64957) da yeu cau download file voi duong dan GenshinImpact.exe
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 22:46:45:Sever mo ket noi
+Tue 10-12-2024 22:46:46:Client ('10.0.110.89', 64986) da ket noi toi sever
+Tue 10-12-2024 22:46:54: Client ('10.0.110.89', 64986) da dang nhap voi ten tai khoan la qthai
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 22:47:40:Sever mo ket noi
+Tue 10-12-2024 22:47:42:Client ('10.0.110.89', 64992) da ket noi toi sever
+Tue 10-12-2024 22:47:46: Client ('10.0.110.89', 64992) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 22:48:30: Client qthai ('10.0.110.89', 64992) da yeu cau download file voi duong dan 250.exe
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 22:50:04:Sever mo ket noi
+Tue 10-12-2024 22:50:05:Client ('10.0.110.89', 65016) da ket noi toi sever
+Tue 10-12-2024 22:50:11: Client ('10.0.110.89', 65016) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 22:50:19: Client qthai ('10.0.110.89', 65016) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 22:50:27: Client qthai ('10.0.110.89', 65016) da download file voi duong dan 250.exe thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 23:03:21:Sever mo ket noi
+Tue 10-12-2024 23:03:27:Client ('10.0.110.89', 65411) da ket noi toi sever
+Tue 10-12-2024 23:03:32: Client ('10.0.110.89', 65411) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:03:38: Client qthai ('10.0.110.89', 65411) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:03:42:Client ('10.0.110.89', 65412) da ket noi toi sever
+Tue 10-12-2024 23:03:48: Client ('10.0.110.89', 65412) da dang nhap voi ten tai khoan la qthai
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 23:06:09:Sever mo ket noi
+Tue 10-12-2024 23:06:12:Client ('10.0.110.89', 65498) da ket noi toi sever
+Tue 10-12-2024 23:06:19: Client ('10.0.110.89', 65498) da dang nhap voi ten tai khoan la qthai
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 23:09:38:Sever mo ket noi
+Tue 10-12-2024 23:09:41:Client ('10.0.110.89', 49231) da ket noi toi sever
+Tue 10-12-2024 23:09:50: Client ('10.0.110.89', 49231) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:09:57: Client qthai ('10.0.110.89', 49231) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:10:16:Client ('10.0.110.89', 49272) da ket noi toi sever
+Tue 10-12-2024 23:10:22: Client ('10.0.110.89', 49272) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:11:22: Client ('10.0.110.89', 49272) da dot ngot ngat ket noi toi sever
+Tue 10-12-2024 23:11:38:Client ('10.0.110.89', 49354) da ket noi toi sever
+Tue 10-12-2024 23:11:45: Client ('10.0.110.89', 49354) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:11:52: Client qthai ('10.0.110.89', 49354) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:12:00: Client qthai ('10.0.110.89', 49354) da download file voi duong dan 250.exe thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 23:14:31:Sever mo ket noi
+Tue 10-12-2024 23:14:33:Client ('10.0.110.89', 49762) da ket noi toi sever
+Tue 10-12-2024 23:14:42: Client ('10.0.110.89', 49762) da dang nhap voi ten tai khoan la qthai
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 23:16:46:Sever mo ket noi
+Tue 10-12-2024 23:16:48:Client ('10.0.110.89', 49812) da ket noi toi sever
+Tue 10-12-2024 23:16:58: Client ('10.0.110.89', 49812) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:17:02: Client qthai ('10.0.110.89', 49812) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:17:09: Client qthai ('10.0.110.89', 49812) da download file voi duong dan 250.exe thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 23:25:05:Sever mo ket noi
+Tue 10-12-2024 23:25:16:Client ('10.0.110.89', 50115) da ket noi toi sever
+Tue 10-12-2024 23:25:26: Client ('10.0.110.89', 50115) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:25:35: Client qthai ('10.0.110.89', 50115) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:25:43: Client qthai ('10.0.110.89', 50115) da download file voi duong dan 250.exe thanh cong
+Tue 10-12-2024 23:25:54: Client qthai ('10.0.110.89', 50115) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:26:09:Client ('10.0.110.89', 50132) da ket noi toi sever
+Tue 10-12-2024 23:26:14: Client ('10.0.110.89', 50132) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:26:16: Client qthai ('10.0.110.89', 50132) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:26:24: Client qthai ('10.0.110.89', 50132) da download file voi duong dan 250.exe thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 23:28:08:Sever mo ket noi
+Tue 10-12-2024 23:28:09:Client ('10.0.110.89', 50201) da ket noi toi sever
+Tue 10-12-2024 23:28:13: Client ('10.0.110.89', 50201) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:28:15: Client qthai ('10.0.110.89', 50201) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:28:22: Client qthai ('10.0.110.89', 50201) da download file voi duong dan 250.exe thanh cong
+Tue 10-12-2024 23:28:53: Client qthai ('10.0.110.89', 50201) da yeu cau download file voi duong dan chương trình đào tạo k21.pdf
+Tue 10-12-2024 23:28:53: Client qthai ('10.0.110.89', 50201) da download file voi duong dan chương trình đào tạo k21.pdf thanh cong
+Tue 10-12-2024 23:29:24: Client qthai ('10.0.110.89', 50201) da yeu cau download file voi duong dan 250.exe
+Tue 10-12-2024 23:29:30:Client ('10.0.110.89', 50265) da ket noi toi sever
+Tue 10-12-2024 23:29:32: Client ('10.0.110.89', 50265) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:40:30: Client ('10.0.110.89', 50265) da ngat ket noi toi sever do qua timeout
+------------------------------------------------------------------------------------------------------------------------------------
+Tue 10-12-2024 23:40:51:Sever mo ket noi
+Tue 10-12-2024 23:40:54:Client ('10.0.110.89', 58325) da ket noi toi sever
+Tue 10-12-2024 23:40:58: Client ('10.0.110.89', 58325) da dang nhap voi ten tai khoan la qthai
+Tue 10-12-2024 23:41:26: Client qthai ('10.0.110.89', 58325) da yeu cau download file voi duong dan 16.pdf
+Tue 10-12-2024 23:41:27: Client qthai ('10.0.110.89', 58325) da download file voi duong dan 16.pdf thanh cong
+Tue 10-12-2024 23:41:38: Client qthai ('10.0.110.89', 58325) da ngat ket noi voi sever
