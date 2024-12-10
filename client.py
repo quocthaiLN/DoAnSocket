@@ -51,18 +51,19 @@ def checkFolderExist(path):
     return False
 
 #HOST, PORT
-HOST = socket.gethostname()
+#HOST = socket.gethostname()
+HOST = "10.0.110.89"
 PORT = 12000
 
 def uploadFile(client, msg):
     size = os.path.getsize(msg)
     client.sendall(str(size).encode("utf-8"))
-    sizeResp = client.recv(10240).decode("utf-8")
+    sizeResp = client.recv(1024).decode("utf-8")
     
     #ifs = open(msg, "rb")
     with open(msg, "rb") as ifs:
         while 1:
-            data = ifs.read(10240)
+            data = ifs.read(1024)
             if not data:
                 break
             try:
@@ -71,15 +72,15 @@ def uploadFile(client, msg):
                 print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
                 return False
             try:
-                resp = client.recv(10240).decode("utf-8")
+                resp = client.recv(1024).decode("utf-8")
             except Exception as e:
                 print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
                 return False
     #ifs.close()
     client.sendall("xong".encode("utf-8"))
-    respSta = client.recv(10240).decode("utf-8")
+    respSta = client.recv(1024).decode("utf-8")
     client.sendall("da nhan".encode("utf-8"))
-    resp = client.recv(10240).decode("utf-8")
+    resp = client.recv(1024).decode("utf-8")
     if resp == "Success":
         print(f"Sever: Da upload file {msg} len sever thanh cong. {respSta}")
     else:
@@ -87,7 +88,7 @@ def uploadFile(client, msg):
 
 def downloadFile(client, msg):
     #gui trang thai xem file co ton tai tren sever hay khong
-    checkStatus = client.recv(10240).decode("utf-8")
+    checkStatus = client.recv(1024).decode("utf-8")
     if checkStatus == "ff":
         print("File is in list forbidden file. Can't download this file")
         return
@@ -110,7 +111,7 @@ def downloadFile(client, msg):
             tmp = nameWithNotExten + "(" + str(i) + ")" + exten
             fileWrite = PathClient + tmp
             i += 1
-    sizeRecv = client.recv(10240).decode("utf-8")
+    sizeRecv = client.recv(1024).decode("utf-8")
     size = int(sizeRecv)
     sizeResp = "Nhan thanh cong"
     client.sendall(sizeResp.encode("utf-8"))
@@ -118,7 +119,7 @@ def downloadFile(client, msg):
     sw = 0
     while size > sw:
         try:
-            data = client.recv(10240)
+            data = client.recv(1024)
         except Exception as e:
             print(f"Co loi khi download file {msg}/ Connect Error with sever.")
             return False
@@ -132,7 +133,7 @@ def downloadFile(client, msg):
             print(f"Co loi khi download file {msg}/ Connect Error with sever.")
             return False
     ofs.close()
-    resp = client.recv(10240).decode("utf-8")
+    resp = client.recv(1024).decode("utf-8")
     if resp == "Success":
         print(f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite} ")
     else:
@@ -141,16 +142,16 @@ def downloadFile(client, msg):
 def uploadFilesInFolderSequentially(client, msg):
     fileName = os.listdir(msg)
     client.sendall(str(len(fileName)).encode("utf-8"))
-    sizeResp = client.recv(10240).decode("utf-8")
+    sizeResp = client.recv(1024).decode("utf-8")
     if sizeResp != "da nhan":
         print(f"Sever: {sizeResp}")
         return
     for file in fileName:
         client.sendall(file.encode("utf-8"))
-        fileRep = client.recv(10240).decode("utf-8")
+        fileRep = client.recv(1024).decode("utf-8")
         uploadFile(client, msg + "/" + file)
     client.sendall("da xong".encode("utf-8"))
-    res = client.recv(10240).decode("utf-8")
+    res = client.recv(1024).decode("utf-8")
     print(res)
 
 def menu():
@@ -175,7 +176,7 @@ def client_send(client, data):
 
 def client_receive(client):
     try:
-        data = client.recv(10240).decode("utf-8")
+        data = client.recv(1024).decode("utf-8")
         if not data:
             print("Server đã đóng kết nối.")
             client.close()
@@ -193,7 +194,12 @@ def client_receive(client):
         client.close()
     return None
     
-    
+def getErrorDownload(before_error_download):
+    start_of_path_idx = before_error_download.find(" ") + 1
+    path = before_error_download[start_of_path_idx:]
+    start_of_filename_idx = path.find("/") + 1
+    error_file= path[start_of_filename_idx:]
+    return error_file
 
 def login(client):
     status = client_receive(client)
@@ -253,7 +259,7 @@ def main():
                     msg = "uploadFile"
                     client.sendall(msg.encode("utf-8"))
                     #Nhan yeu cau nhap duong dan tu sever
-                    resp = client.recv(10240).decode("utf-8")
+                    resp = client.recv(1024).decode("utf-8")
                     while 1:
                         print("Nhap CANCEL de thoat!!!")
                         msg = input(f"(Sever request) - {resp}")
@@ -274,26 +280,50 @@ def main():
                 case 2:
                     msg = "downloadFile"
                     client.sendall(msg.encode("utf-8"))
-                    flag = True
-                    #Nhan yeu cau nhap duong dan file tu sever
-                    resp = client.recv(10240).decode("utf-8")
-                    while 1:
-                        print("Nhap CANCEL de thoat!!!")
-                        msg = input(f"(Sever request) - {resp}")
-                        if msg == "CANCEL":
+                    before_error_download = client.recv(1024).decode("utf-8")
+                    if before_error_download != "NoError":
+                        error_file = getErrorDownload(before_error_download)
+                        print(f"Bạn đã từng muốn tải file {error_file} nhưng bị gián đoạn ở lần đăng nhập trước, bạn có muốn tải tiếp không? (Y/N)")
+                        continue_download  = input()
+                        if continue_download == "Y":
+                            client.sendall(continue_download.encode("utf-8"))
+                            time.sleep(0.1)
+                            client.sendall(error_file.encode("utf-8"))
+                            downloadFile(client, error_file)
+                        else:
+                            client.sendall(continue_download.encode("utf-8"))
+                            time.sleep(0.1)
+                            flag = True
+                            while 1:
+                                print("Nhap CANCEL de thoat!!!")
+                                msg = input(f"Nhập tên file cần tải: ")
+                                if msg == "CANCEL":
+                                    client.sendall(msg.encode("utf-8"))
+                                    flag = False
+                                    break
+                                client.sendall(msg.encode("utf-8"))
+                                break
+                            if flag == True:
+                                downloadFile(client, msg)
+                    else:
+                        flag = True
+                        while 1:
+                            print("Nhap CANCEL de thoat!!!")
+                            msg = input(f"Nhập tên file cần tải: ")
+                            if msg == "CANCEL":
+                                client.sendall(msg.encode("utf-8"))
+                                flag = False
+                                break
                             client.sendall(msg.encode("utf-8"))
-                            flag = False
                             break
-                        client.sendall(msg.encode("utf-8"))
-                        break
-                    if flag == True:
-                        downloadFile(client, msg)
+                        if flag == True:
+                            downloadFile(client, msg)
                 case 3:
                     msg = "uploadFilesInFolderSequentially"
                     client.sendall(msg.encode("utf-8"))
                     flag = True
                     #Nhan yeu cau nhap duong dan folder tu sever
-                    resp = client.recv(10240).decode("utf-8")
+                    resp = client.recv(1024).decode("utf-8")
                     while 1:
                         print("Nhap CANCEL de thoat!!!")
                         msg = input(f"(Sever request) - {resp}")
