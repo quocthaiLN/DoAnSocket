@@ -3,9 +3,12 @@ import threading
 import os
 import csv
 import time
-#duong dan toi thu muc sever va client
+from tkinter import *
+from tkinter import scrolledtext
+#duong dan toi thu muc server va client
 PATH_SERVER = "DataServer"  
-PATH_USER = "users.csv"
+PATH_ADMIN = "DataServer/admin.csv"
+PATH_USER = "DataServer/users.csv"
 PATH_HISTORY = "DataServer/OperationHistory.txt"
 LIST_FORBIDEN_FILE = ["DataServer/users.csv", "DataServer/OperationHistory.txt"]
 #HOST, PORT, NumberOfClient
@@ -66,7 +69,7 @@ def operationHistory(msg):
     ofs.close()
 
 
-#ham upload file tu client len sever
+#ham upload file tu client len server
 def uploadFile(client, file_name, addr):
     tmp = name(file_name)
     if not check(tmp):
@@ -74,7 +77,7 @@ def uploadFile(client, file_name, addr):
     name_with_not_exten = getNameWithNotExten(tmp)
     exten = getExten(tmp)
     fileWrite = PATH_SERVER + tmp
-    #kiem tra xem trong thu muc sever co file tren chua neu co thi them so 1,2,3,.. o sau de khac voi file cu
+    #kiem tra xem trong thu muc server co file tren chua neu co thi them so 1,2,3,.. o sau de khac voi file cu
     i = 1
     while os.path.isfile(fileWrite):
             tmp = name_with_not_exten + "(" + str(i) + ")" + exten
@@ -105,8 +108,8 @@ def uploadFile(client, file_name, addr):
                 return False
         temp = client.recv(10240).decode("utf-8")
     #ofs.close()
-    print(f"Sever: Yeu cau upload file cua client {addr} hoan thanh. File dang duoc luu tru tai {fileWrite} tren sever")
-    client.sendall(f"File dang duoc luu tru tai {fileWrite} tren sever".encode(FORMAT))
+    print(f"server: Yeu cau upload file cua client {addr} hoan thanh. File dang duoc luu tru tai {fileWrite} tren server")
+    client.sendall(f"File dang duoc luu tru tai {fileWrite} tren server".encode(FORMAT))
     temp = client.recv(10240).decode(FORMAT)
     return True
 
@@ -164,16 +167,16 @@ def uploadFilesInFolderSequentially(client, path_folder, addr):
     tmp = client.recv(10240).decode(FORMAT)
     if cnt > 0:
         operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da upload folder voi duong dan {path_folder}. Co {cnt} file khong duoc upload")
-        client.sendall(f"Sever: Upload khong thanh cong {cnt} file".encode("utf-8"))
-        print(f"Sever: Upload folder {path_folder} khong thanh cong {cnt} file")
+        client.sendall(f"server: Upload khong thanh cong {cnt} file".encode("utf-8"))
+        print(f"server: Upload folder {path_folder} khong thanh cong {cnt} file")
     else:
         operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da upload folder voi duong dan {path_folder} thanh cong")
-        client.sendall(f"Sever: Upload thanh cong toan bo folder".encode("utf-8"))
-        print(f"Sever: Upload thanh cong toan bo folder")
+        client.sendall(f"server: Upload thanh cong toan bo folder".encode("utf-8"))
+        print(f"server: Upload thanh cong toan bo folder")
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
 def authenticateClient(username, password):
 
-    with open("DataServer/users.csv", mode = "r") as file:
+    with open(PATH_USER, mode = "r") as file:
         reader = csv.reader(file)
         # fields = next(reader)
         for row in reader:
@@ -195,17 +198,17 @@ def serverReceive(client, addr, list_connection):
             return message
     except socket.timeout:
         print(f"Client {addr}: TimeOut.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever do qua timeout")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi server do qua timeout")
         list_connection.remove((client, addr))
         client.close()
     except ConnectionResetError:
         print(f"Client {addr}: đột ngột ngắt kết nối.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dot ngot ngat ket noi toi sever")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dot ngot ngat ket noi toi server")
         list_connection.remove((client, addr))
         client.close()
     except Exception as e:
         print(f"Có lỗi {e} khi nhận dữ liệu từ:{addr}.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever chua ro ly do")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi server chua ro ly do")
         list_connection.remove((client, addr))
         client.close()
     return None
@@ -218,17 +221,17 @@ def serverSend(client, addr, list_connection ,message):
         client.sendall(message.encode(FORMAT))
     except socket.error:
         print(f"Client {addr} đã ngắt kết nối.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi server")
         list_connection.remove((client, addr))
         client.close()
     except ConnectionResetError:
         print(f"Client {addr} đột ngột ngắt kết nối.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dot ngot ngat ket noi toi sever")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da dot ngot ngat ket noi toi server")
         list_connection.remove((client, addr))
         client.close()
     except Exception as e:
         print(f"Có lỗi {e} khi gửi dữ liệu đến Client: {addr}.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi sever chua ro ly do")
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} da ngat ket noi toi server chua ro ly do")
         list_connection.remove((client, addr))
         client.close()
 
@@ -241,7 +244,7 @@ def handleClient(client, addr, list_connection) :
     try:
         # Gửi yêu cầu login đến client
         while True:
-            serverSend(client, addr, list_connection, "Da ket noi thanh cong den sever")
+            serverSend(client, addr, list_connection, "Da ket noi thanh cong den server")
             tmp = serverReceive(client, addr, list_connection)
             # Nhận thông tin account từ client
             serverSend(client, addr,list_connection,"Enter your username and password to login")
@@ -282,7 +285,7 @@ def handleClient(client, addr, list_connection) :
 
                 print(f"Client {addr}: Đã đăng xuất khỏi Server.")
 
-                operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da ngat ket noi voi sever")
+                operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da ngat ket noi voi server")
 
                 list_connection.remove((client, addr))
                 break
@@ -357,32 +360,126 @@ def handleClient(client, addr, list_connection) :
     except Exception as e:
         print(f"(Hàm ngoài) Connect Error {e} from Client : {client, addr}")
     client.close()
-    
+
 
 #tao socket
 
 def main():
-    sever = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sever.bind((HOST, PORT))
-    sever.listen(NUMBER_OF_CLIENT + 1)
-    print("Sever dang lang nghe...")
-    operationHistory("\n------------------------------------------------------------------------------------------------------------------------------------")
-    operationHistory("\n" + str(getTime()) + ":" + "Sever mo ket noi")
-    #tao da luong
-    list_connection = []
-    while True:
-        if len(list_connection) < NUMBER_OF_CLIENT:
-            client, addr = sever.accept()
-            print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
-            operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} da ket noi toi sever")
-            list_connection.append((client, addr))
-            thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
-            thread.daemon = True
-            thread.start()
+
+    # -------------- GUI ------------
+    win = Tk()
+    win.title("Server")
+
+    log_text = scrolledtext.ScrolledText(win, width = 80, height = 20)
+    log_text.pack(pady = 20)
+
+    start_server_btn = Button(win, text = "Start Server", state = NORMAL)
+    stop_server_btn = Button(win, text = "Stop Server", state = DISABLED)
+
+    # ----------------------------
+
+    flag = False
+    server = None
+    server_thread = None
+
+    def serverThreadFunction():
+        # python không có khai báo kiểu, nên không biết nó là biến toàn cục hay địa phương
+        # nonlocal -> biến được khai báo trước khi vô hàm
+        nonlocal server
+        try:
+            if server is None:
+                server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                server.bind((HOST, PORT))
+                server.listen(NUMBER_OF_CLIENT + 1)
+
+            # ----- GUI -------
+            log_text.insert(END, "Server dang lang nghe....\n")
+            log_text.see(END)
+            # ---------------
+            operationHistory("\n------------------------------------------------------------------------------------------------------------------------------------")
+            operationHistory("\n" + str(getTime()) + ":" + "server mo ket noi")
+
+            list_connection = []
+            while flag:
+                try:
+                    if len(list_connection) < NUMBER_OF_CLIENT:
+                        client, addr = server.accept()
+                        # --------- GUI -------
+                        log_text.insert(END, f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]\n")
+                        log_text.see(END)
+                        # ------------------
+                        # == print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
+                        operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} da ket noi toi server")
+                        list_connection.append((client, addr))
+                        thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
+                        thread.daemon = True
+                        thread.start()
+                except socket.timeout:
+                    continue
+                except OSError as e:
+                    if not flag:
+                        break
+                    log_text.insert(END, f"Error: {e}\n")
+        except Exception as e:
+            log_text.insert(END, f"Server error: {e}\n")
+        finally:
+            if server:
+                server.close()
+                server = None
+            log_text.insert(END, "Server stopped.\n")
+            log_text.see(END)
+
+    def startServer():
+        nonlocal server_thread
+        nonlocal flag
+        flag = True
+        server_thread = threading.Thread(target = serverThreadFunction)
+        server_thread.daemon = True
+        server_thread.start()
+
+        # ----------- GUI --------
+        nonlocal start_server_btn, stop_server_btn
+        start_server_btn.config(state = DISABLED)
+        stop_server_btn.config(state = NORMAL)
+        #--------------
+
+    def stopServer():
+        nonlocal flag, server
+        flag = False
+
+        if server:
+            try:
+                server.close()
+                server = None
+            except Exception as e:
+                log_text.insert(END, f"Error closing server: {e}\n")
+        
+        # ---------- GUI -------
+        log_text.insert(END, "Stopping Server...\n")
+        log_text.see(END)
+        nonlocal start_server_btn, stop_server_btn
+        stop_server_btn.config(state = DISABLED)
+        start_server_btn.config(state = NORMAL)
+        # --------------------
+    
+    start_server_btn.config(command = startServer)
+    stop_server_btn.config(command = stopServer)
+
+    start_server_btn.pack(pady = 5)
+    stop_server_btn.pack(pady = 5)
+
+    def onClose():
+        if flag:
+            stopServer()
+        win.destroy()
+    
+    win.protocol("WM_DELETE_WINDOW", onClose)
+    win.mainloop()
+
            
 if __name__ == "__main__":
     main()
-        # operationHistory("\n" + str(getTime()) + ":" + "Sever da ngat ket noi")
+        # operationHistory("\n" + str(getTime()) + ":" + "server da ngat ket noi")
         # operationHistory("--------------------------------------------")
 
 

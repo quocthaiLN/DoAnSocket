@@ -11,6 +11,8 @@ FONT = "Inter"
 BTN_COLOR = "#A1EEBD"
 MAIN_COLOR = "#6c63ff"
 WIDTH_BTN = 18 # width of featured buttons
+HOST = socket.gethostname()
+PORT = 12000
 PathClient = "DataClient"
 PathSever = "DataServer"  
 PathUsers = "users.csv"
@@ -713,7 +715,7 @@ class App(Tk):
         sck.close()
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((socket.gethostname(), 12000))
+client.connect((HOST, PORT))
 print("Ket noi thanh cong voi sever!!!")
 app = App()
 app.mainloop()
