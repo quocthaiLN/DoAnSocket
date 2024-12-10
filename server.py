@@ -443,123 +443,149 @@ def handleClient(client, addr, list_connection) :
         print(f"(Hàm ngoài) Connect Error {e} from Client : {client, addr}")
     client.close()
 
+def main():
+    sever = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sever.bind((HOST, PORT))
+    sever.listen(NUMBER_OF_CLIENT + 1)
+    print("Sever dang lang nghe...")
+    operationHistory("\n------------------------------------------------------------------------------------------------------------------------------------")
+    operationHistory("\n" + str(getTime()) + ":" + "Sever mo ket noi")
+    #tao da luong
+    list_connection = []
+    while True:
+        if len(list_connection) < NUMBER_OF_CLIENT:
+            client, addr = sever.accept()
+            print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
+            operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} da ket noi toi sever")
+            list_connection.append((client, addr))
+            thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
+            thread.daemon = True
+            thread.start()
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
 
 #tao socket
 
-def main():
+# def main():
 
-    # -------------- GUI ------------
-    win = Tk()
-    win.title("Server")
+#     # -------------- GUI ------------
+#     win = Tk()
+#     win.title("Server")
 
-    log_text = scrolledtext.ScrolledText(win, width = 80, height = 20)
-    log_text.pack(pady = 20)
+#     log_text = scrolledtext.ScrolledText(win, width = 80, height = 20)
+#     log_text.pack(pady = 20)
 
-    start_server_btn = Button(win, text = "Start Server", state = NORMAL)
-    stop_server_btn = Button(win, text = "Stop Server", state = DISABLED)
+#     start_server_btn = Button(win, text = "Start Server", state = NORMAL)
+#     stop_server_btn = Button(win, text = "Stop Server", state = DISABLED)
 
-    # ----------------------------
+#     # ----------------------------
 
-    flag = False
-    server = None
-    server_thread = None
+#     flag = False
+#     server = None
+#     server_thread = None
 
-    def serverThreadFunction():
-        # python không có khai báo kiểu, nên không biết nó là biến toàn cục hay địa phương
-        # nonlocal -> biến được khai báo trước khi vô hàm
-        nonlocal server
-        try:
-            if server is None:
-                server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                server.bind((HOST, PORT))
-                server.listen(NUMBER_OF_CLIENT + 1)
+#     def serverThreadFunction():
+#         # python không có khai báo kiểu, nên không biết nó là biến toàn cục hay địa phương
+#         # nonlocal -> biến được khai báo trước khi vô hàm
+#         nonlocal server
+#         try:
+#             if server is None:
+#                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#                 server.bind((HOST, PORT))
+#                 server.listen(NUMBER_OF_CLIENT + 1)
 
-            # ----- GUI -------
-            log_text.insert(END, "Server dang lang nghe....\n")
-            log_text.see(END)
-            # ---------------
-            operationHistory("\n------------------------------------------------------------------------------------------------------------------------------------")
-            operationHistory("\n" + str(getTime()) + ":" + "server mo ket noi")
+#             # ----- GUI -------
+#             log_text.insert(END, "Server dang lang nghe....\n")
+#             log_text.see(END)
+#             # ---------------
+#             operationHistory("\n------------------------------------------------------------------------------------------------------------------------------------")
+#             operationHistory("\n" + str(getTime()) + ":" + "server mo ket noi")
 
-            list_connection = []
-            while flag:
-                try:
-                    if len(list_connection) < NUMBER_OF_CLIENT:
-                        client, addr = server.accept()
-                        # --------- GUI -------
-                        log_text.insert(END, f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]\n")
-                        log_text.see(END)
-                        # ------------------
-                        # == print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
-                        operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} da ket noi toi server")
-                        list_connection.append((client, addr))
-                        thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
-                        thread.daemon = True
-                        thread.start()
-                except socket.timeout:
-                    continue
-                except OSError as e:
-                    if not flag:
-                        break
-                    log_text.insert(END, f"Error: {e}\n")
-        except Exception as e:
-            log_text.insert(END, f"Server error: {e}\n")
-        finally:
-            if server:
-                server.close()
-                server = None
-            log_text.insert(END, "Server stopped.\n")
-            log_text.see(END)
+#             list_connection = []
+#             while flag:
+#                 try:
+#                     if len(list_connection) < NUMBER_OF_CLIENT:
+#                         client, addr = server.accept()
+#                         # --------- GUI -------
+#                         log_text.insert(END, f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]\n")
+#                         log_text.see(END)
+#                         # ------------------
+#                         # == print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
+#                         operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} da ket noi toi server")
+#                         list_connection.append((client, addr))
+#                         thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
+#                         thread.daemon = True
+#                         thread.start()
+#                 except socket.timeout:
+#                     continue
+#                 except OSError as e:
+#                     if not flag:
+#                         break
+#                     log_text.insert(END, f"Error: {e}\n")
+#         except Exception as e:
+#             log_text.insert(END, f"Server error: {e}\n")
+#         finally:
+#             if server:
+#                 server.close()
+#                 server = None
+#             log_text.insert(END, "Server stopped.\n")
+#             log_text.see(END)
 
-    def startServer():
-        nonlocal server_thread
-        nonlocal flag
-        flag = True
-        server_thread = threading.Thread(target = serverThreadFunction)
-        server_thread.daemon = True
-        server_thread.start()
+#     def startServer():
+#         nonlocal server_thread
+#         nonlocal flag
+#         flag = True
+#         server_thread = threading.Thread(target = serverThreadFunction)
+#         server_thread.daemon = True
+#         server_thread.start()
 
-        # ----------- GUI --------
-        nonlocal start_server_btn, stop_server_btn
-        start_server_btn.config(state = DISABLED)
-        stop_server_btn.config(state = NORMAL)
-        #--------------
+#         # ----------- GUI --------
+#         nonlocal start_server_btn, stop_server_btn
+#         start_server_btn.config(state = DISABLED)
+#         stop_server_btn.config(state = NORMAL)
+#         #--------------
 
-    def stopServer():
-        nonlocal flag, server
-        flag = False
+#     def stopServer():
+#         nonlocal flag, server
+#         flag = False
 
-        if server:
-            try:
-                server.close()
-                server = None
-            except Exception as e:
-                log_text.insert(END, f"Error closing server: {e}\n")
+#         if server:
+#             try:
+#                 server.close()
+#                 server = None
+#             except Exception as e:
+#                 log_text.insert(END, f"Error closing server: {e}\n")
         
-        # ---------- GUI -------
-        log_text.insert(END, "Stopping Server...\n")
-        log_text.see(END)
-        nonlocal start_server_btn, stop_server_btn
-        stop_server_btn.config(state = DISABLED)
-        start_server_btn.config(state = NORMAL)
-        # --------------------
+#         # ---------- GUI -------
+#         log_text.insert(END, "Stopping Server...\n")
+#         log_text.see(END)
+#         nonlocal start_server_btn, stop_server_btn
+#         stop_server_btn.config(state = DISABLED)
+#         start_server_btn.config(state = NORMAL)
+#         # --------------------
     
-    start_server_btn.config(command = startServer)
-    stop_server_btn.config(command = stopServer)
+#     start_server_btn.config(command = startServer)
+#     stop_server_btn.config(command = stopServer)
 
-    start_server_btn.pack(pady = 5)
-    stop_server_btn.pack(pady = 5)
+#     start_server_btn.pack(pady = 5)
+#     stop_server_btn.pack(pady = 5)
 
-    def onClose():
-        if flag:
-            stopServer()
-        win.destroy()
+#     def onClose():
+#         if flag:
+#             stopServer()
+#         win.destroy()
     
-    win.protocol("WM_DELETE_WINDOW", onClose)
-    win.mainloop()
+#     win.protocol("WM_DELETE_WINDOW", onClose)
+#     win.mainloop()
 
            
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 
