@@ -51,8 +51,7 @@ def checkFolderExist(path):
     return False
 
 #HOST, PORT
-#HOST = socket.gethostname()
-HOST = "10.0.110.89"
+HOST = socket.gethostname()
 PORT = 12000
 
 def uploadFile(client, msg):
