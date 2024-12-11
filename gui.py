@@ -11,6 +11,8 @@ FONT = "Inter"
 BTN_COLOR = "#A1EEBD"
 MAIN_COLOR = "#6c63ff"
 WIDTH_BTN = 18 # width of featured buttons
+HOST = socket.gethostname()
+PORT = 12000
 PathClient = "DataClient"
 PathSever = "DataServer"  
 PathUsers = "users.csv"
@@ -94,10 +96,6 @@ def client_receive(client):
 
 
 class DownloadFilePage(Frame):
-
-    def check_entry_path(self, filename: str, app_pointer):
-        if filename != "":
-            app_pointer.downloadFile_thread(self, client)
     
     def browseFiles(self, entry_var: StringVar):
         # Lấy đường dẫn tuyệt đối tương đối với thư mục hiện tại
@@ -116,15 +114,14 @@ class DownloadFilePage(Frame):
             path_for_download = PathSever + "/" + filename_only
             entry_var.set(path_for_download)
     
-    def click_button(self, current_choice_in_combobox: str, filename:str, app_pointer):
-        if current_choice_in_combobox == "Download File":
-            if filename != "":
-                app_pointer.downloadFile_thread(self, client)
-            else:
-                print("Chuong trinh chua cai dat")
-
-    # Con ham browse
+    def click_button(self, filename:str, app_pointer):
+        if filename != "":
+            app_pointer.downloadFile_thread(self, client)
     
+    def clickBack(self, app_pointer, name_page: Frame):
+        app_pointer.geometry("860x600")
+        app_pointer.show_page(name_page)
+            
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
         
@@ -137,7 +134,7 @@ class DownloadFilePage(Frame):
         lb_note.place(x = 20, y = 150)
 
         # Notice label
-        self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red")
+        self.lb_notice = Label(self, text = "", font = (FONT, 10), fg = "red", bg = "white")
         self.lb_notice.place(x = 10, y = 185)
 
         # Entry path file
@@ -147,19 +144,13 @@ class DownloadFilePage(Frame):
         self.entry_path.focus()
         self.entry_path.place(x = 75, y = 150, height = 24)
 
-        # combo box
-        self.combo_box = ttk.Combobox(self, values = ["Download File", "Download Folder"])
-        self.combo_box.set("Download File")
-        self.combo_box.place(x = 290, y = 220)
-
-
         # Button 
         btn_select_file = Button(self, text = "Select file", width = WIDTH_BTN, font = (FONT, 13, "bold"), bg = MAIN_COLOR, fg = "white",
-                                 bd = 0.01, command = lambda: self.click_button(self.combo_box.get(), self.entry_path.get(), app_pointer))
+                                 bd = 0.01, command = lambda: self.click_button(self.entry_path.get(), app_pointer))
         btn_select_file.place(x = 125, y = 290)
 
         btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = MAIN_COLOR, fg = "white", width = WIDTH_BTN,
-                          bd = 0.01, command = lambda: app_pointer.show_page(MainMenu))
+                          bd = 0.01, command = lambda: self.clickBack(app_pointer, MainMenu))
         btn_back.place(x = 125, y = 330) #40
 
         # File Explorer StringVar() -> to get filename
@@ -172,7 +163,6 @@ class DownloadFilePage(Frame):
         lb_img = Label(self, image = self.img, width = 163, height = 102, bg = "white")
         lb_img.place(x = 287, y = 448) # -30
         
-
 class UploadFilePage(Frame):
 
     def browse_folder(self, entry_var: StringVar):
@@ -204,6 +194,9 @@ class UploadFilePage(Frame):
             if(filename != ""):
                 app_pointer.uploadFolder_support_gui(self, client)
 
+    def clickBack(self, app_pointer, name_page: Frame):
+        app_pointer.geometry("860x600")
+        app_pointer.show_page(name_page)
 
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
@@ -239,7 +232,7 @@ class UploadFilePage(Frame):
         btn_select_file.place(x = 125, y = 290)
 
         btn_back = Button(self, text = "Back", font = (FONT, 13, "bold"), bg = MAIN_COLOR, fg = "white", width = WIDTH_BTN,
-                          bd = 0.01, command = lambda: app_pointer.show_page(MainMenu))
+                          bd = 0.01, command = lambda: self.clickBack(app_pointer, MainMenu))
         btn_back.place(x = 125, y = 330) #40
 
         # File Explorer StringVar() -> to get filename
@@ -291,7 +284,7 @@ class UploadFilePage(Frame):
 #         if foldername:
 #             self.folder_path.set(foldername)  # Cập nhật StringVar với đường dẫn đã chọn
 
-class MainMenu(Frame):
+class MainMenu(Frame): # 860x600
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
 
@@ -345,7 +338,7 @@ class MainMenu(Frame):
         app_pointer.show_page(name_page)
 
  
-class LoginPage(Frame):
+class LoginPage(Frame): # 1000x600
     def __init__(self, parent, app_pointer):
         Frame.__init__(self, parent)
 
@@ -503,31 +496,30 @@ class App(Tk):
         sck.sendall(data_send.encode('utf-8'))
 
        #Nhan yeu cau nhap duong dan tu sever
-        resp = sck.recv(1024).decode('utf-8')
+        resp = sck.recv(10240).decode("utf-8")
         print("Nhap CANCEL de thoat!!!")
         #nhap vao ten file
-        # msg = input(f"(Sever request) - {resp}")
         msg = curFrame.entry_path.get()
-        if msg == 'CANCEL':
-            sck.sendall(msg.encode('utf-8'))
+        if msg == "CANCEL":
+            sck.sendall(msg.encode("utf-8"))
             return
         #gui ten file hoac duong dan
-        sck.sendall(msg.encode('utf-8'))
+        sck.sendall(msg.encode("utf-8"))
         #gui trang thai xem file co ton tai tren sever hay khong
-        checkStatus = sck.recv(1024).decode('utf-8')
-        if checkStatus == 'ff':
+        checkStatus = sck.recv(10240).decode("utf-8")
+        if checkStatus == "ff":
             print("File is in list forbidden file. Can't download this file")
             return
-        if checkStatus == 'Not exist':
+        if checkStatus == "Not exist":
             print("File khong ton tai!!!")
             return
         else:
             resp = "Da nhan duoc"
-            sck.sendall(resp.encode('utf-8'))
+            sck.sendall(resp.encode("utf-8"))
         #tao duong dan den noi luu tru file
         tmp = name(msg)
         if not check(tmp):
-            tmp = '/' + tmp
+            tmp = "/" + tmp
         nameWithNotExten = getNameWithNotExten(tmp)
         exten = getExten(tmp)
         fileWrite = PathClient + tmp
@@ -537,10 +529,10 @@ class App(Tk):
                 tmp = nameWithNotExten + "(" + str(i) + ")" + exten
                 fileWrite = PathClient + tmp
                 i += 1
-        sizeRecv = sck.recv(1024).decode('utf-8')
-        size = int(sizeRecv) # total_size
+        sizeRecv = sck.recv(10240).decode("utf-8")
+        size = int(sizeRecv)
         sizeResp = "Nhan thanh cong"
-        sck.sendall(sizeResp.encode('utf-8'))
+        sck.sendall(sizeResp.encode("utf-8"))
 
         # Progess bar GUI
         progress = Toplevel(self)
@@ -549,18 +541,15 @@ class App(Tk):
         progress_bar = ttk.Progressbar(progress, orient="horizontal", length=300, mode="determinate", maximum=size)
         progress_bar.pack(pady = 20)
 
-        progress_label = Label(progress, text="0 MB / 0 MB")
+        progress_label = Label(progress, text="0%")
         progress_label.pack(pady = 10)
         # ---------------------------
 
         ofs = open(fileWrite, "wb")
-        sw = 0 # downloaded_size
-        # progress_bar.start()
+        sw = 0
         while size > sw:
-            # progress_bar.start()
-            
             try:
-                data = sck.recv(1024)
+                data = sck.recv(10240)
             except Exception as e:
                 print(f"Co loi khi download file {msg}/ Connect Error with sever.")
                 return False
@@ -568,63 +557,93 @@ class App(Tk):
                 break
             ofs.write(data)
             sw += len(data)
-
-            # time.sleep(0.05)
             if progress.winfo_exists():
                 progress_bar["value"] = sw
-                progress_label.config(text=f"{sw / (1024 * 1024):.2f} MB / {size / (1024 * 1024):.2f} MB")
+                progress_label.config(text=f"{(sw/size) * 100:.2f}%")
                 progress.update_idletasks()
-                time.sleep(0.05)
+                # time.sleep(0.05)
             # ---------------------
-
-            sck.sendall(str(sw).encode('utf-8'))
-
-        # progress_bar.stop()
-
+            try:
+                sck.sendall(str(sw).encode("utf-8"))
+            except:
+                print(f"Co loi khi download file {msg}/ Connect Error with sever.")
+                return False
         ofs.close()
-        time.sleep(1.5)
+
+        # ofs.close()
+        time.sleep(1)
         if progress.winfo_exists:
             progress.destroy() # GUI : progress bar
         
-        resp = sck.recv(1024).decode('utf-8')
+        resp = sck.recv(10240).decode("utf-8")
         if resp == "Success":
             curFrame.lb_notice["fg"] = "green"
             curFrame.lb_notice["text"] = f"Sever: File dang duoc luu tru tai {fileWrite}"
-
             print(f"Sever: Da download file thanh cong. File dang duoc luu tru tai {fileWrite} ")
         else:
             curFrame.lb_notice["text"] = "Download file that bai. Loi ket noi!"
-
             print(f"Sever: Download file that bai. Loi ket noi!")
     
     def uploadFile(self, sck: socket, msg: str):
         size = os.path.getsize(msg)
-        sck.sendall(str(size).encode('utf-8'))
-        sizeResp = sck.recv(1024).decode('utf-8')
+        sck.sendall(str(size).encode("utf-8"))
+        sizeResp = sck.recv(10240).decode("utf-8")
         
-        ifs = open(msg, "rb")
-        while 1:
-            data = ifs.read(1024)
-            if not data:
-                break
-            try:
-                sck.sendall(data)
-            except Exception as e:
-                print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
-                return False
-            try:
-                resp = sck.recv(1024).decode('utf-8')
-            except Exception as e:
-                print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
-                return False
-        ifs.close()
-        respSta = sck.recv(1024).decode('utf-8')
-        sck.sendall("da nhan".encode('utf-8'))
-        resp = sck.recv(1024).decode('utf-8')
+        # Gui - Progress bar
+        progress = Toplevel(self)
+        progress.title("Upload")
+
+        progress_bar = ttk.Progressbar(progress, orient="horizontal", length=300, mode="determinate", maximum=size)
+        progress_bar.pack(pady = 20)
+        
+        progress_label = Label(progress, text="0%")
+        progress_label.pack(pady = 10)
+        # -------------------------------
+
+        uploaded_size = 0
+        #ifs = open(msg, "rb")
+        with open(msg, "rb") as ifs:
+            while 1:
+                data = ifs.read(10240)
+                if not data:
+                    break
+
+                uploaded_size += len(data)
+
+                if progress.winfo_exists():
+                    progress_bar["value"] = uploaded_size
+                    progress_label.config(text=f"{(uploaded_size/size) * 100:.2f}%")
+                    progress.update_idletasks()
+                
+                try:
+                    sck.sendall(data)
+                except Exception as e:
+                    print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
+                    return False
+                try:
+                    resp = sck.recv(10240).decode("utf-8")
+                except Exception as e:
+                    print(f"Co loi khi upload file {msg}/ Connect Error with sever.")
+                    return False
+        #ifs.close()
+        sck.sendall("xong".encode("utf-8"))
+
+        time.sleep(1)
+        if progress.winfo_exists:
+            progress.destroy() # GUI : progress bar
+        
+        respSta = sck.recv(10240).decode("utf-8")
+        sck.sendall("da nhan".encode("utf-8"))
+        resp = sck.recv(10240).decode("utf-8")
         if resp == "Success":
             print(f"Sever: Da upload file {msg} len sever thanh cong. {respSta}")
         else:
             print(f"Sever: Upload file {msg} len sever that bai. {respSta}")
+    
+    def uploadFileThread(self, curFrame: Frame, sck: socket):
+        # Tạo một luồng mới để chạy hàm download mà không làm đơ UI
+        upload_file_thread = threading.Thread(target=self.uploadFile_support_gui, args=(curFrame, sck))
+        upload_file_thread.start()
     
     def uploadFile_support_gui(self, curFrame: Frame, sck: socket):
         flag = True
@@ -696,7 +715,7 @@ class App(Tk):
         sck.close()
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((socket.gethostname(), 12000))
+client.connect((HOST, PORT))
 print("Ket noi thanh cong voi sever!!!")
 app = App()
 app.mainloop()

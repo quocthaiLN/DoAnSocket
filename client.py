@@ -239,7 +239,7 @@ def main():
         while connect:
             menu()
             choice = input("Nhap lua chon cua ban: ")
-            if choice > '9' and choice < '0':
+            if choice > '9' or choice < '0':
                 print("Yeu cau ban nhap vao khong hop le. Vui long nhap lai")
                 continue
             else:
