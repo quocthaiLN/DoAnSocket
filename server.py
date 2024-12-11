@@ -144,16 +144,6 @@ def downloadFile(client, Path, addr, username):
         data = ifs.read(1024)
         if not data:
             break
-        # try:
-        #     client.sendall(data)
-        # except:
-        #     print(f"Co loi khi download file {Path}/ Connect Error:[{addr}].")
-        #     return False   
-        # try:
-        #     resp = client.recv(1024).decode("utf-8")
-        # except:
-        #     print(f"Co loi khi download file {Path}/ Connect Error:[{addr}].")
-        #     return False
         try:
             client.sendall(data)
             resp = client.recv(1024).decode("utf-8")
@@ -464,9 +454,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-<<<<<<< HEAD
-        
-=======
 
 
 
@@ -591,5 +578,4 @@ if __name__ == "__main__":
 # if __name__ == "__main__":
 #     main()
 
->>>>>>> 4a68dc716d3c4858199c74191b6b7af46518c207
 
