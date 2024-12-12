@@ -659,3 +659,65 @@ Wed 11-12-2024 00:19:58: Client ('10.0.110.89', 59652) da dang nhap voi ten tai 
 Wed 11-12-2024 00:20:01: Client qthai ('10.0.110.89', 59652) da yeu cau download file voi duong dan 50mb.pdf
 Wed 11-12-2024 00:20:02: Client qthai ('10.0.110.89', 59652) da download file voi duong dan 50mb.pdf thanh cong
 >>>>>>> 4a68dc716d3c4858199c74191b6b7af46518c207
+
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 18:26:38:Sever mo ket noi
+Wed 11-12-2024 18:26:40:Client ('10.0.146.151', 49875) da ket noi toi sever
+Wed 11-12-2024 18:26:46: Client ('10.0.146.151', 49875) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 18:26:54: Client qthai ('10.0.146.151', 49875) da ngat ket noi voi server
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 20:54:12:Sever mo ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 20:58:17:Sever mo ket noi
+Wed 11-12-2024 21:00:32:Client ('10.0.146.151', 50860) da ket noi toi sever
+Wed 11-12-2024 21:00:41: Client ('10.0.146.151', 50860) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 21:00:44: Client qthai ('10.0.146.151', 50860) da ngat ket noi voi server
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 21:52:33:Sever mo ket noi
+Wed 11-12-2024 21:53:00:Client ('10.0.0.1', 56849) da ket noi toi sever
+Wed 11-12-2024 21:53:34: Client ('10.0.0.1', 56849) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 21:53:59: Client qthai ('10.0.0.1', 56849) da yeu cau download file voi duong dan 50mb.pdf
+Wed 11-12-2024 21:55:11:Client ('10.0.0.1', 56886) da ket noi toi sever
+Wed 11-12-2024 21:55:16: Client ('10.0.0.1', 56886) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 21:55:46: Client qthai ('10.0.0.1', 56886) da yeu cau download file voi duong dan test.txt
+Wed 11-12-2024 21:55:46: Client qthai ('10.0.0.1', 56886) da download file voi duong dan test.txt thanh cong
+Wed 11-12-2024 21:57:49: Client qthai ('10.0.0.1', 56886) da ngat ket noi voi server
+Wed 11-12-2024 21:57:59:Client ('10.0.0.1', 56902) da ket noi toi sever
+Wed 11-12-2024 21:58:03: Client ('10.0.0.1', 56902) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 21:58:12: Client qthai ('10.0.0.1', 56902) da ngat ket noi voi server
+Wed 11-12-2024 21:58:15:Client ('10.0.0.1', 56914) da ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 22:02:15:Sever mo ket noi
+Wed 11-12-2024 22:02:32:Client ('10.0.118.254', 49228) da ket noi toi sever
+Wed 11-12-2024 22:02:37: Client ('10.0.118.254', 49228) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 22:02:48: Client qthai ('10.0.118.254', 49228) da yeu cau download file voi duong dan 50mb.pdf
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 22:04:41:Sever mo ket noi
+Wed 11-12-2024 22:05:39:Client ('10.0.0.1', 58005) da ket noi toi sever
+Wed 11-12-2024 22:06:21:Client ('10.0.118.254', 58009) da ket noi toi sever
+Wed 11-12-2024 22:06:26: Client ('10.0.118.254', 58009) da dang nhap voi ten tai khoan la qthai
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 22:12:23:Sever mo ket noi
+Wed 11-12-2024 22:12:37:Client ('10.0.118.254', 58037) da ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 22:17:10:Sever mo ket noi
+Wed 11-12-2024 22:17:27:Client ('10.0.118.254', 58061) da ket noi toi sever
+Wed 11-12-2024 22:17:33: Client ('10.0.118.254', 58061) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 22:17:50: Client qthai ('10.0.118.254', 58061) da yeu cau download file voi duong dan test.txt
+Wed 11-12-2024 22:17:50: Client qthai ('10.0.118.254', 58061) da download file voi duong dan test.txt thanh cong
+Wed 11-12-2024 22:18:03: Client qthai ('10.0.118.254', 58061) da yeu cau download file voi duong dan test.txt
+Wed 11-12-2024 22:18:03: Client qthai ('10.0.118.254', 58061) da download file voi duong dan test.txt thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 22:19:54:Sever mo ket noi
+Wed 11-12-2024 22:21:23:Client ('10.0.0.1', 58075) da ket noi toi sever
+Wed 11-12-2024 22:21:44: Client ('10.0.0.1', 58075) da dot ngot ngat ket noi toi server
+Wed 11-12-2024 22:21:44: Client ('10.0.0.1', 58075) da ngat ket noi toi server
+Wed 11-12-2024 22:23:47:Client ('10.0.118.254', 58087) da ket noi toi sever
+Wed 11-12-2024 22:24:40:Client ('10.0.118.254', 58093) da ket noi toi sever
+Wed 11-12-2024 22:25:36: Client ('10.0.118.254', 58093) da dot ngot ngat ket noi toi server
+Wed 11-12-2024 22:25:40:Client ('10.0.118.254', 58097) da ket noi toi sever
+Wed 11-12-2024 22:25:52: Client ('10.0.118.254', 58097) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 22:27:30:Client ('10.0.0.1', 58121) da ket noi toi sever
+Wed 11-12-2024 22:27:39: Client ('10.0.0.1', 58121) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 22:27:57: Client qthai ('10.0.0.1', 58121) da yeu cau download file voi duong dan 50mb.pdf
+Wed 11-12-2024 22:35:54: Client ('10.0.118.254', 58097) da ngat ket noi toi server do qua timeout

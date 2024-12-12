@@ -6,7 +6,7 @@ import time
 from tkinter import *
 from tkinter import scrolledtext
 #duong dan toi thu muc server va client
-PATH_SERVER = "DataServer"  
+PATH_SERVER = "DataServer"
 PATH_ADMIN = "DataServer/admin.csv"
 PATH_USER = "DataServer/users.csv"
 PATH_HISTORY = "DataServer/OperationHistory.txt"
@@ -320,6 +320,7 @@ def handleDownloadFile(client, addr, list_connection, username):
 
 #ham nhan du lieu tu client va gui phan hoi
 def handleClient(client, addr, list_connection) :
+    socket.settimeout(10)
     print(f"Ket noi thanh cong voi Client: {addr} .")
 
     # Xử lý các yêu cầu khác từ client
@@ -332,7 +333,7 @@ def handleClient(client, addr, list_connection) :
             serverSend(client, addr,list_connection,"Enter your username and password to login")
             login_information = ""
             login_information = serverReceive(client, addr, list_connection)
-
+            
 
             username, password = login_information.split(",")
             if(authenticateClient(username, password)):
@@ -429,6 +430,8 @@ def handleClient(client, addr, list_connection) :
                 operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da yeu cau upload folder voi duong dan {msg}")
                 print(f"Client {addr}: Upload folder voi duong dan {msg}")
                 uploadFilesInFolderSequentially(client, msg, addr)
+    except TimeoutError:
+        print(f"Client {addr}: Timeout.")
     except Exception as e:
         print(f"(Hàm ngoài) Connect Error {e} from Client : {client, addr}")
     client.close()
