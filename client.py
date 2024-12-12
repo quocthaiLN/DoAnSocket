@@ -350,7 +350,7 @@ def main():
                         flag = True
                         while 1:
                             print("Type 'CANCEL' to return to the menu!!!")
-                            msg = input(f"Sever: Enter the name of the file you want to download: ")
+                            msg = input(f"(Sever request): Enter the name of the file you want to download: ")
                             if msg == "CANCEL":
                                 client.sendall(msg.encode("utf-8"))
                                 flag = False

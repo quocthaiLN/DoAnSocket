@@ -740,3 +740,12 @@ Thu 12-12-2024 09:45:47:Client ('192.168.102.40', 61616) da ket noi toi sever
 Thu 12-12-2024 09:45:56: Client ('192.168.102.40', 61616) da dang nhap voi ten tai khoan la qthang
 Thu 12-12-2024 09:46:26: Client qthang ('192.168.102.40', 61616) da yeu cau download file voi duong dan DataServer/ErrorDownload.txt
 Thu 12-12-2024 09:46:26: Client qthang ('192.168.102.40', 61616) da download file voi duong dan DataServer/ErrorDownload.txt thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 12:06:31:The server has opened the connection.
+Thu 12-12-2024 12:06:36:Client ('192.168.102.40', 62683) has connected to the server.
+Thu 12-12-2024 12:06:40: Client ('192.168.102.40', 62683): Has logged in with the username qthang.
+Thu 12-12-2024 12:07:12: Client qthang ('192.168.102.40', 62683): Has requested to upload the file with the path test.txt.
+Thu 12-12-2024 12:07:12: Client qthang ('192.168.102.40', 62683): Has successfully uploaded the file with the path test.txt.
+Thu 12-12-2024 12:07:22: Client qthang ('192.168.102.40', 62683): Has requested to download the file with the path test.txt.
+Thu 12-12-2024 12:07:22: Client qthang ('192.168.102.40', 62683): Has successfully downloaded the file with the path test.txt.
+Thu 12-12-2024 12:07:59: Client qthang ('192.168.102.40', 62683): Has disconnected from the server.
