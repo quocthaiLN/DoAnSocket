@@ -265,7 +265,7 @@ def main():
             menu()
             choice = input("Sever: Enter your choice: ")
             # Kiem tra xem client nhap co hop le khong
-            if choice > '9' or choice < '0':
+            if choice > '9' or choice < '0' or len(choice) > 1:
                 print("Sever: Your input is invalid. Please try again!!!")
                 continue
             else:
