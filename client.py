@@ -328,7 +328,7 @@ def main():
                     #*Nếu có File tải lỗi trước đó
                     if before_error_download != "NoError":
                         #*Lấy tên của File bị lỗi và hiển thị ra màn hình để hỏi Client có muốn tải lại File khoong
-                        eerror_file = getErrorDownload(before_error_download)
+                        error_file = getErrorDownload(before_error_download)
                         print(f"You previously attempted to download the file {error_file}, but it was interrupted during your last session. Would you like to resume the download? (Y/N)")
                         continue_download  = input()
                         #*Nếu Client muốn tải lại File

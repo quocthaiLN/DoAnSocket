@@ -642,13 +642,45 @@ Tue 10-12-2024 22:00:40:server mo ket noi
 ------------------------------------------------------------------------------------------------------------------------------------
 Tue 10-12-2024 22:01:02:server mo ket noi
 ------------------------------------------------------------------------------------------------------------------------------------
-Wed 11-12-2024 00:14:55:server mo ket noi
-Wed 11-12-2024 00:14:59:Client ('10.0.110.89', 59480) da ket noi toi server
-Wed 11-12-2024 00:15:13: Client ('10.0.110.89', 59480) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 13:45:47:server mo ket noi
+Wed 11-12-2024 13:45:52:Client ('10.131.3.196', 58153) da ket noi toi server
+Wed 11-12-2024 13:45:58: Client ('10.131.3.196', 58153) da dang nhap voi ten tai khoan la qthang
 ------------------------------------------------------------------------------------------------------------------------------------
-Wed 11-12-2024 00:18:10:Sever mo ket noi
-Wed 11-12-2024 00:18:12:Client ('10.0.110.89', 59634) da ket noi toi sever
-Wed 11-12-2024 00:18:17: Client ('10.0.110.89', 59634) da dang nhap voi ten tai khoan la qthai
+Wed 11-12-2024 21:00:30:Sever mo ket noi
+Wed 11-12-2024 21:01:36:Client ('192.168.1.7', 51830) da ket noi toi sever
+Wed 11-12-2024 21:01:39: Client ('192.168.1.7', 51830) da dang nhap voi ten tai khoan la qthang
+Wed 11-12-2024 21:02:44: Client qthang ('192.168.1.7', 51830) da yeu cau download file voi duong dan DataServer/50mb.pdf
+Wed 11-12-2024 21:02:49: Client qthang ('192.168.1.7', 51830) da download file voi duong dan DataServer/50mb.pdf thanh cong
+Wed 11-12-2024 21:03:15: Client qthang ('192.168.1.7', 51830) da yeu cau download file voi duong dan DataServer/50mb.pdf
+Wed 11-12-2024 21:03:32:Client ('192.168.1.7', 51856) da ket noi toi sever
+Wed 11-12-2024 21:03:35: Client ('192.168.1.7', 51856) da dang nhap voi ten tai khoan la qthang
+Wed 11-12-2024 21:03:40: Client qthang ('192.168.1.7', 51856) da yeu cau download file voi duong dan 50mb.pdf
+Wed 11-12-2024 21:03:44: Client qthang ('192.168.1.7', 51856) da download file voi duong dan 50mb.pdf thanh cong
+Wed 11-12-2024 21:05:17: Client ('192.168.1.7', 51856) da dot ngot ngat ket noi toi server
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 21:09:54:server mo ket noi
+Wed 11-12-2024 21:10:45:Client ('192.168.1.7', 51905) da ket noi toi server
+Wed 11-12-2024 21:11:07: Client ('192.168.1.7', 51905) da dang nhap voi ten tai khoan la qthang
+Wed 11-12-2024 21:11:25: Client qthang ('192.168.1.7', 51905) da yeu cau download file voi duong dan DataServer/50mb.pdf
+Wed 11-12-2024 21:11:50:Client ('192.168.1.7', 51907) da ket noi toi server
+Wed 11-12-2024 21:11:53: Client ('192.168.1.7', 51907) da dang nhap voi ten tai khoan la qthang
+Wed 11-12-2024 21:11:57: Client qthang ('192.168.1.7', 51907) da yeu cau download file voi duong dan 50mb.pdf
+Wed 11-12-2024 21:12:03: Client qthang ('192.168.1.7', 51907) da download file voi duong dan 50mb.pdf thanh cong
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 21:30:17:server mo ket noi
+Wed 11-12-2024 21:30:23:Client ('192.168.1.7', 52010) da ket noi toi server
+Wed 11-12-2024 21:30:27: Client ('192.168.1.7', 52010) da dang nhap voi ten tai khoan la qthang
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 21:32:09:server mo ket noi
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 21:32:45:server mo ket noi
+Wed 11-12-2024 21:32:50:Client ('192.168.1.7', 52016) da ket noi toi server
+Wed 11-12-2024 21:33:07: Client ('192.168.1.7', 52016) da dang nhap voi ten tai khoan la qthang
+------------------------------------------------------------------------------------------------------------------------------------
+Wed 11-12-2024 21:36:44:server mo ket noi
+Wed 11-12-2024 21:36:49:Client ('192.168.1.7', 52026) da ket noi toi server
+Wed 11-12-2024 21:37:01: Client ('192.168.1.7', 52026) da dang nhap voi ten tai khoan la qthang
+Wed 11-12-2024 21:37:23: Client qthang ('192.168.1.7', 52026) da ngat ket noi voi server
 ------------------------------------------------------------------------------------------------------------------------------------
 Wed 11-12-2024 00:19:12:Sever mo ket noi
 Wed 11-12-2024 00:19:15:Client ('10.0.110.89', 59644) da ket noi toi sever
@@ -1275,3 +1307,155 @@ Thu 12-12-2024 17:40:48:Client ('10.0.132.190', 50057) has connected to the serv
 Thu 12-12-2024 17:40:54: Client ('10.0.132.190', 50057): Has logged in with the username qthai.
 Thu 12-12-2024 17:40:59: Client qthai ('10.0.132.190', 50057): Has requested to download the file with the path 50mb.pdf.
 Thu 12-12-2024 17:41:01: Client qthai ('10.0.132.190', 50057): Has successfully downloaded the file with the path 50mb.pdf.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 19:20:29:The server has opened the connection.
+Thu 12-12-2024 19:20:38:Client ('192.168.1.7', 61626) has connected to the server.
+Thu 12-12-2024 19:20:51:Client ('192.168.1.7', 61628) has connected to the server.
+Thu 12-12-2024 19:20:56: Client ('192.168.1.7', 61628): Has logged in with the username qthang.
+Thu 12-12-2024 19:21:55: Client qthang ('192.168.1.7', 61628): Has requested to download the file with the path abc.txt.
+Thu 12-12-2024 19:22:59:Client ('192.168.1.7', 61637) has connected to the server.
+Thu 12-12-2024 19:23:01: Client ('192.168.1.7', 61637): Has logged in with the username qthang.
+Thu 12-12-2024 19:23:38:Client ('192.168.1.7', 61641) has connected to the server.
+Thu 12-12-2024 19:23:40: Client ('192.168.1.7', 61641): Has logged in with the username hthang.
+Thu 12-12-2024 19:23:45: Client hthang ('192.168.1.7', 61641): Has requested to download the file with the path abc.txt.
+Thu 12-12-2024 19:23:45: Client hthang ('192.168.1.7', 61641): Has successfully downloaded the file with the path abc.txt.
+Thu 12-12-2024 19:23:59: Client hthang ('192.168.1.7', 61641): Has requested to download the file with the path DataServer/abc.txt.
+Thu 12-12-2024 19:23:59: Client hthang ('192.168.1.7', 61641): Has successfully downloaded the file with the path DataServer/abc.txt.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 20:36:01:The server has opened the connection.
+Thu 12-12-2024 20:36:12:Client ('192.168.1.7', 64619) has connected to the server.
+Thu 12-12-2024 20:36:17: Client ('192.168.1.7', 64619): Has logged in with the username qthang.
+Thu 12-12-2024 20:36:30: Client qthang ('192.168.1.7', 64619): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 20:41:17:Client ('192.168.1.7', 64649) has connected to the server.
+Thu 12-12-2024 20:41:21: Client ('192.168.1.7', 64649): Has logged in with the username qthang.
+Thu 12-12-2024 20:41:36: Client qthang ('192.168.1.7', 64649): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 20:45:17:Client ('192.168.1.7', 64713) has connected to the server.
+Thu 12-12-2024 20:45:22: Client ('192.168.1.7', 64713): Has logged in with the username qthang.
+Thu 12-12-2024 20:45:38: Client qthang ('192.168.1.7', 64713): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 20:46:09:Client ('192.168.1.7', 64721) has connected to the server.
+Thu 12-12-2024 20:46:16: Client ('192.168.1.7', 64721): Has logged in with the username qthang.
+Thu 12-12-2024 20:46:27: Client qthang ('192.168.1.7', 64721): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 20:46:38:Client ('192.168.1.7', 64725) has connected to the server.
+Thu 12-12-2024 20:46:42: Client ('192.168.1.7', 64725): Has logged in with the username qthang.
+Thu 12-12-2024 20:47:14: Client qthang ('192.168.1.7', 64725): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 20:48:46:Client ('192.168.1.7', 64741) has connected to the server.
+Thu 12-12-2024 20:48:49: Client ('192.168.1.7', 64741): Has logged in with the username qthang.
+Thu 12-12-2024 20:49:02: Client qthang ('192.168.1.7', 64741): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 20:51:14:Client ('192.168.1.7', 64764) has connected to the server.
+Thu 12-12-2024 20:51:18: Client ('192.168.1.7', 64764): Has logged in with the username qthang.
+Thu 12-12-2024 20:51:31: Client qthang ('192.168.1.7', 64764): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 21:02:09:Client ('192.168.1.7', 65204) has connected to the server.
+Thu 12-12-2024 21:02:13: Client ('192.168.1.7', 65204): Has logged in with the username qthang.
+Thu 12-12-2024 21:02:28: Client qthang ('192.168.1.7', 65204): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 21:04:33:Client ('192.168.1.7', 65242) has connected to the server.
+Thu 12-12-2024 21:04:37: Client ('192.168.1.7', 65242): Has logged in with the username qthang.
+Thu 12-12-2024 21:04:47: Client qthang ('192.168.1.7', 65242): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 21:05:32: Client qthang ('192.168.1.7', 65242): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 21:05:38: Client qthang ('192.168.1.7', 65242): Has requested to download the file with the path DataServer/abc.txt.
+Thu 12-12-2024 21:05:38: Client qthang ('192.168.1.7', 65242): Has successfully downloaded the file with the path DataServer/abc.txt.
+Thu 12-12-2024 21:05:51: Client qthang ('192.168.1.7', 65242): Has requested to download the file with the path DataServer/abc.txt.
+Thu 12-12-2024 21:05:51: Client qthang ('192.168.1.7', 65242): Has successfully downloaded the file with the path DataServer/abc.txt.
+Thu 12-12-2024 21:08:21:Client ('192.168.1.7', 65290) has connected to the server.
+Thu 12-12-2024 21:08:26: Client ('192.168.1.7', 65290): Has logged in with the username qthang.
+Thu 12-12-2024 21:08:36: Client qthang ('192.168.1.7', 65290): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 21:09:26:Client ('192.168.1.7', 65303) has connected to the server.
+Thu 12-12-2024 21:09:30: Client ('192.168.1.7', 65303): Has logged in with the username qthang.
+Thu 12-12-2024 21:09:42: Client qthang ('192.168.1.7', 65303): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 21:10:44:Client ('192.168.1.7', 65323) has connected to the server.
+Thu 12-12-2024 21:10:48: Client ('192.168.1.7', 65323): Has logged in with the username qthang.
+Thu 12-12-2024 21:11:00: Client qthang ('192.168.1.7', 65323): Has requested to download the file with the path DataServer/50mb.pdf.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 21:12:14:The server has opened the connection.
+Thu 12-12-2024 21:13:03:Client ('192.168.1.7', 65419) has connected to the server.
+Thu 12-12-2024 21:14:04: Client ('192.168.1.7', 65419): Has logged in with the username qthang.
+Thu 12-12-2024 21:15:32: Client qthang ('192.168.1.7', 65419): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 21:42:49:Client ('192.168.1.7', 49726) has connected to the server.
+Thu 12-12-2024 21:42:54: Client ('192.168.1.7', 49726): Has logged in with the username qthang.
+Thu 12-12-2024 21:43:08: Client qthang ('192.168.1.7', 49726): Has requested to download the file with the path DataServer/50mb.pdf.
+Thu 12-12-2024 22:03:01:Client ('192.168.1.7', 50182) has connected to the server.
+Thu 12-12-2024 22:03:05: Client ('192.168.1.7', 50182): Has logged in with the username qthang.
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 13-12-2024 05:07:27:The server has opened the connection.
+Fri 13-12-2024 05:07:37:Client ('192.168.1.7', 50596) has connected to the server.
+Fri 13-12-2024 05:07:45: Client ('192.168.1.7', 50596): Has logged in with the username qthang.
+Fri 13-12-2024 05:14:36:Client ('192.168.1.7', 50632) has connected to the server.
+Fri 13-12-2024 05:14:38: Client ('192.168.1.7', 50632): Has logged in with the username qthang.
+Fri 13-12-2024 05:15:06:Client ('192.168.1.7', 50633) has connected to the server.
+Fri 13-12-2024 05:15:07: Client ('192.168.1.7', 50633): Has logged in with the username qthang.
+Fri 13-12-2024 05:15:55:Client ('192.168.1.7', 50635) has connected to the server.
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 13-12-2024 05:18:02:The server has opened the connection.
+Fri 13-12-2024 05:18:12:Client ('192.168.1.7', 50667) has connected to the server.
+Fri 13-12-2024 05:18:16: Client ('192.168.1.7', 50667): Has logged in with the username qthang.
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 13-12-2024 05:19:42:The server has opened the connection.
+Fri 13-12-2024 05:19:48:Client ('192.168.1.7', 50675) has connected to the server.
+Fri 13-12-2024 05:19:50: Client ('192.168.1.7', 50675): Has logged in with the username qthang.
+Fri 13-12-2024 05:20:05:Client ('192.168.1.7', 50677) has connected to the server.
+Fri 13-12-2024 05:20:07: Client ('192.168.1.7', 50677): Has logged in with the username qthang.
+Fri 13-12-2024 05:20:32: Client qthang ('192.168.1.7', 50677): Has requested to upload the folder with the path D:/Code Certification.
+Fri 13-12-2024 05:20:32: Client ('192.168.1.7', 50677) has successfully uploaded the folder with the path D:/Code Certification.
+Fri 13-12-2024 05:23:01:Client ('192.168.1.7', 50698) has connected to the server.
+Fri 13-12-2024 05:23:03: Client ('192.168.1.7', 50698): Has logged in with the username qthang.
+Fri 13-12-2024 05:23:45: Client qthang ('192.168.1.7', 50698): Has requested to upload the file with the path D:/Code Certification/PostgeSQL.pdf.
+Fri 13-12-2024 05:23:46: Client qthang ('192.168.1.7', 50698): Has successfully uploaded the file with the path D:/Code Certification/PostgeSQL.pdf.
+Fri 13-12-2024 05:24:32:Client ('192.168.1.7', 50701) has connected to the server.
+Fri 13-12-2024 05:24:38: Client ('192.168.1.7', 50701): Has logged in with the username qthang.
+Fri 13-12-2024 05:24:57: Client qthang ('192.168.1.7', 50701): Has requested to upload the file with the path D:/Code Certification/PostgeSQL.pdf.
+Fri 13-12-2024 05:24:58: Client qthang ('192.168.1.7', 50701): Has successfully uploaded the file with the path D:/Code Certification/PostgeSQL.pdf.
+Fri 13-12-2024 05:32:30:Client ('192.168.1.7', 50734) has connected to the server.
+Fri 13-12-2024 05:32:35: Client ('192.168.1.7', 50734): Has logged in with the username qthang.
+Fri 13-12-2024 05:41:38:Client ('192.168.1.7', 50804) has connected to the server.
+Fri 13-12-2024 05:41:44: Client ('192.168.1.7', 50804): Has logged in with the username qthang.
+Fri 13-12-2024 05:42:00: Client qthang ('192.168.1.7', 50804): Has requested to upload the file with the path D:/Code Certification/PostgeSQL.pdf.
+Fri 13-12-2024 05:42:01: Client qthang ('192.168.1.7', 50804): Has successfully uploaded the file with the path D:/Code Certification/PostgeSQL.pdf.
+Fri 13-12-2024 05:42:31: Client qthang ('192.168.1.7', 50804): Has requested to upload the file with the path uploadFile.
+Fri 13-12-2024 05:43:43:Client ('192.168.1.7', 50822) has connected to the server.
+Fri 13-12-2024 05:43:46: Client ('192.168.1.7', 50822): Has logged in with the username qthang.
+Fri 13-12-2024 05:44:16: Client qthang ('192.168.1.7', 50822): Has requested to upload the file with the path D:/Code Certification/PostgeSQL.pdf.
+Fri 13-12-2024 05:44:16: Client qthang ('192.168.1.7', 50822): Has successfully uploaded the file with the path D:/Code Certification/PostgeSQL.pdf.
+Fri 13-12-2024 05:45:14: Client qthang ('192.168.1.7', 50822): Has requested to upload the file with the path D:/Code Certification/Data Structure & Algorithm.pdf.
+Fri 13-12-2024 05:45:14: Client qthang ('192.168.1.7', 50822): Has successfully uploaded the file with the path D:/Code Certification/Data Structure & Algorithm.pdf.
+Fri 13-12-2024 05:46:36:Client ('192.168.1.7', 50984) has connected to the server.
+Fri 13-12-2024 05:46:40: Client ('192.168.1.7', 50984): Has logged in with the username hthang.
+Fri 13-12-2024 05:47:03: Client hthang ('192.168.1.7', 50984): Has requested to upload the file with the path uploadFile.
+Fri 13-12-2024 05:48:51:Client ('192.168.1.7', 51021) has connected to the server.
+Fri 13-12-2024 05:48:55: Client ('192.168.1.7', 51021): Has logged in with the username qthang.
+Fri 13-12-2024 05:49:14: Client qthang ('192.168.1.7', 51021): Has requested to upload the file with the path uploadFile.
+Fri 13-12-2024 05:59:10:Client ('192.168.1.7', 51054) has connected to the server.
+Fri 13-12-2024 05:59:14: Client ('192.168.1.7', 51054): Has logged in with the username qthang.
+Fri 13-12-2024 05:59:42: Client qthang ('192.168.1.7', 51054): Has requested to upload the file with the path D:/University/Computer Network/Đề thi thử uit/đáp án tham khảo.jpg.
+Fri 13-12-2024 05:59:43: Client qthang ('192.168.1.7', 51054): Has successfully uploaded the file with the path D:/University/Computer Network/Đề thi thử uit/đáp án tham khảo.jpg.
+Fri 13-12-2024 05:59:56: Client qthang ('192.168.1.7', 51054): Has requested to upload the file with the path D:/University/chương trình đào tạo k21.pdf.
+Fri 13-12-2024 06:00:12: Client qthang ('192.168.1.7', 51054): Has successfully uploaded the file with the path D:/University/chương trình đào tạo k21.pdf.
+Fri 13-12-2024 06:00:28: Client qthang ('192.168.1.7', 51054): Has requested to download the file with the path DataServer/Data Structure & Algorithm.pdf.
+Fri 13-12-2024 06:00:28: Client qthang ('192.168.1.7', 51054): Has successfully downloaded the file with the path DataServer/Data Structure & Algorithm.pdf.
+Fri 13-12-2024 06:00:38: Client qthang ('192.168.1.7', 51054): Has requested to download the file with the path DataServer/PostgeSQL.pdf.
+Fri 13-12-2024 06:00:39: Client qthang ('192.168.1.7', 51054): Has successfully downloaded the file with the path DataServer/PostgeSQL.pdf.
+Fri 13-12-2024 06:03:21:Client ('192.168.1.7', 51115) has connected to the server.
+Fri 13-12-2024 06:03:27: Client ('192.168.1.7', 51115): Has logged in with the username qthang.
+Fri 13-12-2024 06:06:26:Client ('192.168.1.7', 51143) has connected to the server.
+Fri 13-12-2024 06:06:30: Client ('192.168.1.7', 51143): Has logged in with the username qthang.
+Fri 13-12-2024 06:06:48: Client qthang ('192.168.1.7', 51143): Has requested to upload the folder with the path D:/Code Certification.
+Fri 13-12-2024 06:06:58: Client ('192.168.1.7', 51143) has successfully uploaded the folder with the path D:/Code Certification.
+Fri 13-12-2024 06:08:50:Client ('192.168.1.7', 51172) has connected to the server.
+Fri 13-12-2024 06:08:55: Client ('192.168.1.7', 51172): Has logged in with the username qthang.
+Fri 13-12-2024 06:09:07: Client qthang ('192.168.1.7', 51172): Has requested to upload the file with the path D:/50mb.pdf.
+Fri 13-12-2024 06:21:10:Client ('192.168.1.7', 51241) has connected to the server.
+Fri 13-12-2024 06:21:17: Client ('192.168.1.7', 51241): Has logged in with the username qthang.
+Fri 13-12-2024 06:21:31: Client qthang ('192.168.1.7', 51241): Has requested to upload the file with the path D:/50mb.pdf.
+Fri 13-12-2024 06:22:30:Client ('192.168.1.7', 51243) has connected to the server.
+Fri 13-12-2024 06:22:35: Client ('192.168.1.7', 51243): Has logged in with the username hthang.
+Fri 13-12-2024 06:22:44: Client hthang ('192.168.1.7', 51243): Has requested to upload the file with the path D:/50mb.pdf.
+Fri 13-12-2024 06:24:13:Client ('192.168.1.7', 51258) has connected to the server.
+Fri 13-12-2024 06:24:20: Client ('192.168.1.7', 51258): Has logged in with the username qthang.
+Fri 13-12-2024 06:24:29: Client qthang ('192.168.1.7', 51258): Has requested to upload the file with the path D:/50mb.pdf.
+Fri 13-12-2024 06:24:45:Client ('192.168.1.7', 51264) has connected to the server.
+Fri 13-12-2024 06:24:50: Client ('192.168.1.7', 51264): Has logged in with the username qthang.
+Fri 13-12-2024 06:24:59: Client qthang ('192.168.1.7', 51264): Has requested to upload the file with the path 50mb.pdf.
+Fri 13-12-2024 06:25:29:Client ('192.168.1.7', 51266) has connected to the server.
+Fri 13-12-2024 06:25:33: Client ('192.168.1.7', 51266): Has logged in with the username qthang.
+Fri 13-12-2024 06:25:37: Client qthang ('192.168.1.7', 51266): Has requested to upload the file with the path 50mb.pdf.
+Fri 13-12-2024 06:26:44:Client ('192.168.1.7', 51271) has connected to the server.
+Fri 13-12-2024 06:26:46: Client ('192.168.1.7', 51271): Has logged in with the username qthang.
+Fri 13-12-2024 06:26:54: Client qthang ('192.168.1.7', 51271): Has requested to upload the file with the path 50mb.pdf.

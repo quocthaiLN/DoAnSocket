@@ -439,6 +439,7 @@ def handleClient(client, addr, list_connection) :
         #gui nhan file
         data = ""
 
+        # Xử lý các yêu cầu từ client
         while True:
             STATUS = "CHOOSEN"
             data = client.recv(1024).decode(FORMAT)
@@ -450,6 +451,7 @@ def handleClient(client, addr, list_connection) :
 
                 list_connection.remove((client, addr))
                 break
+
             if data == "uploadFile":
                 STATUS = "UPLOAD_FILE"
                 #gui yeu cau
