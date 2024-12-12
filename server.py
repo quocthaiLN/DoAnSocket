@@ -11,15 +11,17 @@ PATH_SERVER = "DataServer"
 PATH_ADMIN = "DataServer/admin.csv"
 PATH_USER = "DataServer/users.csv"
 PATH_HISTORY = "DataServer/OperationHistory.txt"
-LIST_FORBIDEN_FILE = ["DataServer/users.csv", "DataServer/OperationHistory.txt"]
+LIST_FORBIDEN_FILE = ["DataServer/users.csv", "DataServer/OperationHistory.txt", "DataServer/ErrorDownload.txt", "DataServer/ErrorUpload.txt"]
 PATH_ERROR_DOWNLOAD = "DataServer/ErrorDownload.txt"
 PATH_ERROR_UPLOAD = "DataServer/ErrorUpload.txt"
+
 #HOST, PORT, NumberOfClient, FORMAT
 HOST = socket.gethostname()
 PORT = 12000
 NUMBER_OF_CLIENT = 10
 FORMAT = "utf-8"
 
+#!Các hàm liên quan đến xử lí tên file
 # Lay tu ki tu "/" cuoi cung tro ve sau trong duong dan hoac ten file
 def name(file_name):
     res = ""
@@ -36,13 +38,13 @@ def name(file_name):
     return res
 
 # Kiem tra xem co ki tu "/" trong ham "name" o tren chua
-def check(s):
+def checkSlashInFileName(s):
     if s[0] == "/":
         return True
     return False
 
 # Kiem tra xem ten duong dan co "/" khong
-def check1(s):
+def checkSlashInPath(s):
     for i in s:
         if i == "/":
             return True
@@ -64,6 +66,7 @@ def checkExist(path):
         return True
     return False
 
+#!Các hàm liên quan đến viết nhật kí LOG
 # Ham lay thoi gian thuc
 def getTime():
     local_time = time.strftime("%a %d-%m-%Y %H:%M:%S", time.localtime(time.time()))
@@ -75,13 +78,48 @@ def operationHistory(msg):
     ofs.write(msg)
     ofs.close()
 
+#!Các hàm UPLOAD
+# Viet vao file nhung tai khoan bi loi upload file do ngat ket noi dot ngot
+def writeErrorUpload(username, file_path):
+    data = username + ' ' + file_path
+    ofs = open(PATH_ERROR_UPLOAD, "a", encoding = "utf-8")
+    ofs.write(data)
+    ofs.close()
+
+#*Nhận vào tên Username kiểm tra xem Username này có bị lỗi ở lần đăng nhập trước không và trả kết quả
+def getErrorUpload(username):
+    with open(PATH_ERROR_UPLOAD, 'r') as file:
+        line = file.readline()
+        while line:
+            line = line.strip()  # Loại bỏ ký tự xuống dòng '\n'
+            if username in line:
+                return line            
+            line = file.readline()
+    #*Nếu không thấy thì trả về NoError 
+    return "NoError"
+
+def removeLineInFileUpload(delete_line):
+    try:
+        # Đọc và lọc các dòng khác với delete_line
+        with open(PATH_ERROR_UPLOAD, 'r') as file:
+            filtered_lines = [line for line in file if line.strip() != delete_line.strip()]
+
+        # Ghi các dòng đã lọc vào file
+        with open(PATH_ERROR_UPLOAD, 'w') as file:
+            file.writelines(filtered_lines)
+    except FileNotFoundError:
+        print(f"ERROR: File '{PATH_ERROR_UPLOAD}' is not exist.")
+    except PermissionError:
+        print(f"ERROR: You do not have permission to write to the file. '{PATH_ERROR_UPLOAD}'.")
+    except Exception as e:
+        print(f"An error has occurred: {e}")
 
 # Ham upload file tu client len server
 def uploadFile(client, file_name, addr, username):
     # Lay ten file can upload
     tmp = name(file_name)
     # Kiem tra xem trong do da co "/" neu khong co thi them vao
-    if not check(tmp):
+    if not checkSlashInFileName(tmp):
         tmp = "/" + tmp
     # Lay ten file khong chua phan mo rong va lay phan mo rong de sau nay dat ten moi cho file neu file da ton tai
     name_with_not_exten = getNameWithNotExten(tmp)
@@ -110,7 +148,7 @@ def uploadFile(client, file_name, addr, username):
             try:
                 data = client.recv(1024)
             except Exception as e:
-                print(f"Sever: There were an error when uploading file {file_name}/ Connect Error:[{addr}].")
+                #print(f"Sever: There were an error when uploading file {file_name}/ Connect Error:[{addr}].")
                 writeErrorUpload(username, file_name)
                 return False
             if not data:
@@ -120,7 +158,7 @@ def uploadFile(client, file_name, addr, username):
             try:
                 client.sendall("Received".encode("utf-8"))
             except Exception as e:
-                print(f"Sever: There were an error when uploading file {file_name}/ Connect Error:[{addr}].")
+                #print(f"Sever: There were an error when uploading file {file_name}/ Connect Error:[{addr}].")
                 writeErrorUpload(username, file_write)
                 return False
         # Nhan thong bao da gui xong tu client
@@ -131,6 +169,29 @@ def uploadFile(client, file_name, addr, username):
     client.sendall(f"The file is now stored at {file_write} on the server.".encode(FORMAT))
     temp = client.recv(1024).decode(FORMAT)
     return True
+
+def handleUploadFile(client, addr, list_connection, username):
+
+    msg = client.recv(1024).decode(FORMAT)
+    if msg is None:
+        return "BACK"
+    client.sendall("Received".encode(FORMAT))
+    if msg == "CANCEL":
+        return "BACK"
+    operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has requested to upload the file with the path {msg}.")
+    print(f"Client {addr}: Upload file with the path {msg}")
+    if uploadFile(client, msg, addr, username):
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has successfully uploaded the file with the path {msg}.")
+        resp = "Success"
+        client.sendall(resp.encode(FORMAT))
+    else:
+        resp = "Failed"
+        client.sendall(resp.encode(FORMAT))
+        list_connection.remove((client, addr))
+        return "ERROR"
+    return "BACK"
+
+#!Các hàm liên quan đến DOWNLOAD
 
 # Kiem tra xem file co trong danh sach khong duoc tai khong
 def isForbiddenFile(file_name):
@@ -146,13 +207,35 @@ def writeErrorDownload(username, file_path):
     ofs.write(data)
     ofs.close()
 
-# Viet vao file nhung tai khoan bi loi upload file do ngat ket noi dot ngot
-def writeErrorUpload(username, file_path):
-    data = username + ' ' + file_path
-    ofs = open(PATH_ERROR_UPLOAD, "a", encoding = "utf-8")
-    ofs.write(data)
-    ofs.close()
+#*Nhận vào tên Username kiểm tra xem Username này có bị lỗi ở lần đăng nhập trước không và trả kết quả
+def getErrorDownload(username):
+    with open(PATH_ERROR_DOWNLOAD, 'r') as file:
+        line = file.readline()
+        while line:
+            line = line.strip()  # Loại bỏ ký tự xuống dòng '\n'
+            if username in line:
+                return line            
+            line = file.readline()
+    #*Nếu không thấy thì trả về NoError 
+    return "NoError"
 
+#*Nhận đầu vào là 1 dòng, xóa dòng đó ra khỏi File
+def removeLineInFileDownLoad(delete_line):
+    try:
+        # Đọc và lọc các dòng khác với delete_line
+        with open(PATH_ERROR_DOWNLOAD, 'r') as file:
+            filtered_lines = [line for line in file if line.strip() != delete_line.strip()]
+
+        # Ghi các dòng đã lọc vào file
+        with open(PATH_ERROR_DOWNLOAD, 'w') as file:
+            file.writelines(filtered_lines)
+    except FileNotFoundError:
+        print(f"ERROR: File '{PATH_ERROR_DOWNLOAD}' is not exist.")
+    except PermissionError:
+        print(f"ERROR: You do not have permission to write to the file. '{PATH_ERROR_DOWNLOAD}'.")
+    except Exception as e:
+        print(f"An error has occurred: {e}")
+        
 # Ham download file
 def downloadFile(client, Path, addr, username):
     # Gui kich thuoc file client yeu cau tai xuong va nhan lai thong bao
@@ -171,35 +254,62 @@ def downloadFile(client, Path, addr, username):
         try:
             client.sendall(data)
             resp = client.recv(1024).decode("utf-8")
+        #! Bắt lỗi gián đoạn kết nối
+        except socket.error:
+            #print(f"Client {addr}: Connection interrupted when DOWNLOAD_FILE.")
+            writeErrorDownload(username, Path)
+            return False
+        #! Bắt lỗi dừng chương trình bên Client
         except ConnectionResetError:
-            print(f"Client {addr} - {username}: Abruptly disconnected while downloading the file with the path {Path}.")
+            #print(f"Client {addr}: Abruptly disconnected while downloading the file with the path {Path}.")
             writeErrorDownload(username, Path)
             return False
     ifs.close()
     print(f"The file download request from client {addr} has been completed.")
     return True
 
-def getErrorDownload(username):
-    with open(PATH_ERROR_DOWNLOAD, 'r') as file:
-        line = file.readline()
-        while line:
-            line = line.strip()  # Loại bỏ ký tự xuống dòng '\n'
-            if username in line:
-                return line            
-            line = file.readline()
-    return "NoError"
+def handleDownloadFile(client, addr, list_connection, username):
+    #Nhận tên file hoặc Cancel
+    while 1:
+        msg = client.recv(1024).decode(FORMAT)
+        if msg == "CANCEL":
+            return "BACK"
+        
+        # Kiem tra xem file co ton tai hoac hop le khi nhap duong dan khong
+        tmp = name(msg)
+        if not checkSlashInFileName(tmp):
+            tmp = "/" + tmp
+        Path = PATH_SERVER + tmp
+        # Kiem tra file bi cam tai khong
+        if isForbiddenFile(Path):
+            msg = "File is in list forbidden file. Can't download this file"
+            print(msg)
+            client.sendall("forbidden file".encode("utf-8"))
+            continue
+        # Nhap duong dan khong hop le hoac file khong ton tai
+        if (checkSlashInPath(msg) and Path != msg) or not checkExist(Path):
+            msg = "Not exist"
+            print("File is not exist")
+            client.sendall(msg.encode("utf-8"))
+            continue
+        message = "Exist"
+        client.sendall(message.encode(FORMAT))
+        break
+    #Neu có thi thuc hien tai
+    
+    respMsg = client.recv(1024).decode(FORMAT)
+    operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has requested to download the file with the path {msg}.")
+    print(f"Client {addr}: Download file with the path {msg}")
+    if downloadFile(client, Path, addr, username):
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has successfully downloaded the file with the path {msg}.")
+        resp = "Success"
+        client.sendall(resp.encode(FORMAT))
+    else:
+        list_connection.remove((client, addr))
+        return "ERROR"
+    return "BACK"
 
-
-def getErrorUpload(username):
-    with open(PATH_ERROR_UPLOAD, 'r') as file:
-        line = file.readline()
-        while line:
-            line = line.strip()  # Loại bỏ ký tự xuống dòng '\n'
-            if username in line:
-                return line            
-            line = file.readline()
-    return "NoError"
-
+#! Các hàm liên quan đến UPLOAD_FOLDER
 def uploadFilesInFolderSequentially(client, path_folder, addr, username):
     # Nhan so luong file tu client
     number_of_file = client.recv(1024).decode(FORMAT)
@@ -238,6 +348,7 @@ def uploadFilesInFolderSequentially(client, path_folder, addr, username):
         client.sendall(f"Server: The entire folder has been successfully uploaded.".encode("utf-8"))
         print(f"Server: The entire folder has been successfully uploaded.")
 
+#!Xác thực tài khoản
 # Hàm xác thực account của một client: Tìm thông tin client trong file users
 def authenticateClient(username, password):
 
@@ -251,166 +362,68 @@ def authenticateClient(username, password):
         
     return False
 
-def removeLineInFile(delete_line):
-    try:
-        # Đọc và lọc các dòng khác với delete_line
-        with open(PATH_ERROR_DOWNLOAD, 'r') as file:
-            filtered_lines = [line for line in file if line.strip() != delete_line.strip()]
 
-        # Ghi các dòng đã lọc vào file
-        with open(PATH_ERROR_DOWNLOAD, 'w') as file:
-            file.writelines(filtered_lines)
-    except FileNotFoundError:
-        print(f"ERROR: File '{PATH_ERROR_DOWNLOAD}' is not exist.")
-    except PermissionError:
-        print(f"ERROR: You do not have permission to write to the file. '{PATH_ERROR_DOWNLOAD}'.")
-    except Exception as e:
-        print(f"An error has occurred: {e}")
 
-def removeLineInFileUpload(delete_line):
-    try:
-        # Đọc và lọc các dòng khác với delete_line
-        with open(PATH_ERROR_UPLOAD, 'r') as file:
-            filtered_lines = [line for line in file if line.strip() != delete_line.strip()]
+# def handleDownloadFile(client, addr, list_connection, username):
+#     #*Nhận tên file hoặc Cancel
+#     msg = client.recv(1024).decode(FORMAT)
+#     if msg == "CANCEL":
+#         return "BACK"
+#     #*Kiểm tra lỗi về cú pháp, truy cập File không cho phép, kiểm tra File có tồn tại không và gửi trả lời cho Client
+#     #*Kiểm tra lỗi về cú pháp 
+#     tmp = name(msg)
+#     if not checkSlashInFileName(tmp):
+#         tmp = "/" + tmp
+#     Path = PATH_SERVER + tmp
+#     #*Check File không cho phép truy cập
+#     if isForbiddenFile(Path):
+#         msg = "File is in list forbidden file. Can't download this file"
+#         print(msg)
+#         client.sendall("ff".encode("utf-8"))
+#         return "BACK"
+#     #*Kiểm tra tên file hợp lệ và file có tồn tại hay không
+#     if (checkSlashInPath(msg) and Path != msg) or not checkExist(Path):
+#         msg = "Not exist"
+#         print("File is not exist")
+#         client.sendall(msg.encode("utf-8"))
+#         return "BACK"
+#     #*Thực hiện gửi File cho Client
+#     else:
+#         #*Gửi thông báo về trạng thái File đã tồn tại và bắt đâu tải
+#         message = "Exist"
+#         client.sendall(message.encode(FORMAT))
+#         respMsg = client.recv(1024).decode(FORMAT)
+#         #*Ghi nhật kí về lần tải
+#         operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da yeu cau download file voi duong dan {msg}")
+#         print(f"Client {addr}: Download file voi duong dan {msg}")
+#         #*Kiểm tra hàm downloadFile có lỗi đường truyền khi đang gửi hay không
+#         #*Nếu không có lỗi thì ghi nhật gửi File thành công và gửi tin nhắ "Success" đến Client 
+#         if downloadFile(client, Path, addr, username):
+#             operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da download file voi duong dan {msg} thanh cong")
+#             resp = "Success"
+#             client.sendall(resp.encode("utf-8"))
+#         #*Nếu có lỗi trong quá trình truyền thì sẽ được hàm Handle xử lí
+#     return "BACK"
 
-        # Ghi các dòng đã lọc vào file
-        with open(PATH_ERROR_UPLOAD, 'w') as file:
-            file.writelines(filtered_lines)
-    except FileNotFoundError:
-        print(f"ERROR: File '{PATH_ERROR_UPLOAD}' is not exist.")
-    except PermissionError:
-        print(f"ERROR: You do not have permission to write to the file. '{PATH_ERROR_UPLOAD}'.")
-    except Exception as e:
-        print(f"An error has occurred: {e}")
-
-def serverReceive(client, addr, list_connection):
-    client.settimeout(600)
-    try:
-        message = client.recv(1024).decode(FORMAT)
-        if not message:
-            print(f"Client {addr} has been closed connection with sever.")
-            list_connection.remove((client, addr))
-            client.close()
-        else:    
-            return message
-    except socket.timeout:
-        print(f"Client {addr}: TimeOut.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Has disconnected from the server due to a timeout.")
-        list_connection.remove((client, addr))
-        client.close()
-    except ConnectionResetError:
-        print(f"Client {addr}: Abruptly disconnected..")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Abruptly disconnected.")
-        list_connection.remove((client, addr))
-        client.close()
-    except Exception as e:
-        print(f"An error {e} occurred while receiving data from: {addr}.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Disconnected from the server for an unknown reason.")
-        list_connection.remove((client, addr))
-        client.close()
-    return None
-        
-
-def serverSend(client, addr, list_connection ,message):
-    try:
-
-        print(f"The notification has been sent to the client: {addr}.")
-        client.sendall(message.encode(FORMAT))
-    except socket.error:
-        print(f"Client {addr}: Has disconnected from the server.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Has disconnected from the server.")
-        list_connection.remove((client, addr))
-        client.close()
-    except ConnectionResetError:
-        print(f"Client {addr}: Abruptly disconnected..")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Abruptly disconnected.")
-        list_connection.remove((client, addr))
-        client.close()
-    except Exception as e:
-        print(f"An error {e} occurred while receiving data from: {addr}.")
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Disconnected from the server for an unknown reason.")
-        list_connection.remove((client, addr))
-        client.close()
-        client.close()
-
-def handleUploadFile(client, addr, list_connection, username):
-
-    msg = serverReceive(client, addr, list_connection)
-    if msg is None:
-        return "BACK"
-    serverSend(client, addr, list_connection, "Received")
-    if msg == "CANCEL":
-        return "BACK"
-    operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has requested to upload the file with the path {msg}.")
-    print(f"Client {addr}: Upload file with the path {msg}")
-    if uploadFile(client, msg, addr, username):
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has successfully uploaded the file with the path {msg}.")
-        resp = "Success"
-        serverSend(client, addr, list_connection, resp)
-    else:
-        resp = "Failed"
-        serverSend(client, addr, list_connection, resp)
-        return "ERROR"
-    return "BACK"
-
-def handleDownloadFile(client, addr, list_connection, username):
-    #Nhận tên file hoặc Cancel
-    while 1:
-        msg = serverReceive(client, addr, list_connection)
-        if msg == "CANCEL":
-            return "BACK"
-        
-        # Kiem tra xem file co ton tai hoac hop le khi nhap duong dan khong
-        tmp = name(msg)
-        if not check(tmp):
-            tmp = "/" + tmp
-        Path = PATH_SERVER + tmp
-        # Kiem tra file bi cam tai khong
-        if isForbiddenFile(Path):
-            msg = "File is in list forbidden file. Can't download this file"
-            print(msg)
-            client.sendall("forbidden file".encode("utf-8"))
-            continue
-        # Nhap duong dan khong hop le hoac file khong ton tai
-        if (check1(msg) and Path != msg) or not checkExist(Path):
-            msg = "Not exist"
-            print("File is not exist")
-            client.sendall(msg.encode("utf-8"))
-            continue
-        message = "Exist"
-        client.sendall(message.encode(FORMAT))
-        break
-    #Neu có thi thuc hien tai
-    
-    
-    respMsg = client.recv(1024).decode(FORMAT)
-    operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has requested to download the file with the path {msg}.")
-    print(f"Client {addr}: Download file with the path {msg}")
-    if downloadFile(client, Path, addr, username):
-        operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has successfully downloaded the file with the path {msg}.")
-        resp = "Success"
-        serverSend(client, addr, list_connection, resp)
-    else:
-        list_connection.remove((client, addr))
-        return "ERROR"
-    return "BACK"
-
-#ham nhan du lieu tu client va gui phan hoi
+#! Hàm xử lí các yêu cầu của Client
 def handleClient(client, addr, list_connection) :
-    # socket.settimeout(10)
+    STATUS = "" #? Dùng để cập nhật trạng thái làm việc với Client
+    client.settimeout(6000)
     print(f"Successfully connected to the client: {addr}.")
 
     # Xử lý các yêu cầu khác từ client
     try:
         # Gửi yêu cầu login đến client
         while True:
-            serverSend(client, addr, list_connection, "Successfully connected to the server.")
-            tmp = serverReceive(client, addr, list_connection)
+
+            client.sendall("Successfully connected to the server.".encode("utf-8"))
+            tmp = client.recv(1024).decode(FORMAT)
+
             # Nhận thông tin account từ client
-            serverSend(client, addr,list_connection,"Enter your username and password to login")
+            STATUS = "LOGIN"
+            client.sendall("Enter your username and password to login".encode("utf-8"))
             login_information = ""
-            login_information = serverReceive(client, addr, list_connection)
-            
+            login_information = client.recv(1024).decode(FORMAT)
 
             username, password = login_information.split(",")
             if(authenticateClient(username, password)):
@@ -418,23 +431,19 @@ def handleClient(client, addr, list_connection) :
                 operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Has logged in with the username {username}.")
 
                 print(f"Server: Login successfully towards account {username}")
-                serverSend(client, addr, list_connection, "Successful")
+                client.sendall("Successful".encode("utf-8"))
                 break
             else:
-
-                serverSend(client, addr, list_connection, "Unsuccessful")
+                client.sendall("Unsuccessful".encode("utf-8"))
                 print(f"Server: Login unsuccessfully towards account {username}")
         #gui nhan file
         data = ""
 
         while True:
-
-            data = serverReceive(client, addr, list_connection)
-            if data is None:
-                return
-
+            STATUS = "CHOOSEN"
+            data = client.recv(1024).decode(FORMAT)
             if data == "exit":
-
+                STATUS = "EXIT"
                 print(f"Client {addr}: Has logged out of the server.")
 
                 operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has disconnected from the server.")
@@ -442,13 +451,14 @@ def handleClient(client, addr, list_connection) :
                 list_connection.remove((client, addr))
                 break
             if data == "uploadFile":
+                STATUS = "UPLOAD_FILE"
                 #gui yeu cau
                 #gui yeu cau: Lấy thông tin từ gui
                 error_name = getErrorUpload(username)
-                serverSend(client, addr, list_connection, error_name)
+                client.sendall(error_name.encode("utf-8"))
                 #nhan ten file hoac duong dan
                 if error_name != "NoError":
-                    continue_upload = serverReceive(client, addr, list_connection)
+                    continue_upload = client.recv(1024).decode(FORMAT)
                     if continue_upload == "Y":
                         #os.remove(error_name)
                         is_done = handleUploadFile(client, addr, list_connection, username)
@@ -461,7 +471,7 @@ def handleClient(client, addr, list_connection) :
                     elif continue_upload == "N":
                         removeLineInFileUpload(error_name)
                         request = "Enter the file path or filename: "
-                        serverSend(client, addr, list_connection, request)
+                        client.sendall(request.encode(FORMAT))
                         is_done = handleUploadFile(client, addr, list_connection, username)
                         if is_done == "BACK":
                             continue
@@ -469,7 +479,7 @@ def handleClient(client, addr, list_connection) :
                             break
                 else:
                     request = "Enter the file path or filename: "
-                    serverSend(client, addr, list_connection, request)
+                    client.sendall(request.encode(FORMAT))
                     is_done = handleUploadFile(client, addr, list_connection, username)
                     if is_done == "BACK":
                         continue
@@ -480,22 +490,23 @@ def handleClient(client, addr, list_connection) :
                 
 
             if data == "downloadFile":
+                #*Cập nhật trạng thái làm việc 
+                STATUS = "DOWNLOAD_FILE"
                 #gui yeu cau: Lấy thông tin từ gui
                 error_name = getErrorDownload(username)
-                serverSend(client, addr, list_connection, error_name)
-                #nhan ten file hoac duong dan
+                client.sendall(error_name.encode("utf-8"))
                 if error_name != "NoError":
-                    continue_download = serverReceive(client, addr, list_connection)
+                    continue_download = client.recv(1024).decode(FORMAT)
                     if continue_download == "Y":
                         is_done = handleDownloadFile(client, addr, list_connection, username)
                         if is_done == "BACK":
                             #XÓA file lỗi ra khỏi file errordownload.txt
-                            removeLineInFile(error_name)
+                            removeLineInFileDownLoad(error_name)
                             continue
                         elif is_done == "ERROR":
                             break
                     elif continue_download == "N":
-                        removeLineInFile(error_name)
+                        removeLineInFileDownLoad(error_name)
                         is_done = handleDownloadFile(client, addr, list_connection, username)
                         if is_done == "BACK":
                             continue
@@ -509,21 +520,30 @@ def handleClient(client, addr, list_connection) :
                         break
 
             if data == "uploadFilesInFolderSequentially":
+                STATUS = "UPLOAD_FILES_IN_FOLDER_SEQUENTIALLLY"
                 #gui yeu cau
                 request = "Enter the path to the folder: "
-                serverSend(client, addr, list_connection, request)
+                client.sendall(request.encode("utf-8"))
                 #nhan ten folder
-                msg = serverReceive(client, addr, list_connection)
-                serverSend(client, addr, list_connection, "Received")
+                msg = client.recv(1024).decode(FORMAT)
+                client.sendall("Received".encode("utf-8"))
                 if msg == "CANCEL":
                     continue
                 operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has requested to upload the folder with the path {msg}.")
                 print(f"Client {addr}: Upload folder with the path {msg}")
                 uploadFilesInFolderSequentially(client, msg, addr, username)
     except TimeoutError:
-        print(f"Client {addr}: Timeout.")
+        print(f"Client {addr}: Timeout when {STATUS}.")
+        list_connection.remove((client, addr))
+    except socket.error:
+        print(f"Client {addr}:  Connection interrupted when {STATUS}.")
+        list_connection.remove((client, addr))
+    except ConnectionResetError:
+        print(f"Client {addr}: Abruptly shut down when {STATUS}.")
+        list_connection.remove((client, addr))
     except Exception as e:
-        print(f"(Hàm ngoài) Connect Error {e} from Client : {client, addr}")
+        print(f"Client {addr}: error {e} when {STATUS}")
+        list_connection.remove((client, addr))
     client.close()
 
 def main():
@@ -547,7 +567,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 
@@ -670,5 +689,3 @@ if __name__ == "__main__":
            
 # if __name__ == "__main__":
 #     main()
-
-

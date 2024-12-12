@@ -4,14 +4,13 @@ import time
 import getpass # to hide password: ****
 import time
 
-
 # Duong dan toi thu muc chua cac file duoc tai xuong o client
 PATH_CLIENT = "DataClient"
 #HOST, PORT
 HOST = socket.gethostname()
 PORT = 12000
 
-
+#!Các hàm liên quan đến xử lí tên file
 # Lay tu ki tu "/" cuoi cung tro ve sau trong duong dan hoac ten file
 def name(file_name):
     res = ""
@@ -30,7 +29,7 @@ def name(file_name):
     return res
 
 # Kiem tra xem co ki tu "/" trong ham o tren chua
-def check(s):
+def checkSlashInFileName(s):
     if s[0] == "/":
         return True
     return False
@@ -60,6 +59,15 @@ def checkFolderExist(path):
     if os.path.isdir(path):
         return True
     return False
+
+#!Các hàm về UPLOAD
+
+def getErrorUpload(before_error_upload):
+    start_of_path_idx = before_error_upload.find(" ") + 1
+    path = before_error_upload[start_of_path_idx:]
+    start_of_filename_idx = path.find("/") + 1
+    error_file= path[start_of_filename_idx:]
+    return error_file
 
 # Ham upload file
 def uploadFile(client, msg):
@@ -96,12 +104,23 @@ def uploadFile(client, msg):
     else:
         print(f"Sever: The file {msg} has been unsuccessfully uploaded to the server. {resp_sta}")
 
+#!Các hàm DOWNLOAD
+
+#*Nhận vào dòng báo lỗi của Server và trả về tên File bị lỗi 
+def getErrorDownload(before_error_download):
+    start_of_path_idx = before_error_download.find(" ") + 1
+    path = before_error_download[start_of_path_idx:]
+    start_of_filename_idx = path.find("/") + 1
+    error_file= path[start_of_filename_idx:]
+    return error_file
+
+
 # Ham download file
 def downloadFile(client, msg):
 
     #tao duong dan den noi luu tru file
     tmp = name(msg)
-    if not check(tmp):
+    if not checkSlashInFileName(tmp):
         tmp = "/" + tmp
     name_with_not_exten = getNameWithNotExten(tmp)
     exten = getExten(tmp)
@@ -125,20 +144,10 @@ def downloadFile(client, msg):
     ofs = open(file_write, "wb")
     sw = 0
     while size > sw:
-        try:
-            data = client.recv(1024)
-        except Exception as e:
-            print(f"Client: There was an error when download file {msg}/ Connect Error with sever.")
-            return False
-        if not data:
-            break
+        data = client.recv(1024)
         ofs.write(data)
         sw += len(data)
-        try:
-            client.sendall(str(sw).encode("utf-8"))
-        except:
-            print(f"Client: There was an error when download file {msg}/ Connect Error with sever.")
-            return False
+        client.sendall(str(sw).encode("utf-8"))
     ofs.close()
 
     # Nhan thong bao tu sever
@@ -146,8 +155,9 @@ def downloadFile(client, msg):
     if resp == "Success":
         print(f"Sever: The file has been successfully downloaded and is currently stored at {file_write}. ")
     else:
-        print(f"Sever: File download failed. Connection error!")
+        print(f"Sever: There was an error when download file {msg}/ Connect Error with sever!")
 
+#!Các hàm UPLOAD_FOLDER
 def uploadFilesInFolderSequentially(client, msg):
     # Lay danh sach cac ten file trong folder
     fileName = os.listdir(msg)
@@ -169,78 +179,26 @@ def uploadFilesInFolderSequentially(client, msg):
     res = client.recv(1024).decode("utf-8")
     print(res)
 
-def menu():
-    print("0. Exit")
-    print("1. Upload File")
-    print("2. Download File")
-    print("3. Upload Files In Folder Sequentially")
-    
-def client_send(client, data):
-    try:
-        client.sendall(data.encode("utf-8"))
-    except socket.error: #BẮT LỖI TIME-OUT, SERVER TỰ NGẮT KẾT NỐI BẰNG CLOSE()
-        print(f"Server: Disconnected with sever.")
-        client.close()
-    except ConnectionResetError:
-        print(f"Server: Connection was abruptly terminated with sever.")
-        client.close()
-    except Exception as e:
-        print(f"An error {e} occurred while sending data to the server.")
-        client.close()
 
-
-def client_receive(client):
-    try:
-        data = client.recv(1024).decode("utf-8")
-        if not data:
-            print("Server đã đóng kết nối.")
-            client.close()
-        else:
-            return data
-    except socket.error: #BẮT LỖI TIME-OUT, SERVER TỰ NGẮT KẾT NỐI BẰNG CLOSE()
-        print(f"Server: Disconnected with sever.")
-        client.close()
-    except ConnectionResetError:
-        print(f"Server: Connection was abruptly terminated with sever.")
-        client.close()
-    except Exception as e:
-        print(f"An error {e} occurred while sending data to the server.")
-        client.close()
-    return None
-    
-# Lay ten file tai khong thanh cong
-def getErrorDownload(before_error_download):
-    start_of_path_idx = before_error_download.find(" ") + 1
-    path = before_error_download[start_of_path_idx:]
-    start_of_filename_idx = path.find("/") + 1
-    error_file= path[start_of_filename_idx:]
-    return error_file
-
-def getErrorUpload(before_error_upload):
-    start_of_path_idx = before_error_upload.find(" ") + 1
-    path = before_error_upload[start_of_path_idx:]
-    start_of_filename_idx = path.find("/") + 1
-    error_file= path[start_of_filename_idx:]
-    return error_file
-
+#!Hàm đăng nhập 
 def login(client):
-    status = client_receive(client)
+
+    status = client.recv(1024).decode("utf-8")
     os.system("cls")
     # In ra man hinh da ket noi thanh cong voi sever
     print(status)
-    res = client_send(client, "success")
-    # Nhan yeu cau nhap ten dang nhap va mat khau
-    reply = client_receive(client)
+    res = "success"
+    client.sendall(res.encode("utf-8"))
+    reply = client.recv(1024).decode("utf-8")
     print(reply)
     username = input("\nUsername: ")
     password = input("Password: ")
 
     # Gui thong tin ten dang nhap va mat khau toi sever
     login_information = f"{username},{password}"
-    client_send(client, login_information)
-
+    client.sendall(login_information.encode("utf-8"))
     # Nhận phản hồi từ server
-    resp = client_receive(client)
+    resp = client.recv(1024).decode("utf-8")
     if resp == "Successful":
         print("Login Successful")
         return True
@@ -248,13 +206,19 @@ def login(client):
         print("Login unsuccessfully")
         return False
 
+#!Menu
+def menu():
+    print("0. Exit")
+    print("1. Upload File")
+    print("2. Download File")
+    print("3. Upload Files In Folder Sequentially")
 
 # --------------------------- main ----------------
-
-
+#!Hàm main
 def main():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
+        #*Kết nối đến Server
         client.connect((HOST, PORT))
         print(f"Connecting to the server, please wait.")
         # Neu dang nhap khong thanh cong phai tiep tuc dang nhap cho toi khi thanh cong hoac thoat
@@ -272,15 +236,17 @@ def main():
                 choice = int(choice)
             match choice:
                 # Ngat ket noi voi sever
+                #*Nếu Client chọn thoát khỏi chương trình
                 case 0:
                     msg = "exit"
+                     #*Hỏi Client có chắc chắn muốn ngắt kết nối không
                     again_check = input("Sever: Are you sure you want to disconnect?(Y/N): ")
                     if again_check == "Y":
                         client.sendall(msg.encode("utf-8"))
                         print("Sever: You have disconnected from the server!")
                         connect = False
                     else:
-                        break
+                        continue
                 case 1:
                     msg = "uploadFile"
                     # Gui thong bao se upload file den sever
@@ -314,14 +280,14 @@ def main():
                                 msg = input(f"(Sever request) - {resp}")
                                 if msg == "CANCEL":
                                     client.sendall(msg.encode("utf-8"))
-                                    rec = client_receive(client)
+                                    rec = client.recv(1024).decode("utf-8")
                                     flag = False
                                     break
                                 if not checkExist(msg):
                                     print("The file does not exist. Please enter again!!!")
                                     continue
                                 client.sendall(msg.encode("utf-8"))
-                                rec = client_receive(client)
+                                rec = client.recv(1024).decode("utf-8")
                                 break
 
                             # Neu nhap duong dan dung thi thuc hien upload
@@ -338,14 +304,14 @@ def main():
                                 msg = input(f"(Sever request) - {resp}")
                                 if msg == "CANCEL":
                                     client.sendall(msg.encode("utf-8"))
-                                    rec = client_receive(client)
+                                    rec = client.recv(1024).decode("utf-8")
                                     flag = False
                                     break
                                 if not checkExist(msg):
                                     print("The file does not exist. Please enter again!!!")
                                     continue
                                 client.sendall(msg.encode("utf-8"))
-                                rec = client_receive(client)
+                                rec = client.recv(1024).decode("utf-8")
                                 break
 
                             # Neu nhap duong dan dung thi thuc hien upload
@@ -358,26 +324,33 @@ def main():
                     client.sendall(msg.encode("utf-8"))
                     # Kiem tra xem client truoc day co tung co file tai loi khong
                     before_error_download = client.recv(1024).decode("utf-8")
+                    #*Kiểm tra có lỗi hay không
+                    #*Nếu có File tải lỗi trước đó
                     if before_error_download != "NoError":
-                        # Lay ten file tai loi
-                        error_file = getErrorDownload(before_error_download)
+                        #*Lấy tên của File bị lỗi và hiển thị ra màn hình để hỏi Client có muốn tải lại File khoong
+                        eerror_file = getErrorDownload(before_error_download)
                         print(f"You previously attempted to download the file {error_file}, but it was interrupted during your last session. Would you like to resume the download? (Y/N)")
                         continue_download  = input()
-                        # Gui yeu cau tiep tuc va tiep tuc tai
+                        #*Nếu Client muốn tải lại File
                         if continue_download == "Y":
+                            #*Gửi hồi đáp rằng muốn tải File lỗi trước đó đến Server
                             client.sendall(continue_download.encode("utf-8"))
                             time.sleep(0.1)
+                            #*Gửi tên File lỗi đến Server, để thực hiện tải file
                             client.sendall(error_file.encode("utf-8"))
                             # Bien nhan file ton tai
                             is_exist = client.recv(1024).decode("utf-8")
                             client.sendall("Receive".encode("utf-8"))
                             downloadFile(client, error_file)
-                        # Gui yeu cau khong tiep tuc va tiep tuc tai file khac
+                        #*Nếu Client không muốn tải lại File
                         else:
+                            #*Gửi hồi đáp rằng không muốn tải File lỗi trước đó đến Server
                             client.sendall(continue_download.encode("utf-8"))
                             time.sleep(0.1)
+                            #*Thực hiện tải File
                             flag = True
                             while 1:
+                                #*Nhập tên File cần tải, hoặc thoát công việc tải File
                                 print("Type 'CANCEL' to return to the menu!!!")
                                 msg = input(f"Sever: Enter the name of the file you want to download: ")
                                 if msg == "CANCEL":
@@ -399,11 +372,14 @@ def main():
                                 
                                 break
                             if flag == True:
+                                #*Tiến hành tải File
                                 downloadFile(client, msg)
                     # Neu khong co file tai loi truoc do thi tai file
                     else:
+                        #*Thực hiện tải File
                         flag = True
                         while 1:
+                            #*Nhập tên File cần tải, hoặc thoát công việc tải File
                             print("Type 'CANCEL' to return to the menu!!!")
                             msg = input(f"(Sever request): Enter the name of the file you want to download: ")
                             if msg == "CANCEL":
@@ -424,6 +400,7 @@ def main():
                                 client.sendall(resp.encode("utf-8"))
                             break
                         if flag == True:
+                            #*Tiến hành tải File
                             downloadFile(client, msg)
 
                 case 3:
@@ -438,26 +415,32 @@ def main():
                         msg = input(f"(Sever request) - {resp}")
                         if msg == "CANCEL":
                             client.sendall(msg.encode("utf-8"))
-                            rec = client_receive(client)
+                            rec = client.recv(1024).decode("utf-8")
                             flag = False
                             break
                         if not checkFolderExist(msg):
                             print("The folder does not exist. Please enter again!")
                             continue
                         client.sendall(msg.encode("utf-8"))
-                        rec = client_receive(client)
+                        rec = client.recv(1024).decode("utf-8")
                         break
                     if flag == True:
                         uploadFilesInFolderSequentially(client, msg)
-
                 case default:
-                    print("Your input is invalid. Please try again.")
-
+                    print("The input request is invalid. Please try again.")
+    #!Bắt lỗi, chương trình bên SERVER bị đóng
+    except ConnectionResetError:
+        print("The server was abruptly shut down.")
+    #!Bắt lỗi, kết nối wifi của bản thân bị gián đoạn
+    except socket.error:
+        print(f"The connection to the server was interrupted, causing the send/receive timeout to be too long. Please log in again.")
+    #!Bắt các lỗi khác...
     except Exception as e:
         print(F"Cannot connect to the server, Error: {e}")
+    #!Dừng chương trình để Client đọc thông báo
     input()
+    #!Đóng kết nối với Server
     client.close()
-
 if __name__ == "__main__":
     main()
 #C:/Users/Admin/Documents/vs code/vs code python/anh.bin
