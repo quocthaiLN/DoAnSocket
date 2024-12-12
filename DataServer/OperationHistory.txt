@@ -721,3 +721,22 @@ Wed 11-12-2024 22:27:30:Client ('10.0.0.1', 58121) da ket noi toi sever
 Wed 11-12-2024 22:27:39: Client ('10.0.0.1', 58121) da dang nhap voi ten tai khoan la qthai
 Wed 11-12-2024 22:27:57: Client qthai ('10.0.0.1', 58121) da yeu cau download file voi duong dan 50mb.pdf
 Wed 11-12-2024 22:35:54: Client ('10.0.118.254', 58097) da ngat ket noi toi server do qua timeout
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 09:38:49:Sever mo ket noi
+Thu 12-12-2024 09:38:52:Client ('192.168.102.40', 61472) da ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 09:40:36:Sever mo ket noi
+Thu 12-12-2024 09:40:37:Client ('192.168.102.40', 61545) da ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 09:44:07:Sever mo ket noi
+Thu 12-12-2024 09:44:09:Client ('192.168.102.40', 61558) da ket noi toi sever
+Thu 12-12-2024 09:44:11: Client ('192.168.102.40', 61558) da dot ngot ngat ket noi toi server
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 09:45:22:Sever mo ket noi
+Thu 12-12-2024 09:45:24:Client ('192.168.102.40', 61612) da ket noi toi sever
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 09:45:45:Sever mo ket noi
+Thu 12-12-2024 09:45:47:Client ('192.168.102.40', 61616) da ket noi toi sever
+Thu 12-12-2024 09:45:56: Client ('192.168.102.40', 61616) da dang nhap voi ten tai khoan la qthang
+Thu 12-12-2024 09:46:26: Client qthang ('192.168.102.40', 61616) da yeu cau download file voi duong dan DataServer/ErrorDownload.txt
+Thu 12-12-2024 09:46:26: Client qthang ('192.168.102.40', 61616) da download file voi duong dan DataServer/ErrorDownload.txt thanh cong
