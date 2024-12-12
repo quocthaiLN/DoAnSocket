@@ -749,3 +749,219 @@ Thu 12-12-2024 12:07:12: Client qthang ('192.168.102.40', 62683): Has successful
 Thu 12-12-2024 12:07:22: Client qthang ('192.168.102.40', 62683): Has requested to download the file with the path test.txt.
 Thu 12-12-2024 12:07:22: Client qthang ('192.168.102.40', 62683): Has successfully downloaded the file with the path test.txt.
 Thu 12-12-2024 12:07:59: Client qthang ('192.168.102.40', 62683): Has disconnected from the server.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 12:31:54:The server has opened the connection.
+Thu 12-12-2024 12:32:08:Client ('192.168.102.40', 62821) has connected to the server.
+Thu 12-12-2024 12:32:10: Client ('192.168.102.40', 62821): Has logged in with the username qthang.
+Thu 12-12-2024 12:32:19: Client qthang ('192.168.102.40', 62821): Has requested to download the file with the path test.txt.
+Thu 12-12-2024 12:32:19: Client qthang ('192.168.102.40', 62821): Has successfully downloaded the file with the path test.txt.
+Thu 12-12-2024 12:32:28: Client ('192.168.102.40', 62821): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 12:37:05:The server has opened the connection.
+Thu 12-12-2024 12:37:08:Client ('192.168.102.40', 62836) has connected to the server.
+Thu 12-12-2024 12:37:11: Client ('192.168.102.40', 62836): Has logged in with the username qthang.
+Thu 12-12-2024 12:37:30: Client qthang ('192.168.102.40', 62836): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 12:37:33:Client ('192.168.102.40', 62837) has connected to the server.
+Thu 12-12-2024 12:37:35: Client ('192.168.102.40', 62837): Has logged in with the username qthang.
+Thu 12-12-2024 12:37:49: Client qthang ('192.168.102.40', 62837): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 12:37:52: Client qthang ('192.168.102.40', 62837): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 12:38:02: Client ('192.168.102.40', 62837): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 12:56:09:The server has opened the connection.
+Thu 12-12-2024 12:56:11:Client ('192.168.102.40', 62871) has connected to the server.
+Thu 12-12-2024 12:56:13: Client ('192.168.102.40', 62871): Has logged in with the username qthang.
+Thu 12-12-2024 12:56:21: Client ('192.168.102.40', 62871): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:01:36:The server has opened the connection.
+Thu 12-12-2024 13:01:39:Client ('192.168.102.40', 62876) has connected to the server.
+Thu 12-12-2024 13:01:41: Client ('192.168.102.40', 62876): Has logged in with the username qthang.
+Thu 12-12-2024 13:01:49: Client ('192.168.102.40', 62876): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:10:26:The server has opened the connection.
+Thu 12-12-2024 13:10:28:Client ('192.168.102.40', 62889) has connected to the server.
+Thu 12-12-2024 13:10:30: Client ('192.168.102.40', 62889): Has logged in with the username qthang.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:11:57:The server has opened the connection.
+Thu 12-12-2024 13:11:59:Client ('192.168.102.40', 62890) has connected to the server.
+Thu 12-12-2024 13:12:01: Client ('192.168.102.40', 62890): Has logged in with the username qthang.
+Thu 12-12-2024 13:12:19: Client qthang ('192.168.102.40', 62890): Has requested to download the file with the path test.txt.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:14:21:The server has opened the connection.
+Thu 12-12-2024 13:14:23:Client ('192.168.102.40', 62912) has connected to the server.
+Thu 12-12-2024 13:14:25: Client ('192.168.102.40', 62912): Has logged in with the username qthang.
+Thu 12-12-2024 13:14:32: Client qthang ('192.168.102.40', 62912): Has requested to download the file with the path test.txt.
+Thu 12-12-2024 13:14:32: Client qthang ('192.168.102.40', 62912): Has successfully downloaded the file with the path test.txt.
+Thu 12-12-2024 13:14:38: Client ('192.168.102.40', 62912): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:15:10:The server has opened the connection.
+Thu 12-12-2024 13:15:13:Client ('192.168.102.40', 62915) has connected to the server.
+Thu 12-12-2024 13:15:16: Client ('192.168.102.40', 62915): Has logged in with the username qthang.
+Thu 12-12-2024 13:15:35: Client qthang ('192.168.102.40', 62915): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:15:37:Client ('192.168.102.40', 62916) has connected to the server.
+Thu 12-12-2024 13:15:40: Client ('192.168.102.40', 62916): Has logged in with the username qthang.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:21:42:The server has opened the connection.
+Thu 12-12-2024 13:21:44:Client ('192.168.102.40', 62924) has connected to the server.
+Thu 12-12-2024 13:21:47: Client ('192.168.102.40', 62924): Has logged in with the username qthang.
+Thu 12-12-2024 13:21:51: Client qthang ('192.168.102.40', 62924): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:21:54: Client qthang ('192.168.102.40', 62924): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:21:59: Client ('192.168.102.40', 62924): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:34:54:The server has opened the connection.
+Thu 12-12-2024 13:35:27:Client ('192.168.102.40', 62979) has connected to the server.
+Thu 12-12-2024 13:35:30: Client ('192.168.102.40', 62979): Has logged in with the username qthang.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:37:24:The server has opened the connection.
+Thu 12-12-2024 13:37:26:Client ('192.168.102.40', 63003) has connected to the server.
+Thu 12-12-2024 13:37:29: Client ('192.168.102.40', 63003): Has logged in with the username qthang.
+Thu 12-12-2024 13:37:39: Client qthang ('192.168.102.40', 63003): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:37:41:Client ('192.168.102.40', 63004) has connected to the server.
+Thu 12-12-2024 13:37:47: Client ('192.168.102.40', 63004): Has logged in with the username qthang.
+Thu 12-12-2024 13:37:50: Client qthang ('192.168.102.40', 63004): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:37:53: Client qthang ('192.168.102.40', 63004): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:37:59: Client ('192.168.102.40', 63004): Abruptly disconnected.
+Thu 12-12-2024 13:38:15:Client ('192.168.102.40', 63007) has connected to the server.
+Thu 12-12-2024 13:38:17: Client ('192.168.102.40', 63007): Has logged in with the username qthang.
+Thu 12-12-2024 13:38:23: Client qthang ('192.168.102.40', 63007): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:38:26: Client qthang ('192.168.102.40', 63007): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:38:33: Client qthang ('192.168.102.40', 63007): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:38:36:Client ('192.168.102.40', 63010) has connected to the server.
+Thu 12-12-2024 13:38:39: Client ('192.168.102.40', 63010): Abruptly disconnected.
+Thu 12-12-2024 13:38:52:Client ('192.168.102.40', 63011) has connected to the server.
+Thu 12-12-2024 13:38:54: Client ('192.168.102.40', 63011): Has logged in with the username qthang.
+Thu 12-12-2024 13:38:57: Client qthang ('192.168.102.40', 63011): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:38:59: Client qthang ('192.168.102.40', 63011): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:39:04: Client ('192.168.102.40', 63011): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:40:25:The server has opened the connection.
+Thu 12-12-2024 13:40:27:Client ('192.168.102.40', 63016) has connected to the server.
+Thu 12-12-2024 13:40:29: Client ('192.168.102.40', 63016): Has logged in with the username qthang.
+Thu 12-12-2024 13:40:36: Client qthang ('192.168.102.40', 63016): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:40:39: Client qthang ('192.168.102.40', 63016): Has successfully uploaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:41:09: Client qthang ('192.168.102.40', 63016): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:41:11: Client ('192.168.102.40', 63016): Has disconnected from the server.
+Thu 12-12-2024 13:41:12:Client ('192.168.102.40', 63017) has connected to the server.
+Thu 12-12-2024 13:41:14: Client ('192.168.102.40', 63017): Has logged in with the username qthang.
+Thu 12-12-2024 13:41:23: Client ('192.168.102.40', 63017): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:47:43:The server has opened the connection.
+Thu 12-12-2024 13:47:45:Client ('192.168.102.40', 63041) has connected to the server.
+Thu 12-12-2024 13:47:48: Client ('192.168.102.40', 63041): Has logged in with the username qthang.
+Thu 12-12-2024 13:47:55: Client qthang ('192.168.102.40', 63041): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:47:58: Client qthang ('192.168.102.40', 63041): Has successfully uploaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:48:08: Client qthang ('192.168.102.40', 63041): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:48:08: Client ('192.168.102.40', 63041): Has disconnected from the server.
+Thu 12-12-2024 13:48:10:Client ('192.168.102.40', 63042) has connected to the server.
+Thu 12-12-2024 13:48:13: Client ('192.168.102.40', 63042): Has logged in with the username qthang.
+Thu 12-12-2024 13:48:18: Client qthang ('192.168.102.40', 63042): Has requested to upload the file with the path 50mb.pdf.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:51:50:The server has opened the connection.
+Thu 12-12-2024 13:51:52:Client ('192.168.102.40', 63050) has connected to the server.
+Thu 12-12-2024 13:51:55: Client ('192.168.102.40', 63050): Has logged in with the username qthang.
+Thu 12-12-2024 13:51:59: Client qthang ('192.168.102.40', 63050): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:52:02: Client qthang ('192.168.102.40', 63050): Has successfully uploaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:52:10: Client ('192.168.102.40', 63050): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:52:39:The server has opened the connection.
+Thu 12-12-2024 13:52:41:Client ('192.168.102.40', 63053) has connected to the server.
+Thu 12-12-2024 13:52:44: Client ('192.168.102.40', 63053): Has logged in with the username qthang.
+Thu 12-12-2024 13:52:51: Client qthang ('192.168.102.40', 63053): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:52:54: Client qthang ('192.168.102.40', 63053): Has successfully uploaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:53:18: Client qthang ('192.168.102.40', 63053): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:53:19: Client ('192.168.102.40', 63053): Has disconnected from the server.
+Thu 12-12-2024 13:53:20:Client ('192.168.102.40', 63058) has connected to the server.
+Thu 12-12-2024 13:53:25: Client ('192.168.102.40', 63058): Has logged in with the username hthang.
+Thu 12-12-2024 13:53:38: Client hthang ('192.168.102.40', 63058): Has disconnected from the server.
+Thu 12-12-2024 13:53:42:Client ('192.168.102.40', 63059) has connected to the server.
+Thu 12-12-2024 13:53:45: Client ('192.168.102.40', 63059): Has logged in with the username qthang.
+Thu 12-12-2024 13:53:49: Client qthang ('192.168.102.40', 63059): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:53:51: Client qthang ('192.168.102.40', 63059): Has successfully uploaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:54:01: Client qthang ('192.168.102.40', 63059): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 13:54:02: Client ('192.168.102.40', 63059): Has disconnected from the server.
+Thu 12-12-2024 13:54:03:Client ('192.168.102.40', 63061) has connected to the server.
+Thu 12-12-2024 13:54:15: Client ('192.168.102.40', 63061): Has logged in with the username qthang.
+Thu 12-12-2024 13:54:32: Client ('192.168.102.40', 63061): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:54:40:The server has opened the connection.
+Thu 12-12-2024 13:54:42:Client ('192.168.102.40', 63062) has connected to the server.
+Thu 12-12-2024 13:54:44: Client ('192.168.102.40', 63062): Has logged in with the username qthang.
+Thu 12-12-2024 13:54:53: Client qthang ('192.168.102.40', 63062): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:54:56: Client qthang ('192.168.102.40', 63062): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:55:27: Client ('192.168.102.40', 63062): Abruptly disconnected.
+Thu 12-12-2024 13:55:29:Client ('192.168.102.40', 63063) has connected to the server.
+Thu 12-12-2024 13:55:32: Client ('192.168.102.40', 63063): Has logged in with the username qthang.
+Thu 12-12-2024 13:55:38: Client qthang ('192.168.102.40', 63063): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:55:41: Client qthang ('192.168.102.40', 63063): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:55:48: Client qthang ('192.168.102.40', 63063): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:55:50:Client ('192.168.102.40', 63064) has connected to the server.
+Thu 12-12-2024 13:55:57: Client ('192.168.102.40', 63064): Has logged in with the username qthang.
+Thu 12-12-2024 13:56:03: Client qthang ('192.168.102.40', 63064): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:56:05: Client qthang ('192.168.102.40', 63064): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 13:56:11: Client qthang ('192.168.102.40', 63064): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 13:56:14:Client ('192.168.102.40', 63065) has connected to the server.
+Thu 12-12-2024 13:56:18: Client ('192.168.102.40', 63065): Has logged in with the username qthang.
+Thu 12-12-2024 13:56:50: Client qthang ('192.168.102.40', 63065): Has requested to download the file with the path 16.pdf.
+Thu 12-12-2024 13:56:51: Client qthang ('192.168.102.40', 63065): Has successfully downloaded the file with the path 16.pdf.
+Thu 12-12-2024 13:56:54: Client ('192.168.102.40', 63065): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:58:58:The server has opened the connection.
+Thu 12-12-2024 13:58:59:Client ('192.168.102.40', 63068) has connected to the server.
+Thu 12-12-2024 13:59:02: Client ('192.168.102.40', 63068): Has logged in with the username qthang.
+Thu 12-12-2024 13:59:12: Client ('192.168.102.40', 63068): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 13:59:40:The server has opened the connection.
+Thu 12-12-2024 13:59:42:Client ('192.168.102.40', 63070) has connected to the server.
+Thu 12-12-2024 13:59:44: Client ('192.168.102.40', 63070): Has logged in with the username qthang.
+Thu 12-12-2024 14:00:00: Client qthang ('192.168.102.40', 63070): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 14:00:03: Client qthang ('192.168.102.40', 63070): Has successfully uploaded the file with the path 50mb.pdf.
+Thu 12-12-2024 14:00:05: Client ('192.168.102.40', 63070): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 14:06:45:The server has opened the connection.
+Thu 12-12-2024 14:06:46:Client ('192.168.102.40', 63078) has connected to the server.
+Thu 12-12-2024 14:06:49: Client ('192.168.102.40', 63078): Has logged in with the username qthang.
+Thu 12-12-2024 14:07:12: Client qthang ('192.168.102.40', 63078): Has requested to upload the folder with the path D:\New folder\DoAnSocket\DataClient.
+Thu 12-12-2024 14:07:16: Client ('192.168.102.40', 63078) has successfully uploaded the folder with the path D:\New folder\DoAnSocket\DataClient.
+Thu 12-12-2024 14:07:28: Client ('192.168.102.40', 63078): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 14:12:41:The server has opened the connection.
+Thu 12-12-2024 14:12:44:Client ('192.168.102.40', 63091) has connected to the server.
+Thu 12-12-2024 14:12:46: Client ('192.168.102.40', 63091): Has logged in with the username qthang.
+Thu 12-12-2024 14:12:54: Client qthang ('192.168.102.40', 63091): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 14:12:54: Client ('192.168.102.40', 63091): Has disconnected from the server.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 14:16:53:The server has opened the connection.
+Thu 12-12-2024 14:16:55:Client ('192.168.102.40', 63108) has connected to the server.
+Thu 12-12-2024 14:16:59: Client ('192.168.102.40', 63108): Has logged in with the username qthang.
+Thu 12-12-2024 14:17:08: Client qthang ('192.168.102.40', 63108): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 14:17:10:Client ('192.168.102.40', 63109) has connected to the server.
+Thu 12-12-2024 14:17:14: Client ('192.168.102.40', 63109): Has logged in with the username qthang.
+Thu 12-12-2024 14:17:18: Client qthang ('192.168.102.40', 63109): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 14:17:22:Client ('192.168.102.40', 63110) has connected to the server.
+Thu 12-12-2024 14:17:24: Client ('192.168.102.40', 63110): Has logged in with the username qthang.
+Thu 12-12-2024 14:17:27: Client qthang ('192.168.102.40', 63110): Has requested to download the file with the path 50mb.pdf.
+Thu 12-12-2024 14:17:29: Client qthang ('192.168.102.40', 63110): Has successfully downloaded the file with the path 50mb.pdf.
+Thu 12-12-2024 14:17:31: Client ('192.168.102.40', 63110): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 14:29:52:The server has opened the connection.
+Thu 12-12-2024 14:29:57:Client ('192.168.102.40', 63143) has connected to the server.
+Thu 12-12-2024 14:29:59: Client ('192.168.102.40', 63143): Has logged in with the username qthang.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 14:30:30:The server has opened the connection.
+Thu 12-12-2024 14:30:33:Client ('192.168.102.40', 63144) has connected to the server.
+Thu 12-12-2024 14:30:35: Client ('192.168.102.40', 63144): Has logged in with the username qthang.
+Thu 12-12-2024 14:30:50: Client qthang ('192.168.102.40', 63144): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 14:30:51: Client ('192.168.102.40', 63144): Has disconnected from the server.
+Thu 12-12-2024 14:31:03:Client ('192.168.102.40', 63145) has connected to the server.
+Thu 12-12-2024 14:31:07: Client ('192.168.102.40', 63145): Has logged in with the username qthang.
+Thu 12-12-2024 14:31:25: Client qthang ('192.168.102.40', 63145): Has requested to upload the file with the path 50mb(3).pdf.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 14:34:01:The server has opened the connection.
+Thu 12-12-2024 14:34:03:Client ('192.168.102.40', 63152) has connected to the server.
+Thu 12-12-2024 14:34:05: Client ('192.168.102.40', 63152): Has logged in with the username qthang.
+Thu 12-12-2024 14:34:22: Client qthang ('192.168.102.40', 63152): Has requested to upload the file with the path 50mb.pdf.
+Thu 12-12-2024 14:34:24: Client qthang ('192.168.102.40', 63152): Has successfully uploaded the file with the path 50mb.pdf.
+Thu 12-12-2024 14:34:33: Client ('192.168.102.40', 63152): Abruptly disconnected.
+------------------------------------------------------------------------------------------------------------------------------------
+Thu 12-12-2024 14:36:51:The server has opened the connection.
+Thu 12-12-2024 14:36:53:Client ('192.168.102.40', 63159) has connected to the server.
+Thu 12-12-2024 14:36:57: Client ('192.168.102.40', 63159): Abruptly disconnected.

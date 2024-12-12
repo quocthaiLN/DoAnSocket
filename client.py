@@ -6,7 +6,7 @@ import time
 
 
 # Duong dan toi thu muc chua cac file duoc tai xuong o client
-Path_Client = "DataClient"
+PATH_CLIENT = "DataClient"
 #HOST, PORT
 HOST = socket.gethostname()
 PORT = 12000
@@ -98,17 +98,6 @@ def uploadFile(client, msg):
 
 # Ham download file
 def downloadFile(client, msg):
-    # Nhan trang thai xem file co ton tai tren sever hay co bi cam tai khong
-    check_status = client.recv(1024).decode("utf-8")
-    if check_status == "forbidden file":
-        print("Sever: File is in list forbidden file. Can't download this file")
-        return
-    if check_status == "Not exist":
-        print("Sever: File is not exist!!!")
-        return
-    else:
-        resp = "Received"
-        client.sendall(resp.encode("utf-8"))
 
     #tao duong dan den noi luu tru file
     tmp = name(msg)
@@ -116,20 +105,22 @@ def downloadFile(client, msg):
         tmp = "/" + tmp
     name_with_not_exten = getNameWithNotExten(tmp)
     exten = getExten(tmp)
-    file_write = Path_Client + tmp
+    file_write = PATH_CLIENT + tmp
     #kiem tra xem trong thu muc sever co file tren chua neu co thi them so 1,2,3,.. o sau de khac voi file cu
     i = 1
-    while os.path.isfile(Path_Client + tmp):
+    while os.path.isfile(PATH_CLIENT + tmp):
             tmp = name_with_not_exten + "(" + str(i) + ")" + exten
-            file_write = Path_Client + tmp
+            file_write = PATH_CLIENT + tmp
             i += 1
 
     # Nhan kich thuoc file va gui lai thong bao toi sever
     size_recv = client.recv(1024).decode("utf-8")
     size = int(size_recv)
-    size_resp = "Received"
-    client.sendall(size_resp.encode("utf-8"))
+    # Gui ten file
+    client.sendall(file_write.encode("utf-8"))
 
+    
+    
     # Tuong tu nhu upload file o sever
     ofs = open(file_write, "wb")
     sw = 0
@@ -225,6 +216,13 @@ def getErrorDownload(before_error_download):
     error_file= path[start_of_filename_idx:]
     return error_file
 
+def getErrorUpload(before_error_upload):
+    start_of_path_idx = before_error_upload.find(" ") + 1
+    path = before_error_upload[start_of_path_idx:]
+    start_of_filename_idx = path.find("/") + 1
+    error_file= path[start_of_filename_idx:]
+    return error_file
+
 def login(client):
     status = client_receive(client)
     os.system("cls")
@@ -284,33 +282,75 @@ def main():
                     else:
                         break
                 case 1:
-                    # Dat co de neu client nhap CANCEL thi se khong thuc hien upload
-                    flag = True
                     msg = "uploadFile"
-                    # Gui thong bao se uploa file den sever
+                    # Gui thong bao se upload file den sever
                     client.sendall(msg.encode("utf-8"))
+                    before_error_upload = client.recv(1024).decode("utf-8")
+                    if before_error_upload != "NoError":
+                        # Lay ten file tai loi
+                        error_file = getErrorUpload(before_error_upload)
+                        print(f"You previously attempted to upload the file {error_file}, but it was interrupted during your last session. Would you like to resume the download? (Y/N)")
+                        continue_upload  = input()
+                        # Gui yeu cau tiep tuc va tiep tuc tai
+                        if continue_upload == "Y":
+                            client.sendall(continue_upload.encode("utf-8"))
+                            time.sleep(0.1)
+                            client.sendall(error_file.encode("utf-8"))
+                            # Bien nhan file ton tai
+                            is_exist = client.recv(1024).decode("utf-8")
+                            #client.sendall("Receive".encode("utf-8"))
+                            uploadFile(client, error_file)
+                        # Gui yeu cau khong tiep tuc va tiep tuc tai file khac
+                        else:
+                            client.sendall(continue_upload.encode("utf-8"))
+                            time.sleep(0.1)
+                            # Dat co de neu client nhap CANCEL thi se khong thuc hien upload
+                            flag = True
+                            # Nhan yeu cau nhap duong dan tu sever
+                            resp = client.recv(1024).decode("utf-8")
+                            # Nhap yeu cau gui toi sever
+                            while 1:
+                                print("Type 'CANCEL' to return to the menu!!!")
+                                msg = input(f"(Sever request) - {resp}")
+                                if msg == "CANCEL":
+                                    client.sendall(msg.encode("utf-8"))
+                                    rec = client_receive(client)
+                                    flag = False
+                                    break
+                                if not checkExist(msg):
+                                    print("The file does not exist. Please enter again!!!")
+                                    continue
+                                client.sendall(msg.encode("utf-8"))
+                                rec = client_receive(client)
+                                break
 
-                    # Nhan yeu cau nhap duong dan tu sever
-                    resp = client.recv(1024).decode("utf-8")
-                    # Nhap yeu cau gui toi sever
-                    while 1:
-                        print("Type 'CANCEL' to return to the menu!!!")
-                        msg = input(f"(Sever request) - {resp}")
-                        if msg == "CANCEL":
-                            client.sendall(msg.encode("utf-8"))
-                            rec = client_receive(client)
-                            flag = False
-                            break
-                        if not checkExist(msg):
-                            print("The file does not exist. Please enter again!!!")
-                            continue
-                        client.sendall(msg.encode("utf-8"))
-                        rec = client_receive(client)
-                        break
+                            # Neu nhap duong dan dung thi thuc hien upload
+                            if flag == True:
+                                uploadFile(client, msg)
+                    else:
+                            # Dat co de neu client nhap CANCEL thi se khong thuc hien upload
+                            flag = True
+                            # Nhan yeu cau nhap duong dan tu sever
+                            resp = client.recv(1024).decode("utf-8")
+                            # Nhap yeu cau gui toi sever
+                            while 1:
+                                print("Type 'CANCEL' to return to the menu!!!")
+                                msg = input(f"(Sever request) - {resp}")
+                                if msg == "CANCEL":
+                                    client.sendall(msg.encode("utf-8"))
+                                    rec = client_receive(client)
+                                    flag = False
+                                    break
+                                if not checkExist(msg):
+                                    print("The file does not exist. Please enter again!!!")
+                                    continue
+                                client.sendall(msg.encode("utf-8"))
+                                rec = client_receive(client)
+                                break
 
-                    # Neu nhap duong dan dung thi thuc hien upload
-                    if flag == True:
-                        uploadFile(client, msg)
+                            # Neu nhap duong dan dung thi thuc hien upload
+                            if flag == True:
+                                uploadFile(client, msg)
 
                 case 2:
                     # Gui yeu cau download toi cho sever
@@ -328,6 +368,9 @@ def main():
                             client.sendall(continue_download.encode("utf-8"))
                             time.sleep(0.1)
                             client.sendall(error_file.encode("utf-8"))
+                            # Bien nhan file ton tai
+                            is_exist = client.recv(1024).decode("utf-8")
+                            client.sendall("Receive".encode("utf-8"))
                             downloadFile(client, error_file)
                         # Gui yeu cau khong tiep tuc va tiep tuc tai file khac
                         else:
@@ -342,6 +385,18 @@ def main():
                                     flag = False
                                     break
                                 client.sendall(msg.encode("utf-8"))
+                                # Nhan trang thai xem file co ton tai tren sever hay co bi cam tai khong
+                                check_status = client.recv(1024).decode("utf-8")
+                                if check_status == "forbidden file":
+                                    print("Sever: File is in list forbidden file. Can't download this file")
+                                    continue
+                                if check_status == "Not exist":
+                                    print("Sever: File is not exist!!!")
+                                    continue
+                                else:
+                                    resp = "Received"
+                                    client.sendall(resp.encode("utf-8"))
+                                
                                 break
                             if flag == True:
                                 downloadFile(client, msg)
@@ -356,6 +411,17 @@ def main():
                                 flag = False
                                 break
                             client.sendall(msg.encode("utf-8"))
+                            # Nhan trang thai xem file co ton tai tren sever hay co bi cam tai khong
+                            check_status = client.recv(1024).decode("utf-8")
+                            if check_status == "forbidden file":
+                                print("Sever: File is in list forbidden file. Can't download this file")
+                                continue
+                            if check_status == "Not exist":
+                                print("Sever: File is not exist!!!")
+                                continue
+                            else:
+                                resp = "Received"
+                                client.sendall(resp.encode("utf-8"))
                             break
                         if flag == True:
                             downloadFile(client, msg)
