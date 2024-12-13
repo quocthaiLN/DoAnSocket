@@ -396,6 +396,7 @@ class App(Tk):
                 self.geometry("860x600")
                 self.showPage(MainMenu)
             else:
+                # operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has unsuccessfully uploaded the file with the path {msg}.")
                 curFrame.lb_notice["text"] = "Invalid username/password"
         except:
             print("Server is not responding")

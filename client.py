@@ -65,9 +65,9 @@ def checkFolderExist(path):
 def getErrorUpload(before_error_upload):
     start_of_path_idx = before_error_upload.find(" ") + 1
     path = before_error_upload[start_of_path_idx:]
-    start_of_filename_idx = path.find("/") + 1
-    error_file= path[start_of_filename_idx:]
-    return error_file
+    # start_of_filename_idx = path.find("/") + 1
+    # error_file= path[start_of_filename_idx:]
+    return path
 
 # Ham upload file
 def uploadFile(client, msg):

@@ -23,7 +23,7 @@ FORMAT = "utf-8"
 
 #!Các hàm liên quan đến xử lí tên file
 # Lay tu ki tu "/" cuoi cung tro ve sau trong duong dan hoac ten file
-def name(file_name):
+def getName(file_name):
     res = ""
     cnt = 0
     for chara in file_name:
@@ -117,7 +117,7 @@ def removeLineInFileUpload(delete_line):
 # Ham upload file tu client len server
 def uploadFile(client, file_name, addr, username):
     # Lay ten file can upload
-    tmp = name(file_name)
+    tmp = getName(file_name)
     # Kiem tra xem trong do da co "/" neu khong co thi them vao
     if not checkSlashInFileName(tmp):
         tmp = "/" + tmp
@@ -136,8 +136,8 @@ def uploadFile(client, file_name, addr, username):
     # Nhan kich thuoc file tu client va gui lai thong bao den cho client
     size_recv = client.recv(1024).decode(FORMAT)
     size = int(size_recv)
-    sizeResp = "Recv success"
-    client.sendall(sizeResp.encode(FORMAT))
+    size_resp = "Recv success"
+    client.sendall(size_resp.encode(FORMAT))
 
     # Mo file va lam viec 
     with open(file_write, "wb") as ofs:
@@ -159,6 +159,7 @@ def uploadFile(client, file_name, addr, username):
                 client.sendall("Received".encode("utf-8"))
             except Exception as e:
                 #print(f"Sever: There were an error when uploading file {file_name}/ Connect Error:[{addr}].")
+
                 writeErrorUpload(username, file_write)
                 return False
         # Nhan thong bao da gui xong tu client
@@ -185,6 +186,7 @@ def handleUploadFile(client, addr, list_connection, username):
         resp = "Success"
         client.sendall(resp.encode(FORMAT))
     else:
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has unsuccessfully uploaded the file with the path {msg}.")
         resp = "Failed"
         client.sendall(resp.encode(FORMAT))
         list_connection.remove((client, addr))
@@ -276,18 +278,20 @@ def handleDownloadFile(client, addr, list_connection, username):
             return "BACK"
         
         # Kiem tra xem file co ton tai hoac hop le khi nhap duong dan khong
-        tmp = name(msg)
+        tmp = getName(msg)
         if not checkSlashInFileName(tmp):
             tmp = "/" + tmp
         Path = PATH_SERVER + tmp
         # Kiem tra file bi cam tai khong
         if isForbiddenFile(Path):
+            operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has require download forbidden file.")
             msg = "File is in list forbidden file. Can't download this file"
             print(msg)
             client.sendall("forbidden file".encode("utf-8"))
             continue
         # Nhap duong dan khong hop le hoac file khong ton tai
         if (checkSlashInPath(msg) and Path != msg) or not checkExist(Path):
+            operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has require download none exist file.")
             msg = "Not exist"
             print("File is not exist")
             client.sendall(msg.encode("utf-8"))
@@ -305,6 +309,7 @@ def handleDownloadFile(client, addr, list_connection, username):
         resp = "Success"
         client.sendall(resp.encode(FORMAT))
     else:
+        operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has unsuccessfully downloaded the file with the path {msg}.")
         list_connection.remove((client, addr))
         return "ERROR"
     return "BACK"
@@ -359,51 +364,9 @@ def authenticateClient(username, password):
             # Giống với vector ví dụ: vector<string> a = {"username", "password"}
             if(len(row) == 2 and row[0] == username and row[1] == password):
                 return True
-        
+    
     return False
 
-
-
-# def handleDownloadFile(client, addr, list_connection, username):
-#     #*Nhận tên file hoặc Cancel
-#     msg = client.recv(1024).decode(FORMAT)
-#     if msg == "CANCEL":
-#         return "BACK"
-#     #*Kiểm tra lỗi về cú pháp, truy cập File không cho phép, kiểm tra File có tồn tại không và gửi trả lời cho Client
-#     #*Kiểm tra lỗi về cú pháp 
-#     tmp = name(msg)
-#     if not checkSlashInFileName(tmp):
-#         tmp = "/" + tmp
-#     Path = PATH_SERVER + tmp
-#     #*Check File không cho phép truy cập
-#     if isForbiddenFile(Path):
-#         msg = "File is in list forbidden file. Can't download this file"
-#         print(msg)
-#         client.sendall("ff".encode("utf-8"))
-#         return "BACK"
-#     #*Kiểm tra tên file hợp lệ và file có tồn tại hay không
-#     if (checkSlashInPath(msg) and Path != msg) or not checkExist(Path):
-#         msg = "Not exist"
-#         print("File is not exist")
-#         client.sendall(msg.encode("utf-8"))
-#         return "BACK"
-#     #*Thực hiện gửi File cho Client
-#     else:
-#         #*Gửi thông báo về trạng thái File đã tồn tại và bắt đâu tải
-#         message = "Exist"
-#         client.sendall(message.encode(FORMAT))
-#         respMsg = client.recv(1024).decode(FORMAT)
-#         #*Ghi nhật kí về lần tải
-#         operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da yeu cau download file voi duong dan {msg}")
-#         print(f"Client {addr}: Download file voi duong dan {msg}")
-#         #*Kiểm tra hàm downloadFile có lỗi đường truyền khi đang gửi hay không
-#         #*Nếu không có lỗi thì ghi nhật gửi File thành công và gửi tin nhắ "Success" đến Client 
-#         if downloadFile(client, Path, addr, username):
-#             operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr} da download file voi duong dan {msg} thanh cong")
-#             resp = "Success"
-#             client.sendall(resp.encode("utf-8"))
-#         #*Nếu có lỗi trong quá trình truyền thì sẽ được hàm Handle xử lí
-#     return "BACK"
 
 #! Hàm xử lí các yêu cầu của Client
 def handleClient(client, addr, list_connection) :
@@ -434,6 +397,7 @@ def handleClient(client, addr, list_connection) :
                 client.sendall("Successful".encode("utf-8"))
                 break
             else:
+                operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Has logged in unsuccessfully with the username {username}.")
                 client.sendall("Unsuccessful".encode("utf-8"))
                 print(f"Server: Login unsuccessfully towards account {username}")
         #gui nhan file
@@ -548,27 +512,27 @@ def handleClient(client, addr, list_connection) :
         list_connection.remove((client, addr))
     client.close()
 
-def main():
-    sever = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sever.bind((HOST, PORT))
-    sever.listen(NUMBER_OF_CLIENT + 1)
-    print("The server is listening...")
-    operationHistory("\n------------------------------------------------------------------------------------------------------------------------------------")
-    operationHistory("\n" + str(getTime()) + ":" + "The server has opened the connection.")
-    #tao da luong
-    list_connection = []
-    while True:
-        if len(list_connection) < NUMBER_OF_CLIENT:
-            client, addr = sever.accept()
-            print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
-            operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} has connected to the server.")
-            list_connection.append((client, addr))
-            thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
-            thread.daemon = True
-            thread.start()
+# def main():
+#     sever = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     sever.bind((HOST, PORT))
+#     sever.listen(NUMBER_OF_CLIENT + 1)
+#     print("The server is listening...")
+#     operationHistory("------------------------------------------------------------------------------------------------------------------------------------")
+#     operationHistory("\n" + str(getTime()) + ":" + "The server has opened the connection.")
+#     #tao da luong
+#     list_connection = []
+#     while True:
+#         if len(list_connection) < NUMBER_OF_CLIENT:
+#             client, addr = sever.accept()
+#             print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
+#             operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} has connected to the server.")
+#             list_connection.append((client, addr))
+#             thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
+#             thread.daemon = True
+#             thread.start()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 
 
@@ -576,118 +540,120 @@ if __name__ == "__main__":
 
 #tao socket
 
-# def main():
+def main():
 
-#     # -------------- GUI ------------
-#     win = Tk()
-#     win.title("Server")
+    # -------------- GUI ------------
+    win = Tk()
+    win.title("Server")
 
-#     log_text = scrolledtext.ScrolledText(win, width = 80, height = 20)
-#     log_text.pack(pady = 20)
+    log_text = scrolledtext.ScrolledText(win, width = 80, height = 20)
+    log_text.pack(pady = 20)
 
-#     start_server_btn = Button(win, text = "Start Server", state = NORMAL)
-#     stop_server_btn = Button(win, text = "Stop Server", state = DISABLED)
+    start_server_btn = Button(win, text = "Start Server", state = NORMAL)
+    stop_server_btn = Button(win, text = "Stop Server", state = DISABLED)
 
-#     # ----------------------------
+    # ----------------------------
 
-#     flag = False
-#     server = None
-#     server_thread = None
+    flag = False
+    server = None
+    server_thread = None
 
-#     def serverThreadFunction():
-#         # python không có khai báo kiểu, nên không biết nó là biến toàn cục hay địa phương
-#         # nonlocal -> biến được khai báo trước khi vô hàm
-#         nonlocal server
-#         try:
-#             if server is None:
-#                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#                 server.bind((HOST, PORT))
-#                 server.listen(NUMBER_OF_CLIENT + 1)
+    def serverThreadFunction():
+        # python không có khai báo kiểu, nên không biết nó là biến toàn cục hay địa phương
+        # nonlocal -> biến được khai báo trước khi vô hàm
+        nonlocal server
+        try:
+            if server is None:
+                server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                server.bind((HOST, PORT))
+                server.listen(NUMBER_OF_CLIENT + 1)
 
-#             # ----- GUI -------
-#             log_text.insert(END, "Server dang lang nghe....\n")
-#             log_text.see(END)
-#             # ---------------
-#             operationHistory("\n------------------------------------------------------------------------------------------------------------------------------------")
-#             operationHistory("\n" + str(getTime()) + ":" + "server mo ket noi")
+            # ----- GUI -------
+            log_text.insert(END, "Server dang lang nghe....\n")
+            log_text.see(END)
+            # ---------------
+            operationHistory("------------------------------------------------------------------------------------------------------------------------------------")
+            operationHistory("\n" + str(getTime()) + ":" + "server mo ket noi")
 
-#             list_connection = []
-#             while flag:
-#                 try:
-#                     if len(list_connection) < NUMBER_OF_CLIENT:
-#                         client, addr = server.accept()
-#                         # --------- GUI -------
-#                         log_text.insert(END, f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]\n")
-#                         log_text.see(END)
-#                         # ------------------
-#                         # == print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
-#                         operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} da ket noi toi server")
-#                         list_connection.append((client, addr))
-#                         thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
-#                         thread.daemon = True
-#                         thread.start()
-#                 except socket.timeout:
-#                     continue
-#                 except OSError as e:
-#                     if not flag:
-#                         break
-#                     log_text.insert(END, f"Error: {e}\n")
-#         except Exception as e:
-#             log_text.insert(END, f"Server error: {e}\n")
-#         finally:
-#             if server:
-#                 server.close()
-#                 server = None
-#             log_text.insert(END, "Server stopped.\n")
-#             log_text.see(END)
+            list_connection = []
+            while flag:
+                try:
+                    if len(list_connection) < NUMBER_OF_CLIENT:
+                        client, addr = server.accept()
+                        # --------- GUI -------
+                        log_text.insert(END, f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]\n")
+                        log_text.see(END)
+                        # ------------------
+                        # == print(f"Account [{len(list_connection) + 1}/{NUMBER_OF_CLIENT}]")
+                        operationHistory("\n" + str(getTime()) + ":" + f"Client {addr} da ket noi toi server")
+                        list_connection.append((client, addr))
+                        thread = threading.Thread(target = handleClient, args = (client, addr, list_connection))
+                        thread.daemon = True
+                        thread.start()
+                except socket.timeout:
+                    continue
+                except OSError as e:
+                    if not flag:
+                        break
+                    log_text.insert(END, f"Error: {e}\n")
+        except Exception as e:
+            log_text.insert(END, f"Server error: {e}\n")
+        finally:
+            if server:
+                server.close()
+                server = None
+            log_text.insert(END, "Server stopped.\n")
+            log_text.see(END)
 
-#     def startServer():
-#         nonlocal server_thread
-#         nonlocal flag
-#         flag = True
-#         server_thread = threading.Thread(target = serverThreadFunction)
-#         server_thread.daemon = True
-#         server_thread.start()
+    def startServer():
+        nonlocal server_thread
+        nonlocal flag
+        flag = True
+        server_thread = threading.Thread(target = serverThreadFunction)
+        server_thread.daemon = True
+        server_thread.start()
 
-#         # ----------- GUI --------
-#         nonlocal start_server_btn, stop_server_btn
-#         start_server_btn.config(state = DISABLED)
-#         stop_server_btn.config(state = NORMAL)
-#         #--------------
+        # ----------- GUI --------
+        nonlocal start_server_btn, stop_server_btn
+        start_server_btn.config(state = DISABLED)
+        stop_server_btn.config(state = NORMAL)
+        #--------------
 
-#     def stopServer():
-#         nonlocal flag, server
-#         flag = False
+    def stopServer():
+        nonlocal flag, server
+        flag = False
 
-#         if server:
-#             try:
-#                 server.close()
-#                 server = None
-#             except Exception as e:
-#                 log_text.insert(END, f"Error closing server: {e}\n")
+        if server:
+            try:
+                server.close()
+                server = None
+            except Exception as e:
+                log_text.insert(END, f"Error closing server: {e}\n")
         
-#         # ---------- GUI -------
-#         log_text.insert(END, "Stopping Server...\n")
-#         log_text.see(END)
-#         nonlocal start_server_btn, stop_server_btn
-#         stop_server_btn.config(state = DISABLED)
-#         start_server_btn.config(state = NORMAL)
-#         # --------------------
+        # ---------- GUI -------
+        log_text.insert(END, "Stopping Server...\n")
+        log_text.see(END)
+        nonlocal start_server_btn, stop_server_btn
+        stop_server_btn.config(state = DISABLED)
+        start_server_btn.config(state = NORMAL)
+        # --------------------
     
-#     start_server_btn.config(command = startServer)
-#     stop_server_btn.config(command = stopServer)
+    start_server_btn.config(command = startServer)
+    stop_server_btn.config(command = stopServer)
 
-#     start_server_btn.pack(pady = 5)
-#     stop_server_btn.pack(pady = 5)
+    start_server_btn.pack(pady = 5)
+    stop_server_btn.pack(pady = 5)
 
-#     def onClose():
-#         if flag:
-#             stopServer()
-#         win.destroy()
+    def onClose():
+        if flag:
+            stopServer()
+        win.destroy()
+        operationHistory("\n" + str(getTime()) + ": " + f"Server closed.\n")
+        operationHistory("------------------------------------------------------------------------------------------------------------------------------------\n")
     
-#     win.protocol("WM_DELETE_WINDOW", onClose)
-#     win.mainloop()
+    win.protocol("WM_DELETE_WINDOW", onClose)
+    win.mainloop()
 
            
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
