@@ -1,11 +1,11 @@
 import socket
 import os
 import time
-import getpass # to hide password: ****
+import getpass
 import time
 
-# Duong dan toi thu muc chua cac file duoc tai xuong o client
 PATH_CLIENT = "DataClient"
+FORMAT = "utf-8"
 #HOST, PORT
 HOST = socket.gethostname()
 PORT = 12000
@@ -73,8 +73,8 @@ def getErrorUpload(before_error_upload):
 def uploadFile(client, msg):
     # Lay kich thuoc cua file roi gui toi cho sever va nhan thong bao cua sever neu gui thanh cong
     size_send = os.path.getsize(msg)
-    client.sendall(str(size_send).encode("utf-8"))
-    size_resp = client.recv(1024).decode("utf-8")
+    client.sendall(str(size_send).encode(FORMAT))
+    size_resp = client.recv(1024).decode(FORMAT)
     # Mo va lam viec voi file
     with open(msg, "rb") as ifs:
         while 1:
@@ -89,16 +89,16 @@ def uploadFile(client, msg):
                 print(f"There was an error when uploading file {msg} / Connect Error with sever.")
                 return False
             try:
-                resp = client.recv(1024).decode("utf-8")
+                resp = client.recv(1024).decode(FORMAT)
             except Exception as e:
                 print(f"There was an error when uploading file {msg} / Connect Error with sever.")
                 return False
     # Gui thong bao "xong" toi cho sever de sever gui lai trang thai 
-    client.sendall("xong".encode("utf-8"))
-    resp_sta = client.recv(1024).decode("utf-8")
+    client.sendall("xong".encode(FORMAT))
+    resp_sta = client.recv(1024).decode(FORMAT)
     # Gui thong bao da nhan trang thai va nhan thong bao "success" hay "failed" tu sever gui toi
-    client.sendall("da nhan".encode("utf-8"))
-    resp = client.recv(1024).decode("utf-8")
+    client.sendall("da nhan".encode(FORMAT))
+    resp = client.recv(1024).decode(FORMAT)
     if resp == "Success":
         print(f"Sever: The file {msg} has been successfully uploaded to the server. {resp_sta}") 
         return True
@@ -135,10 +135,10 @@ def downloadFile(client, msg):
             i += 1
 
     # Nhan kich thuoc file va gui lai thong bao toi sever
-    size_recv = client.recv(1024).decode("utf-8")
+    size_recv = client.recv(1024).decode(FORMAT)
     size = int(size_recv)
     # Gui ten file
-    client.sendall(file_write.encode("utf-8"))
+    client.sendall(file_write.encode(FORMAT))
 
     
     
@@ -149,11 +149,11 @@ def downloadFile(client, msg):
         data = client.recv(1024)
         ofs.write(data)
         sw += len(data)
-        client.sendall(str(sw).encode("utf-8"))
+        client.sendall(str(sw).encode(FORMAT))
     ofs.close()
 
     # Nhan thong bao tu sever
-    resp = client.recv(1024).decode("utf-8")
+    resp = client.recv(1024).decode(FORMAT)
     if resp == "Success":
         print(f"Sever: The file has been successfully downloaded and is currently stored at {file_write}. ")
     else:
@@ -164,43 +164,43 @@ def uploadFilesInFolderSequentially(client, msg):
     # Lay danh sach cac ten file trong folder
     fileName = os.listdir(msg)
     # Gui so luong file cho sever
-    client.sendall(str(len(fileName)).encode("utf-8"))
-    size_resp = client.recv(1024).decode("utf-8")
+    client.sendall(str(len(fileName)).encode(FORMAT))
+    size_resp = client.recv(1024).decode(FORMAT)
     # Nhan trang thai khong thanh cong neu so luong file la 0
     if size_resp != "Received":
         print(f"Sever: {size_resp}")
         return
     # Gui ten file va upload file
     for file in fileName:
-        client.sendall(file.encode("utf-8"))
-        fileRep = client.recv(1024).decode("utf-8")
+        client.sendall(file.encode(FORMAT))
+        fileRep = client.recv(1024).decode(FORMAT)
         uploadFile(client, msg + "/" + file)
     # Gui thong bao da gui xong
-    client.sendall("Success".encode("utf-8"))
+    client.sendall("Success".encode(FORMAT))
     # Nhan trang thai tu sever gui ve
-    res = client.recv(1024).decode("utf-8")
+    res = client.recv(1024).decode(FORMAT)
     print(res)
 
 
 #!Hàm đăng nhập 
 def login(client):
 
-    status = client.recv(1024).decode("utf-8")
+    status = client.recv(1024).decode(FORMAT)
     os.system("cls")
     # In ra man hinh da ket noi thanh cong voi sever
     print(status)
     res = "success"
-    client.sendall(res.encode("utf-8"))
-    reply = client.recv(1024).decode("utf-8")
+    client.sendall(res.encode(FORMAT))
+    reply = client.recv(1024).decode(FORMAT)
     print(reply)
     username = input("\nUsername: ")
     password = input("Password: ")
 
     # Gui thong tin ten dang nhap va mat khau toi sever
     login_information = f"{username},{password}"
-    client.sendall(login_information.encode("utf-8"))
+    client.sendall(login_information.encode(FORMAT))
     # Nhận phản hồi từ server
-    resp = client.recv(1024).decode("utf-8")
+    resp = client.recv(1024).decode(FORMAT)
     if resp == "Successful":
         print("Login Successful")
         return True
@@ -223,7 +223,6 @@ def main():
         #*Kết nối đến Server
         client.connect((HOST, PORT))
         print(f"Connecting to the server, please wait.")
-        # Neu dang nhap khong thanh cong phai tiep tuc dang nhap cho toi khi thanh cong hoac thoat
         while not login(client): 
             continue
         connect = True
@@ -237,14 +236,13 @@ def main():
             else:
                 choice = int(choice)
             match choice:
-                # Ngat ket noi voi sever
                 #*Nếu Client chọn thoát khỏi chương trình
                 case 0:
                     msg = "exit"
                      #*Hỏi Client có chắc chắn muốn ngắt kết nối không
                     again_check = input("Sever: Are you sure you want to disconnect?(Y/N): ")
                     if again_check == "Y":
-                        client.sendall(msg.encode("utf-8"))
+                        client.sendall(msg.encode(FORMAT))
                         print("Sever: You have disconnected from the server!")
                         connect = False
                     else:
@@ -252,8 +250,8 @@ def main():
                 case 1:
                     msg = "uploadFile"
                     # Gui thong bao se upload file den sever
-                    client.sendall(msg.encode("utf-8"))
-                    before_error_upload = client.recv(1024).decode("utf-8")
+                    client.sendall(msg.encode(FORMAT))
+                    before_error_upload = client.recv(1024).decode(FORMAT)
                     if before_error_upload != "NoError":
                         # Lay ten file tai loi
                         error_file = getErrorUpload(before_error_upload)
@@ -261,59 +259,57 @@ def main():
                         continue_upload  = input()
                         # Gui yeu cau tiep tuc va tiep tuc tai
                         if continue_upload == "Y":
-                            client.sendall(continue_upload.encode("utf-8"))
+                            client.sendall(continue_upload.encode(FORMAT))
                             time.sleep(0.1)
-                            client.sendall(error_file.encode("utf-8"))
+                            client.sendall(error_file.encode(FORMAT))
                             # Bien nhan file ton tai
-                            is_exist = client.recv(1024).decode("utf-8")
-                            #client.sendall("Receive".encode("utf-8"))
+                            is_exist = client.recv(1024).decode(FORMAT)
                             uploadFile(client, error_file)
                         # Gui yeu cau khong tiep tuc va tiep tuc tai file khac
                         else:
-                            client.sendall(continue_upload.encode("utf-8"))
+                            client.sendall(continue_upload.encode(FORMAT))
                             time.sleep(0.1)
                             # Dat co de neu client nhap CANCEL thi se khong thuc hien upload
                             flag = True
                             # Nhan yeu cau nhap duong dan tu sever
-                            resp = client.recv(1024).decode("utf-8")
+                            resp = client.recv(1024).decode(FORMAT)
                             # Nhap yeu cau gui toi sever
                             while 1:
                                 print("Type 'CANCEL' to return to the menu!!!")
                                 msg = input(f"(Sever request) - {resp}")
                                 if msg == "CANCEL":
-                                    client.sendall(msg.encode("utf-8"))
-                                    rec = client.recv(1024).decode("utf-8")
+                                    client.sendall(msg.encode(FORMAT))
+                                    rec = client.recv(1024).decode(FORMAT)
                                     flag = False
                                     break
                                 if not checkExist(msg):
                                     print("The file does not exist. Please enter again!!!")
                                     continue
-                                client.sendall(msg.encode("utf-8"))
-                                rec = client.recv(1024).decode("utf-8")
+                                client.sendall(msg.encode(FORMAT))
+                                rec = client.recv(1024).decode(FORMAT)
                                 break
 
-                            # Neu nhap duong dan dung thi thuc hien upload
                             if flag == True:
                                 uploadFile(client, msg)
                     else:
                             # Dat co de neu client nhap CANCEL thi se khong thuc hien upload
                             flag = True
                             # Nhan yeu cau nhap duong dan tu sever
-                            resp = client.recv(1024).decode("utf-8")
+                            resp = client.recv(1024).decode(FORMAT)
                             # Nhap yeu cau gui toi sever
                             while 1:
                                 print("Type 'CANCEL' to return to the menu!!!")
                                 msg = input(f"(Sever request) - {resp}")
                                 if msg == "CANCEL":
-                                    client.sendall(msg.encode("utf-8"))
-                                    rec = client.recv(1024).decode("utf-8")
+                                    client.sendall(msg.encode(FORMAT))
+                                    rec = client.recv(1024).decode(FORMAT)
                                     flag = False
                                     break
                                 if not checkExist(msg):
                                     print("The file does not exist. Please enter again!!!")
                                     continue
-                                client.sendall(msg.encode("utf-8"))
-                                rec = client.recv(1024).decode("utf-8")
+                                client.sendall(msg.encode(FORMAT))
+                                rec = client.recv(1024).decode(FORMAT)
                                 break
 
                             # Neu nhap duong dan dung thi thuc hien upload
@@ -323,9 +319,9 @@ def main():
                 case 2:
                     # Gui yeu cau download toi cho sever
                     msg = "downloadFile"
-                    client.sendall(msg.encode("utf-8"))
+                    client.sendall(msg.encode(FORMAT))
                     # Kiem tra xem client truoc day co tung co file tai loi khong
-                    before_error_download = client.recv(1024).decode("utf-8")
+                    before_error_download = client.recv(1024).decode(FORMAT)
                     #*Kiểm tra có lỗi hay không
                     #*Nếu có File tải lỗi trước đó
                     if before_error_download != "NoError":
@@ -336,18 +332,18 @@ def main():
                         #*Nếu Client muốn tải lại File
                         if continue_download == "Y":
                             #*Gửi hồi đáp rằng muốn tải File lỗi trước đó đến Server
-                            client.sendall(continue_download.encode("utf-8"))
+                            client.sendall(continue_download.encode(FORMAT))
                             time.sleep(0.1)
                             #*Gửi tên File lỗi đến Server, để thực hiện tải file
-                            client.sendall(error_file.encode("utf-8"))
+                            client.sendall(error_file.encode(FORMAT))
                             # Bien nhan file ton tai
-                            is_exist = client.recv(1024).decode("utf-8")
-                            client.sendall("Receive".encode("utf-8"))
+                            is_exist = client.recv(1024).decode(FORMAT)
+                            client.sendall("Receive".encode(FORMAT))
                             downloadFile(client, error_file)
                         #*Nếu Client không muốn tải lại File
                         else:
                             #*Gửi hồi đáp rằng không muốn tải File lỗi trước đó đến Server
-                            client.sendall(continue_download.encode("utf-8"))
+                            client.sendall(continue_download.encode(FORMAT))
                             time.sleep(0.1)
                             #*Thực hiện tải File
                             flag = True
@@ -356,12 +352,12 @@ def main():
                                 print("Type 'CANCEL' to return to the menu!!!")
                                 msg = input(f"Sever: Enter the name of the file you want to download: ")
                                 if msg == "CANCEL":
-                                    client.sendall(msg.encode("utf-8"))
+                                    client.sendall(msg.encode(FORMAT))
                                     flag = False
                                     break
-                                client.sendall(msg.encode("utf-8"))
+                                client.sendall(msg.encode(FORMAT))
                                 # Nhan trang thai xem file co ton tai tren sever hay co bi cam tai khong
-                                check_status = client.recv(1024).decode("utf-8")
+                                check_status = client.recv(1024).decode(FORMAT)
                                 if check_status == "forbidden file":
                                     print("Sever: File is in list forbidden file. Can't download this file")
                                     continue
@@ -370,7 +366,7 @@ def main():
                                     continue
                                 else:
                                     resp = "Received"
-                                    client.sendall(resp.encode("utf-8"))
+                                    client.sendall(resp.encode(FORMAT))
                                 
                                 break
                             if flag == True:
@@ -385,12 +381,12 @@ def main():
                             print("Type 'CANCEL' to return to the menu!!!")
                             msg = input(f"(Sever request): Enter the name of the file you want to download: ")
                             if msg == "CANCEL":
-                                client.sendall(msg.encode("utf-8"))
+                                client.sendall(msg.encode(FORMAT))
                                 flag = False
                                 break
-                            client.sendall(msg.encode("utf-8"))
+                            client.sendall(msg.encode(FORMAT))
                             # Nhan trang thai xem file co ton tai tren sever hay co bi cam tai khong
-                            check_status = client.recv(1024).decode("utf-8")
+                            check_status = client.recv(1024).decode(FORMAT)
                             if check_status == "forbidden file":
                                 print("Sever: File is in list forbidden file. Can't download this file")
                                 continue
@@ -399,7 +395,7 @@ def main():
                                 continue
                             else:
                                 resp = "Received"
-                                client.sendall(resp.encode("utf-8"))
+                                client.sendall(resp.encode(FORMAT))
                             break
                         if flag == True:
                             #*Tiến hành tải File
@@ -408,23 +404,23 @@ def main():
                 case 3:
                     # Gui thong bao den cho sever
                     msg = "uploadFilesInFolderSequentially"
-                    client.sendall(msg.encode("utf-8"))
+                    client.sendall(msg.encode(FORMAT))
                     flag = True
                     #Nhan yeu cau nhap duong dan folder tu sever
-                    resp = client.recv(1024).decode("utf-8")
+                    resp = client.recv(1024).decode(FORMAT)
                     while 1:
                         print("Type 'CANCEL' to return to the menu!!!")
                         msg = input(f"(Sever request) - {resp}")
                         if msg == "CANCEL":
-                            client.sendall(msg.encode("utf-8"))
-                            rec = client.recv(1024).decode("utf-8")
+                            client.sendall(msg.encode(FORMAT))
+                            rec = client.recv(1024).decode(FORMAT)
                             flag = False
                             break
                         if not checkFolderExist(msg):
                             print("The folder does not exist. Please enter again!")
                             continue
-                        client.sendall(msg.encode("utf-8"))
-                        rec = client.recv(1024).decode("utf-8")
+                        client.sendall(msg.encode(FORMAT))
+                        rec = client.recv(1024).decode(FORMAT)
                         break
                     if flag == True:
                         uploadFilesInFolderSequentially(client, msg)

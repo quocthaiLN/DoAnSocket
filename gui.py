@@ -10,14 +10,13 @@ import time
 FONT = "Inter"
 BTN_COLOR = "#A1EEBD"
 MAIN_COLOR = "#6c63ff"
-WIDTH_BTN = 18 # width of featured buttons
+WIDTH_BTN = 18 
 PATH_CLIENT = "DataClient"
-LIST_FORBIDEN_FILE = ["DataServer/users.csv", "DataServer/OperationHistory.txt", "DataServer/ErrorDownload.txt", "DataServer/ErrorUpload.txt"]
+
 HOST = socket.gethostname()
 PORT = 12000
-PathClient = "DataClient"
-PathSever = "DataServer"  
-PathUsers = "users.csv"
+PATH_CLIENT = "DataClient"
+PATH_SERVER = "DataServer"
 
 #!Các hàm liên quan đến xử lí tên file
 
@@ -89,9 +88,8 @@ def getErrorUpload(before_error_upload):
 class DownloadFilePage(Frame):
     
     def browseFiles(self, entry_var: StringVar):
-        # Lấy đường dẫn tuyệt đối tương đối với thư mục hiện tại
         current_dir = os.path.dirname(__file__) # Path to current file
-        folder_path = os.path.join(current_dir, PathSever)
+        folder_path = os.path.join(current_dir, PATH_SERVER)
         # Đường dẫn tuyệt đối -> thích ứng trên mọi hệ điều hành
         absolute_path = os.path.abspath(folder_path)
         filename = filedialog.askopenfilename(initialdir = absolute_path,
@@ -102,7 +100,7 @@ class DownloadFilePage(Frame):
                                                             "*.*")))
         if filename:
             filename_only = os.path.basename(filename)
-            path_for_download = PathSever + "/" + filename_only
+            path_for_download = PATH_SERVER + "/" + filename_only
             entry_var.set(path_for_download)
     
     def clickButton(self, filename:str, app_pointer):
@@ -597,7 +595,6 @@ class App(Tk):
                 sck.sendall(error_file.encode("utf-8"))
                 # Bien nhan file ton tai
                 is_exist = sck.recv(1024).decode("utf-8")
-                #sck.sendall("Receive".encode("utf-8"))
                 self.uploadFile(sck, error_file)
             # Gui yeu cau khong tiep tuc va tiep tuc tai file khac
             else:
@@ -635,7 +632,6 @@ class App(Tk):
                 resp = sck.recv(1024).decode("utf-8")
                 # Nhap yeu cau gui toi sever
                 while 1:
-                    # msg = input(f"(Sever request) - {resp}")
                     msg = curFrame.entry_path.get()
                     if msg == "CANCEL":
                         sck.sendall(msg.encode("utf-8"))
@@ -689,7 +685,6 @@ class App(Tk):
         resp = sck.recv(1024).decode("utf-8")
         while 1:
             print("Type 'CANCEL' to return to the menu!!!")
-            # msg = input(f"(Sever request) - {resp}")
             msg = curFrame.entry_path.get()
             if msg == "CANCEL":
                 sck.sendall(msg.encode("utf-8"))

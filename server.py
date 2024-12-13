@@ -8,14 +8,12 @@ from tkinter import scrolledtext
 
 #duong dan toi thu muc server va client
 PATH_SERVER = "DataServer"
-PATH_ADMIN = "DataServer/admin.csv"
 PATH_USER = "DataServer/users.csv"
 PATH_HISTORY = "DataServer/OperationHistory.txt"
 LIST_FORBIDEN_FILE = ["DataServer/users.csv", "DataServer/OperationHistory.txt", "DataServer/ErrorDownload.txt", "DataServer/ErrorUpload.txt"]
 PATH_ERROR_DOWNLOAD = "DataServer/ErrorDownload.txt"
 PATH_ERROR_UPLOAD = "DataServer/ErrorUpload.txt"
 
-#HOST, PORT, NumberOfClient, FORMAT
 HOST = socket.gethostname()
 PORT = 12000
 NUMBER_OF_CLIENT = 10
@@ -86,7 +84,7 @@ def operationHistory(msg):
 # Viet vao file nhung tai khoan bi loi upload file do ngat ket noi dot ngot
 def writeErrorUpload(username, file_path):
     data = username + ' ' + file_path
-    ofs = open(PATH_ERROR_UPLOAD, "a", encoding = "utf-8")
+    ofs = open(PATH_ERROR_UPLOAD, "a", encoding = FORMAT)
     ofs.write(data)
     ofs.close()
 
@@ -159,13 +157,13 @@ def uploadFile(client, file_name, addr, username, log_text):
             ofs.write(data)
             sw += len(data)
             try:
-                client.sendall("Received".encode("utf-8"))
+                client.sendall("Received".encode(FORMAT))
             except Exception as e:
 
                 writeErrorUpload(username, file_write)
                 return False
         # Nhan thong bao da gui xong tu client
-        temp = client.recv(1024).decode("utf-8")
+        temp = client.recv(1024).decode(FORMAT)
     
     # Gui trang thai den cho client va nhan thong bao tu client
     log_text.insert(END, f"Sever: The file upload request from the client at {addr} has been completed. The file is now stored at {file_write} on the server.\n", "green")
@@ -208,7 +206,7 @@ def isForbiddenFile(file_name):
 # Viet vao file nhung tai khoan bi loi tai file do ngat ket noi dot ngot
 def writeErrorDownload(username, file_path):
     data = username + ' ' + file_path + '\n'
-    ofs = open(PATH_ERROR_DOWNLOAD, "a", encoding = "utf-8")
+    ofs = open(PATH_ERROR_DOWNLOAD, "a", encoding = FORMAT)
     ofs.write(data)
     ofs.close()
 
@@ -258,7 +256,7 @@ def downloadFile(client, Path, addr, username, log_text):
         # gui du lieu. Neu khong gui duoc thi viet lai file khong gui duoc
         try:
             client.sendall(data)
-            resp = client.recv(1024).decode("utf-8")
+            resp = client.recv(1024).decode(FORMAT)
         #! Bắt lỗi gián đoạn kết nối
         except socket.error:
             writeErrorDownload(username, Path)
@@ -289,14 +287,14 @@ def handleDownloadFile(client, addr, list_connection, username, log_text):
             operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has require download forbidden file.")
             msg = "File is in list forbidden file. Can't download this file"
             log_text.insert(END, msg, "red")
-            client.sendall("forbidden file".encode("utf-8"))
+            client.sendall("forbidden file".encode(FORMAT))
             continue
         # Nhap duong dan khong hop le hoac file khong ton tai
         if (checkSlashInPath(msg) and Path != msg) or not checkExist(Path):
             operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has require download none exist file.")
             msg = "Not exist"
             showNoticeInGUI("File is not exist", log_text)
-            client.sendall(msg.encode("utf-8"))
+            client.sendall(msg.encode(FORMAT))
             continue
         message = "Exist"
         client.sendall(message.encode(FORMAT))
@@ -348,11 +346,11 @@ def uploadFilesInFolderSequentially(client, path_folder, addr, username, log_tex
     # Gui trang thai den cho client va ghi vao nhat ky
     if cnt > 0:
         operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} has uploaded a folder with the path {path_folder}. {cnt} files failed to upload.")
-        client.sendall(f"Server: The upload was unsuccessful for {cnt} files.".encode("utf-8"))
+        client.sendall(f"Server: The upload was unsuccessful for {cnt} files.".encode(FORMAT))
         showNoticeInGUI(f"Server: Upload folder {path_folder} was unsuccessful for {cnt} file", log_text)
     else:
         operationHistory("\n" + str(getTime()) + ": " + f"Client {addr} has successfully uploaded the folder with the path {path_folder}.")
-        client.sendall(f"Server: The entire folder has been successfully uploaded.".encode("utf-8"))
+        client.sendall(f"Server: The entire folder has been successfully uploaded.".encode(FORMAT))
         log_text.insert(END, f"Server: The entire folder has been successfully uploaded.\n", "green")
         log_text.see(END)
 
@@ -382,12 +380,12 @@ def handleClient(client, addr, list_connection, log_text) :
         # Gửi yêu cầu login đến client
         while True:
 
-            client.sendall("Successfully connected to the server.".encode("utf-8"))
+            client.sendall("Successfully connected to the server.".encode(FORMAT))
             tmp = client.recv(1024).decode(FORMAT)
 
             # Nhận thông tin account từ client
             STATUS = "LOGIN"
-            client.sendall("Enter your username and password to login".encode("utf-8"))
+            client.sendall("Enter your username and password to login".encode(FORMAT))
             login_information = ""
             login_information = client.recv(1024).decode(FORMAT)
 
@@ -396,11 +394,11 @@ def handleClient(client, addr, list_connection, log_text) :
 
                 operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Has logged in with the username {username}.")
                 showNoticeInGUI(f"Server: Login successfully towards account {username}", log_text)
-                client.sendall("Successful".encode("utf-8"))
+                client.sendall("Successful".encode(FORMAT))
                 break
             else:
                 operationHistory("\n" + str(getTime()) + ": " + f"Client {addr}: Has logged in unsuccessfully with the username {username}.")
-                client.sendall("Unsuccessful".encode("utf-8"))
+                client.sendall("Unsuccessful".encode(FORMAT))
 
                 showNoticeInGUI(f"Server: Login unsuccessfully towards account {username}", log_text)
         #gui nhan file
@@ -424,7 +422,7 @@ def handleClient(client, addr, list_connection, log_text) :
                 #gui yeu cau
                 #gui yeu cau: Lấy thông tin từ gui
                 error_name = getErrorUpload(username)
-                client.sendall(error_name.encode("utf-8"))
+                client.sendall(error_name.encode(FORMAT))
                 #nhan ten file hoac duong dan
                 if error_name != "NoError":
                     continue_upload = client.recv(1024).decode(FORMAT)
@@ -463,7 +461,7 @@ def handleClient(client, addr, list_connection, log_text) :
                 STATUS = "DOWNLOAD_FILE"
                 #gui yeu cau: Lấy thông tin từ gui
                 error_name = getErrorDownload(username)
-                client.sendall(error_name.encode("utf-8"))
+                client.sendall(error_name.encode(FORMAT))
                 if error_name != "NoError":
                     continue_download = client.recv(1024).decode(FORMAT)
                     if continue_download == "Y":
@@ -492,10 +490,10 @@ def handleClient(client, addr, list_connection, log_text) :
                 STATUS = "UPLOAD_FILES_IN_FOLDER_SEQUENTIALLLY"
                 #gui yeu cau
                 request = "Enter the path to the folder: "
-                client.sendall(request.encode("utf-8"))
+                client.sendall(request.encode(FORMAT))
                 #nhan ten folder
                 msg = client.recv(1024).decode(FORMAT)
-                client.sendall("Received".encode("utf-8"))
+                client.sendall("Received".encode(FORMAT))
                 if msg == "CANCEL":
                     continue
                 operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has requested to upload the folder with the path {msg}.")
