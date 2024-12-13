@@ -14,3 +14,32 @@ Fri 13-12-2024 10:52:39: Client qthai ('10.131.6.50', 52760): Has requested to d
 Fri 13-12-2024 10:52:41: Client qthai ('10.131.6.50', 52760): Has unsuccessfully downloaded the file with the path 50mb.pdf.
 Fri 13-12-2024 10:52:46: Server closed.
 ------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 13-12-2024 11:06:19:server mo ket noi
+Fri 13-12-2024 11:06:32:Client ('10.131.6.50', 53701) da ket noi toi server
+Fri 13-12-2024 11:06:36: Client ('10.131.6.50', 53701): Has logged in with the username qthang.
+Fri 13-12-2024 11:06:40:Client ('10.131.6.50', 53705) da ket noi toi server
+Fri 13-12-2024 11:06:43: Client ('10.131.6.50', 53705): Has logged in with the username qthai.
+Fri 13-12-2024 11:07:49: Client qthang ('10.131.6.50', 53701): Has requested to download the file with the path DataServer/20mb.pdf.
+Fri 13-12-2024 11:07:51: Client qthai ('10.131.6.50', 53705): Has requested to download the file with the path DataServer/50mb.pdf.
+Fri 13-12-2024 11:08:31: Client qthang ('10.131.6.50', 53701): Has successfully downloaded the file with the path DataServer/20mb.pdf.
+Fri 13-12-2024 11:08:35: Client qthai ('10.131.6.50', 53705): Has successfully downloaded the file with the path DataServer/50mb.pdf.
+Fri 13-12-2024 11:08:48: Client qthang ('10.131.6.50', 53701): Has requested to download the file with the path DataServer/20mb.pdf.
+Fri 13-12-2024 11:08:49: Client qthai ('10.131.6.50', 53705): Has requested to download the file with the path DataServer/50mb.pdf.
+Fri 13-12-2024 11:08:57: Client qthang ('10.131.6.50', 53701): Has unsuccessfully downloaded the file with the path DataServer/20mb.pdf.
+Fri 13-12-2024 11:08:58: Client qthai ('10.131.6.50', 53705): Has unsuccessfully downloaded the file with the path DataServer/50mb.pdf.------------------------------------------------------------------------------------------------------------------------------------
+Fri 13-12-2024 12:15:58:server mo ket noi
+Fri 13-12-2024 12:16:13:Client ('10.131.6.50', 54365) da ket noi toi server
+Fri 13-12-2024 12:16:15: Client ('10.131.6.50', 54365): Has logged in with the username qthang.
+Fri 13-12-2024 12:16:23: Client qthang ('10.131.6.50', 54365): Has requested to upload the file with the path D:/50mb.pdf.
+Fri 13-12-2024 12:16:27: Client qthang ('10.131.6.50', 54365): Has successfully uploaded the file with the path D:/50mb.pdf.
+Fri 13-12-2024 12:16:45: Client qthang ('10.131.6.50', 54365): Has requested to upload the file with the path D:/20mb.pdf.
+Fri 13-12-2024 12:16:47: Client qthang ('10.131.6.50', 54365): Has successfully uploaded the file with the path D:/20mb.pdf.
+Fri 13-12-2024 12:17:00: Client qthang ('10.131.6.50', 54365): Has requested to upload the file with the path D:/20mb.pdf.
+Fri 13-12-2024 12:17:02: Client qthang ('10.131.6.50', 54365): Has successfully uploaded the file with the path D:/20mb.pdf.
+Fri 13-12-2024 12:17:10:Client ('10.131.6.50', 54373) da ket noi toi server
+Fri 13-12-2024 12:17:20: Client ('10.131.6.50', 54373): Has logged in with the username qthang.
+Fri 13-12-2024 12:17:50: Client qthang ('10.131.6.50', 54373): Has requested to upload the file with the path D:/20mb.pdf.
+Fri 13-12-2024 12:17:52: Client qthang ('10.131.6.50', 54373): Has successfully uploaded the file with the path D:/20mb.pdf.
+Fri 13-12-2024 12:18:09: Client qthang ('10.131.6.50', 54373): Has requested to upload the file with the path D:/20mb.pdf.
+Fri 13-12-2024 12:18:14: Client qthang ('10.131.6.50', 54373): Has successfully uploaded the file with the path D:/20mb.pdf.

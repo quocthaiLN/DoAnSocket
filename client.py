@@ -7,7 +7,8 @@ import time
 # Duong dan toi thu muc chua cac file duoc tai xuong o client
 PATH_CLIENT = "DataClient"
 #HOST, PORT
-HOST = socket.gethostname()
+# HOST = socket.gethostname()
+HOST = "10.131.6.200"
 PORT = 12000
 
 #!Các hàm liên quan đến xử lí tên file
@@ -64,7 +65,7 @@ def checkFolderExist(path):
 
 def getErrorUpload(before_error_upload):
     start_of_path_idx = before_error_upload.find(" ") + 1
-    path = before_error_upload[start_of_path_idx:]
+    path = before_error_upload[start_of_path_idx:len(before_error_upload)]
     # start_of_filename_idx = path.find("/") + 1
     # error_file= path[start_of_filename_idx:]
     return path
