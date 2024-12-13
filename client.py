@@ -7,8 +7,7 @@ import time
 # Duong dan toi thu muc chua cac file duoc tai xuong o client
 PATH_CLIENT = "DataClient"
 #HOST, PORT
-# HOST = socket.gethostname()
-HOST = "10.131.6.200"
+HOST = socket.gethostname()
 PORT = 12000
 
 #!Các hàm liên quan đến xử lí tên file
@@ -102,8 +101,10 @@ def uploadFile(client, msg):
     resp = client.recv(1024).decode("utf-8")
     if resp == "Success":
         print(f"Sever: The file {msg} has been successfully uploaded to the server. {resp_sta}") 
+        return True
     else:
         print(f"Sever: The file {msg} has been unsuccessfully uploaded to the server. {resp_sta}")
+        return False
 
 #!Các hàm DOWNLOAD
 

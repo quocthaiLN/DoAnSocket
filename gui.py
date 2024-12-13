@@ -12,8 +12,8 @@ BTN_COLOR = "#A1EEBD"
 MAIN_COLOR = "#6c63ff"
 WIDTH_BTN = 18 # width of featured buttons
 PATH_CLIENT = "DataClient"
-# HOST = socket.gethostname()
-HOST = "10.131.6.200"
+LIST_FORBIDEN_FILE = ["DataServer/users.csv", "DataServer/OperationHistory.txt", "DataServer/ErrorDownload.txt", "DataServer/ErrorUpload.txt"]
+HOST = socket.gethostname()
 PORT = 12000
 PathClient = "DataClient"
 PathSever = "DataServer"  
@@ -22,7 +22,7 @@ PathUsers = "users.csv"
 #!Các hàm liên quan đến xử lí tên file
 
 # Lay tu ki tu "/" cuoi cung tro ve sau trong duong dan hoac ten file
-def name(file_name):
+def getName(file_name):
     res = ""
     # Dem so ki tu "/" de tim den ki tu "/" cuoi cung
     cnt = 0
@@ -118,8 +118,8 @@ class DownloadFilePage(Frame):
         
         self["bg"] = "white"
         # Main label
-        mainLabel = Label(self, text="Download Page", font=(FONT, 22, "bold"), bg = "white", fg = MAIN_COLOR)
-        mainLabel.place(x = 100, y = 70) # 50
+        main_label = Label(self, text="Download Page", font=(FONT, 22, "bold"), bg = "white", fg = MAIN_COLOR)
+        main_label.place(x = 100, y = 70) # 50
         # Note label
         lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"), bg = "white")
         lb_note.place(x = 20, y = 150)
@@ -180,10 +180,10 @@ class UploadFilePage(Frame):
     def clickButton(self, current_choice_in_combobox: str, filename: str, app_pointer):
         if(current_choice_in_combobox == "Upload File"):
             if filename != "":
-                app_pointer.uploadFileSupportGUI(self, client)
+                app_pointer.uploadFileThread(self, client)
         elif current_choice_in_combobox == "Upload Folder":
             if(filename != ""):
-                app_pointer.uploadFolderSupportGUI(self, client)
+                app_pointer.uploadFolderThread(self, client)
 
     def clickBack(self, app_pointer, name_page: Frame):
         app_pointer.geometry("860x600")
@@ -194,8 +194,8 @@ class UploadFilePage(Frame):
         
         self["bg"] = "white"
         # Main label
-        mainLabel = Label(self, text="Upload Page", font=(FONT, 22, "bold"), bg = "white", fg = MAIN_COLOR)
-        mainLabel.place(x = 110, y = 70) # 50
+        main_label = Label(self, text="Upload Page", font=(FONT, 22, "bold"), bg = "white", fg = MAIN_COLOR)
+        main_label.place(x = 110, y = 70) # 50
         # Note label
         lb_note = Label(self, text = "Path", font = (FONT, 12, "bold"), bg = "white")
         lb_note.place(x = 20, y = 150)
@@ -331,7 +331,6 @@ class LoginPage(Frame): # 1000x600
 class App(Tk):
     def __init__(self):
         Tk.__init__(self)
-        self.closing = False # Flag to check when program was closed
 
         self.title("Application")
         self.geometry("1000x600")
@@ -359,13 +358,14 @@ class App(Tk):
         self.frames[LoginPage].tkraise()
     
     def onCloseGlobal(self):
-        self.closing = True
-        if hasattr(self, "socket"):
+        if messagebox.askokcancel("Quit", "Do you want to close the application?"):
             try:
-                self.client.close()
+                client.sendall("exit".encode("utf-8"))
+                client.close()
             except Exception as e:
-                messagebox.showerror("Error", f"Error closing socket: {e}")
-        self.destroy()
+                print(f"Error when closing client socket: {e}")
+            self.destroy()
+
 
     def showPage(self, class_name):
         self.frames[class_name].tkraise()
@@ -397,208 +397,144 @@ class App(Tk):
                 self.geometry("860x600")
                 self.showPage(MainMenu)
             else:
-                # operationHistory("\n" + str(getTime()) + ": " + f"Client {username} {addr}: Has unsuccessfully uploaded the file with the path {msg}.")
                 curFrame.lb_notice["text"] = "Invalid username/password"
         except:
             print("Server is not responding")
     # ------------------------------------------------
     def downloadFileThread(self, curFrame: Frame, sck: socket):
         # Tạo một luồng mới để chạy hàm download mà không làm đơ UI
-        download_thread = threading.Thread(target=self.downloadSupportGUI, args=(curFrame, sck))
+        download_thread = threading.Thread(target=self.downloadSupportGUI, args=(curFrame, sck), daemon = True)
         download_thread.start()
 
     def downloadFile(self, sck: socket, msg):
-        try:
-            if self.closing:
-                return
+        #tao duong dan den noi luu tru file
+        tmp = getName(msg)
+        if not checkSlashInFileName(tmp):
+            tmp = "/" + tmp
+        name_with_not_exten = getNameWithNotExten(tmp)
+        exten = getExten(tmp)
+        file_write = PATH_CLIENT + tmp
+        #kiem tra xem trong thu muc sever co file tren chua neu co thi them so 1,2,3,.. o sau de khac voi file cu
+        i = 1
+        while os.path.isfile(PATH_CLIENT + tmp):
+                tmp = name_with_not_exten + "(" + str(i) + ")" + exten
+                file_write = PATH_CLIENT + tmp
+                i += 1
 
-            #tao duong dan den noi luu tru file
-            tmp = name(msg)
-            if not checkSlashInFileName(tmp):
-                tmp = "/" + tmp
-            name_with_not_exten = getNameWithNotExten(tmp)
-            exten = getExten(tmp)
-            file_write = PATH_CLIENT + tmp
-            #kiem tra xem trong thu muc sever co file tren chua neu co thi them so 1,2,3,.. o sau de khac voi file cu
-            i = 1
-            while os.path.isfile(PATH_CLIENT + tmp):
-                    tmp = name_with_not_exten + "(" + str(i) + ")" + exten
-                    file_write = PATH_CLIENT + tmp
-                    i += 1
+        # Nhan kich thuoc file va gui lai thong bao toi sever
+        size_recv = sck.recv(1024).decode("utf-8")
+        size = int(size_recv)
+        # Gui ten file
+        sck.sendall(file_write.encode("utf-8"))
 
-            # Nhan kich thuoc file va gui lai thong bao toi sever
-            size_recv = sck.recv(1024).decode("utf-8")
-            size = int(size_recv)
-            # Gui ten file
-            sck.sendall(file_write.encode("utf-8"))
+        progress_bar = ttk.Progressbar(self, orient="horizontal", length=300, mode="determinate", maximum=size)
+        progress_bar.pack(pady = 20)
 
-            # Progess bar GUI
-            progress = Toplevel(self)
-            progress.title(f"Download '{tmp}' file")
+        progress_label = Label(self, text="0%")
+        progress_label.pack(pady = 10)
 
-            progress_bar = ttk.Progressbar(progress, orient="horizontal", length=300, mode="determinate", maximum=size)
-            progress_bar.pack(pady = 20)
-
-            progress_label = Label(progress, text="0%")
-            progress_label.pack(pady = 10)
-
-            progress_closed = False # Cờ để kiểm tra trạng thái thanh progress
-
-            def onClose():
-                nonlocal progress_closed
-                progress_closed = True
-                progress.destroy()
-
-            progress.protocol("WM_DELETE_WINDOW", onClose)
+        
+        # Tuong tu nhu upload file o sever
+        ofs = open(file_write, "wb")
+        sw = 0
+        while size > sw:
+            data = sck.recv(1024)
+            ofs.write(data)
+            sw += len(data)
             
-            # Tuong tu nhu upload file o sever
-            ofs = open(file_write, "wb")
-            sw = 0
-            while size > sw:
-                data = sck.recv(1024)
-                ofs.write(data)
-                sw += len(data)
+            progress_bar["value"] = sw
+            progress_label.config(text=f"{(sw/size) * 100:.2f}%")
 
-                if progress_closed:
-                    break
-                
-                if progress.winfo_exists():
-                    try:
-                        progress_bar["value"] = sw
-                        progress_label.config(text=f"{(sw/size) * 100:.2f}%")
-                        progress.update_idletasks()
-                    except Exception as e:
-                        messagebox.showerror("Error", f"Error updating progress bar: {e}")
-                        return
-                else:
-                    break
-                # ---------------------
+            sck.sendall(str(sw).encode("utf-8"))
+        ofs.close()
 
-                sck.sendall(str(sw).encode("utf-8"))
-            ofs.close()
+        progress_bar.destroy()
+        progress_label.destroy()
+            
 
-            # ------ GUI ---------
-            if not progress_closed:
-                time.sleep(1)
-                progress.destroy()
-            # --------------------
-                
-
-            # Nhan thong bao tu sever
-            resp = sck.recv(1024).decode("utf-8")
-            if resp == "Success":
-                messagebox.showinfo("Success", "Download successfully")
-            else:
-                messagebox.showinfo("Unsuccess", "Download unsuccessfully")
-        except Exception as e:
-            if not self.closing:
-                messagebox.showerror("Error", f"An error occured: {e}")
-            return
+        # Nhan thong bao tu sever
+        resp = sck.recv(1024).decode("utf-8")
+        if resp == "Success":
+            messagebox.showinfo("Success", "Download successfully")
+        else:
+            messagebox.showinfo("Unsuccess", "Download unsuccessfully")
+        
 
     def downloadSupportGUI(self, curFrame: Frame, sck: socket):
-        
-        try:
-            msg = "downloadFile"
-            sck.sendall(msg.encode("utf-8"))
-            if self.closing:
-                return
-            # Kiem tra xem client truoc day co tung co file tai loi khong
-            before_error_download = sck.recv(1024).decode("utf-8")
-            #*Kiểm tra có lỗi hay không
-            #*Nếu có File tải lỗi trước đó
-            if before_error_download != "NoError":
-                #*Lấy tên của File bị lỗi và hiển thị ra màn hình để hỏi Client có muốn tải lại File khoong
-                error_file = getErrorDownload(before_error_download)
-                message = f"Last time when you were downloading file '{error_file}', it was interrupted. Would you like to download it again before downloading file '{curFrame.entry_path.get()}'?"
-                result  = messagebox.askyesno("Confirmation", message)
-                #*Nếu Client muốn tải lại File
-                if result:
-                    #*Gửi hồi đáp rằng muốn tải File lỗi trước đó đến Server
-                    sck.sendall("Y".encode("utf-8"))
-                    time.sleep(0.1)
-                    #*Gửi tên File lỗi đến Server, để thực hiện tải file
-                    sck.sendall(error_file.encode("utf-8"))
-                    # Bien nhan file ton tai
-                    is_exist = sck.recv(1024).decode("utf-8")
-                    sck.sendall("Receive".encode("utf-8"))
-                    self.downloadFile(sck, error_file)
-                #*Nếu Client không muốn tải lại File
-                else:
-                    #*Gửi hồi đáp rằng không muốn tải File lỗi trước đó đến Server
-                    sck.sendall("N".encode("utf-8"))
-                    time.sleep(0.1)
-                    #*Thực hiện tải File
-                    flag = True
-                    while 1:
-                        #*Nhập tên File cần tải, hoặc thoát công việc tải File
-                        print("Type 'CANCEL' to return to the menu!!!")
-                        msg = curFrame.entry_path.get()
-                        if msg == "CANCEL":
-                            sck.sendall(msg.encode("utf-8"))
-                            flag = False
-                            break
-                        sck.sendall(msg.encode("utf-8"))
-                        # Nhan trang thai xem file co ton tai tren sever hay co bi cam tai khong
-                        check_status = sck.recv(1024).decode("utf-8")
-                        if check_status == "forbidden file":
-                            print("Sever: File is in list forbidden file. Can't download this file")
-                            messagebox.showwarning("Warning", "Forbidden file")
-                            continue
-                        if check_status == "Not exist":
-                            messagebox.showinfo("Infor", "File not exist")
-                            continue
-                        else:
-                            resp = "Received"
-                            sck.sendall(resp.encode("utf-8"))
-                        break
-                    if flag == True:
-                        #*Tiến hành tải File
-                        self.downloadFile(sck, msg)
-            # Neu khong co file tai loi truoc do thi tai file
+        msg = "downloadFile"
+        sck.sendall(msg.encode("utf-8"))
+        # Kiểm tra xem client trước đây có từng có file tải lỗi không
+        before_error_download = sck.recv(1024).decode("utf-8")
+        # Kiểm tra có lỗi hay không
+        if before_error_download != "NoError":
+            # Nếu có file tải lỗi trước đó
+            error_file = getErrorDownload(before_error_download)
+            message = f"Last time when you were downloading file '{error_file}', it was interrupted. Would you like to download it again before downloading file '{curFrame.entry_path.get()}'?"
+            result  = messagebox.askyesno("Confirmation", message)
+            if result:
+                sck.sendall("Y".encode("utf-8"))
+                time.sleep(0.1)
+                sck.sendall(error_file.encode("utf-8"))
+                is_exist = sck.recv(1024).decode("utf-8")
+                sck.sendall("Receive".encode("utf-8"))
+                self.downloadFile(sck, error_file)
             else:
-                #*Thực hiện tải File
+                sck.sendall("N".encode("utf-8"))
+                time.sleep(0.1)
                 flag = True
                 while 1:
-                    #*Nhập tên File cần tải, hoặc thoát công việc tải File
-                    print("Type 'CANCEL' to return to the menu!!!")
                     msg = curFrame.entry_path.get()
-                    if msg == "CANCEL":
-                        sck.sendall(msg.encode("utf-8"))
-                        flag = False
-                        break
                     sck.sendall(msg.encode("utf-8"))
-                    # Nhan trang thai xem file co ton tai tren sever hay co bi cam tai khong
                     check_status = sck.recv(1024).decode("utf-8")
                     if check_status == "forbidden file":
-                        messagebox.showwarning("Warning", "Forbidden file")
-                        continue
-                    if check_status == "Not exist":
-                        messagebox.showinfo("Information", "File not exist!!")
-                        continue
+                        result = messagebox.askyesno("Forbidden File", "The file is forbidden. Do you want to try another file?")
+                        sck.sendall("CANCEL".encode("utf-8"))
+                        flag = False
+                        break
+                    elif check_status == "Not exist":
+                        result = messagebox.askokcancel("File not exist", "The file not exist. Try again")
+                        sck.sendall("CANCEL".encode("utf-8"))
+                        flag = False
+                        break
                     else:
                         resp = "Received"
                         sck.sendall(resp.encode("utf-8"))
                     break
-                if flag == True:
-                    #*Tiến hành tải File
+                if flag:
                     self.downloadFile(sck, msg)
-        except Exception as e:
-            if not self.closing:
-                messagebox.showerror("Error", f"An error occured: {e}")
+        else:
+            flag = True
+            while 1:
+                msg = curFrame.entry_path.get()
+                sck.sendall(msg.encode("utf-8"))
+                check_status = sck.recv(1024).decode("utf-8")
+                if check_status == "forbidden file":
+                    result = messagebox.askyesno("Forbidden File", "The file is forbidden. Do you want to try another file?")
+                    sck.sendall("CANCEL".encode("utf-8"))
+                    flag = False
+                    break
+                elif check_status == "Not exist":
+                    result = messagebox.askokcancel("File not exist", "The file not exist. Try again")
+                    sck.sendall("CANCEL".encode("utf-8"))
+                    flag = False
+                    break
+                else:
+                    resp = "Received"
+                    sck.sendall(resp.encode("utf-8"))
+                break
+            if flag:
+                self.downloadFile(sck, msg)
+
     
     def uploadFile(self, sck: socket, msg: str):
         size = os.path.getsize(msg)
         sck.sendall(str(size).encode("utf-8"))
         sizeResp = sck.recv(1024).decode("utf-8")
-        
-        # Gui - Progress bar
-        progress = Toplevel(self)
-        progress.title("Upload")
 
-        progress_bar = ttk.Progressbar(progress, orient="horizontal", length=300, mode="determinate", maximum=size)
+        progress_bar = ttk.Progressbar(self, orient="horizontal", length=300, mode="determinate", maximum=size)
         progress_bar.pack(pady = 20)
         
-        progress_label = Label(progress, text="0%")
+        progress_label = Label(self, text="0%")
         progress_label.pack(pady = 10)
         # -------------------------------
 
@@ -612,10 +548,8 @@ class App(Tk):
 
                 uploaded_size += len(data)
 
-                if progress.winfo_exists():
-                    progress_bar["value"] = uploaded_size
-                    progress_label.config(text=f"{(uploaded_size/size) * 100:.2f}%")
-                    progress.update_idletasks()
+                progress_bar["value"] = uploaded_size
+                progress_label.config(text=f"{(uploaded_size/size) * 100:.2f}%")
                 
                 try:
                     sck.sendall(data)
@@ -630,22 +564,20 @@ class App(Tk):
         #ifs.close()
         sck.sendall("xong".encode("utf-8"))
 
-        time.sleep(1)
-
-        if progress.winfo_exists:
-            progress.destroy() # GUI : progress bar
+        progress_bar.destroy()
+        progress_label.destroy()
         
         resp_sta = sck.recv(1024).decode("utf-8")
         sck.sendall("da nhan".encode("utf-8"))
         resp = sck.recv(1024).decode("utf-8")
         if resp == "Success":
-            messagebox.showinfo("Inform", f"Sever: The file {msg} has been successfully uploaded to the server. {resp_sta}")
+            messagebox.showinfo("Inform", f"Sever: The file {msg} has been uploaded")
         else:
-            messagebox.showinfo("Inform", f"Sever: The file {msg} has been unsuccessfully uploaded to the server. {resp_sta}")
+            messagebox.showinfo("Inform", f"Sever: The file {msg} has not been uploaded")
     
     def uploadFileThread(self, curFrame: Frame, sck: socket):
         # Tạo một luồng mới để chạy hàm download mà không làm đơ UI
-        upload_file_thread = threading.Thread(target=self.uploadFileSupportGUI, args=(curFrame, sck))
+        upload_file_thread = threading.Thread(target=self.uploadFileSupportGUI, args=(curFrame, sck), daemon=True)
         upload_file_thread.start()
     
     def uploadFileSupportGUI(self, curFrame: Frame, sck: socket):
@@ -677,7 +609,6 @@ class App(Tk):
                 resp = sck.recv(1024).decode("utf-8")
                 # Nhap yeu cau gui toi sever
                 while 1:
-                    print("Type 'CANCEL' to return to the menu!!!")
                     msg = curFrame.entry_path.get()
                     if msg == "CANCEL":
                         sck.sendall(msg.encode("utf-8"))
@@ -701,7 +632,6 @@ class App(Tk):
                 resp = sck.recv(1024).decode("utf-8")
                 # Nhap yeu cau gui toi sever
                 while 1:
-                    print("Type 'CANCEL' to return to the menu!!!")
                     # msg = input(f"(Sever request) - {resp}")
                     msg = curFrame.entry_path.get()
                     if msg == "CANCEL":
@@ -720,19 +650,10 @@ class App(Tk):
                 # Neu nhap duong dan dung thi thuc hien upload
                 if flag == True:
                     self.uploadFile(sck, msg)
-
-    def _handleFileSelection(self, curFrame: Frame, sck: socket):
-        msg = curFrame.entry_path.get()  # Lấy đường dẫn từ Entry
-        if msg == "CANCEL":
-            sck.sendall(msg.encode("utf-8"))
-            sck.recv(1024)  # Nhận phản hồi từ server
-            return
-        if not checkExist(msg):
-            messagebox.showinfo("Inform", "File does not exist. Please correct the file path!")
-            return  # Thoát để người dùng chỉnh sửa đường dẫn
-        sck.sendall(msg.encode("utf-8"))
-        rec = sck.recv(1024).decode("utf-8")
-        self.uploadFile(sck, msg)
+    
+    def uploadFolderThread(self, curFrame: Frame, sck: socket):
+        upload_folder_thread = threading.Thread(target=self.uploadFolderSupportGUI, args=(curFrame, sck))
+        upload_folder_thread.start()
 
     def uploadFilesInFolderSequentially(self, sck: socket, msg: str):
         # Lay danh sach cac ten file trong folder
@@ -755,7 +676,6 @@ class App(Tk):
         res = sck.recv(1024).decode("utf-8")
         print(res)
     
-
     def uploadFolderSupportGUI(self, curFrame: Frame, sck: socket):
         msg = "uploadFilesInFolderSequentially"
         sck.sendall(msg.encode("utf-8"))
@@ -780,15 +700,11 @@ class App(Tk):
         if flag == True:
             self.uploadFilesInFolderSequentially(sck, msg)
 
-    def exit(self, curFrame: Frame, sck: socket):
-        msg = "exit"
-        sck.sendall(msg.encode("utf-8"))
-        app.destroy()
-        sck.close()
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((HOST, PORT))
 print("Ket noi thanh cong voi sever!!!")
+
 app = App()
 app.protocol("WM_DELETE_WINDOW", app.onCloseGlobal)
 app.mainloop()
