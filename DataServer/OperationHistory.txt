@@ -2887,3 +2887,71 @@ Fri 13-12-2024 16:57:17: Client ('192.168.1.7', 57857) has successfully uploaded
 Fri 13-12-2024 16:57:20: Client qthai ('192.168.1.7', 57857): Has disconnected from the server.
 Fri 13-12-2024 16:58:17: Server closed.
 ------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+Fri 13-12-2024 17:54:21:server mo ket noi
+Fri 13-12-2024 17:56:07:Client ('192.168.1.7', 58240) da ket noi toi server
+Fri 13-12-2024 17:59:59: Client ('192.168.1.7', 58240): Has logged in unsuccessfully with the username qthang.
+Fri 13-12-2024 18:01:23: Client ('192.168.1.7', 58240): Has logged in with the username qthang.
+Fri 13-12-2024 18:23:54: Client qthang ('192.168.1.7', 58240): Has requested to download the file with the path DataServer/16(1).pdf.
+Fri 13-12-2024 18:24:09: Client qthang ('192.168.1.7', 58240): Has successfully downloaded the file with the path DataServer/16(1).pdf.
+Fri 13-12-2024 18:35:03: Client qthang ('192.168.1.7', 58240): Has disconnected from the server.
+Fri 13-12-2024 18:37:34:Client ('192.168.1.7', 58487) da ket noi toi server
+Fri 13-12-2024 18:37:39: Client ('192.168.1.7', 58487): Has logged in with the username qthang.
+Fri 13-12-2024 18:40:29: Client qthang ('192.168.1.7', 58487): Has requested to upload the file with the path D:/University/chương trình đào tạo k21.pdf.
+Fri 13-12-2024 18:40:44: Client qthang ('192.168.1.7', 58487): Has successfully uploaded the file with the path D:/University/chương trình đào tạo k21.pdf.
+Fri 13-12-2024 18:41:26: Client qthang ('192.168.1.7', 58487): Has disconnected from the server.
+Fri 13-12-2024 18:45:19:Client ('192.168.1.7', 58527) da ket noi toi server
+Fri 13-12-2024 18:45:31: Client ('192.168.1.7', 58527): Has logged in with the username qthang.
+Fri 13-12-2024 18:49:10: Client qthang ('192.168.1.7', 58527): Has requested to upload the folder with the path D:/Code Certification.
+Fri 13-12-2024 18:50:11: Client ('192.168.1.7', 58527) has successfully uploaded the folder with the path D:/Code Certification.
+Fri 13-12-2024 18:50:14: Client qthang ('192.168.1.7', 58527): Has disconnected from the server.
+Fri 13-12-2024 18:56:23:Client ('192.168.1.7', 58595) da ket noi toi server
+Fri 13-12-2024 18:56:27: Client ('192.168.1.7', 58595): Has logged in with the username qthang.
+Fri 13-12-2024 18:56:37: Client qthang ('192.168.1.7', 58595): Has requested to download the file with the path DataServer/chương trình đào tạo k21.pdf.
+Fri 13-12-2024 18:56:41: Client qthang ('192.168.1.7', 58595): Has unsuccessfully downloaded the file with the path DataServer/chương trình đào tạo k21.pdf.
+Fri 13-12-2024 18:56:43:Client ('192.168.1.7', 58597) da ket noi toi server
+Fri 13-12-2024 18:56:48: Client ('192.168.1.7', 58597): Has logged in with the username qthang.
+Fri 13-12-2024 18:57:34: Client qthang ('192.168.1.7', 58597): Has requested to download the file with the path DataServer/Data Structure & Algorithm.pdf.
+Fri 13-12-2024 18:57:34: Client qthang ('192.168.1.7', 58597): Has successfully downloaded the file with the path DataServer/Data Structure & Algorithm.pdf.
+Fri 13-12-2024 18:57:50: Client qthang ('192.168.1.7', 58597): Has requested to download the file with the path DataServer/16(1).pdf.
+Fri 13-12-2024 18:57:58: Client qthang ('192.168.1.7', 58597): Has unsuccessfully downloaded the file with the path DataServer/16(1).pdf.
+Fri 13-12-2024 18:58:00:Client ('192.168.1.7', 58599) da ket noi toi server
+Fri 13-12-2024 18:58:04: Client ('192.168.1.7', 58599): Has logged in with the username qthang.
+Fri 13-12-2024 19:00:15: Client qthang ('192.168.1.7', 58599): Has requested to download the file with the path DataServer/Data Structure & Algorithm.pdf.
+Fri 13-12-2024 19:00:15: Client qthang ('192.168.1.7', 58599): Has successfully downloaded the file with the path DataServer/Data Structure & Algorithm.pdf.
+Fri 13-12-2024 19:00:20: Client qthang ('192.168.1.7', 58599): Has disconnected from the server.
+Fri 13-12-2024 19:03:16:Client ('192.168.1.7', 58649) da ket noi toi server
+Fri 13-12-2024 19:03:21: Client ('192.168.1.7', 58649): Has logged in with the username qthang.
+Fri 13-12-2024 19:03:39: Client qthang ('192.168.1.7', 58649): Has requested to upload the file with the path D:/University/chương trình đào tạo k21.pdf.
+Fri 13-12-2024 19:03:54: Client qthang ('192.168.1.7', 58649): Has successfully uploaded the file with the path D:/University/chương trình đào tạo k21.pdf.
+Fri 13-12-2024 19:04:42: Client qthang ('192.168.1.7', 58649): Has requested to upload the file with the path D:/University/Computer Network/Project_Socket/DoAnSocket/DataServer/16(1).pdf.
+Fri 13-12-2024 19:04:48:Client ('192.168.1.7', 58657) da ket noi toi server
+Fri 13-12-2024 19:04:52: Client ('192.168.1.7', 58657): Has logged in with the username qthang.
+Fri 13-12-2024 19:05:19: Client qthang ('192.168.1.7', 58657): Has requested to upload the file with the path D:/University/Practical DSA/Week1/23120355/Exercise_2.cpp.
+Fri 13-12-2024 19:05:19: Client qthang ('192.168.1.7', 58657): Has successfully uploaded the file with the path D:/University/Practical DSA/Week1/23120355/Exercise_2.cpp.
+Fri 13-12-2024 19:06:21: Client qthang ('192.168.1.7', 58657): Has requested to upload the file with the path D:/University/Computer Network/Project_Socket/DoAnSocket/DataServer/PostgeSQL.pdf.
+Fri 13-12-2024 19:06:21: Client qthang ('192.168.1.7', 58657): Has successfully uploaded the file with the path D:/University/Computer Network/Project_Socket/DoAnSocket/DataServer/PostgeSQL.pdf.
+Fri 13-12-2024 19:07:28: Client qthang ('192.168.1.7', 58657): Has requested to upload the file with the path D:/50mb(2).pdf.
+Fri 13-12-2024 19:07:33: Client qthang ('192.168.1.7', 58657): Has unsuccessfully uploaded the file with the path D:/50mb(2).pdf.
+Fri 13-12-2024 19:07:46:Client ('192.168.1.7', 58676) da ket noi toi server
+Fri 13-12-2024 19:07:50: Client ('192.168.1.7', 58676): Has logged in with the username qthang.
+Fri 13-12-2024 19:09:09: Client qthang ('192.168.1.7', 58676): Has requested to upload the file with the path D:/test.txt.
+Fri 13-12-2024 19:09:09: Client qthang ('192.168.1.7', 58676): Has successfully uploaded the file with the path D:/test.txt.
+Fri 13-12-2024 19:14:16: Client qthang ('192.168.1.7', 58676): Has disconnected from the server.
+Fri 13-12-2024 19:15:39:Client ('192.168.1.7', 58848) da ket noi toi server
+Fri 13-12-2024 19:15:43: Client ('192.168.1.7', 58848): Has logged in with the username qthang.
+Fri 13-12-2024 19:16:02: Client qthang ('192.168.1.7', 58848): Has require download none exist file.
+Fri 13-12-2024 19:16:29: Client qthang ('192.168.1.7', 58848): Has requested to download the file with the path DataServer/Exercise_2.cpp.
+Fri 13-12-2024 19:16:29: Client qthang ('192.168.1.7', 58848): Has successfully downloaded the file with the path DataServer/Exercise_2.cpp.
+Fri 13-12-2024 19:18:20:Client ('192.168.1.7', 58876) da ket noi toi server
+Fri 13-12-2024 19:18:24: Client ('192.168.1.7', 58876): Has logged in with the username qthang.
+Fri 13-12-2024 19:19:03: Client qthang ('192.168.1.7', 58876): Has requested to upload the file with the path D:/test.txt.
+Fri 13-12-2024 19:19:03: Client qthang ('192.168.1.7', 58876): Has successfully uploaded the file with the path D:/test.txt.
+Fri 13-12-2024 19:20:36: Client qthang ('192.168.1.7', 58876): Has disconnected from the server.
+Fri 13-12-2024 19:23:57:Client ('192.168.1.7', 58907) da ket noi toi server
+Fri 13-12-2024 19:24:01: Client ('192.168.1.7', 58907): Has logged in with the username qthang.
+Fri 13-12-2024 19:24:15: Client qthang ('192.168.1.7', 58907): Has require download forbidden file.
+Fri 13-12-2024 19:24:38: Client qthang ('192.168.1.7', 58907): Has requested to download the file with the path DataServer/16(1)(1).pdf.
+Fri 13-12-2024 19:24:43: Client qthang ('192.168.1.7', 58907): Has unsuccessfully downloaded the file with the path DataServer/16(1)(1).pdf.
+Fri 13-12-2024 19:28:33: Server closed.
+------------------------------------------------------------------------------------------------------------------------------------

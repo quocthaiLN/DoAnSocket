@@ -509,12 +509,12 @@ class App(Tk):
                 sck.sendall(msg.encode("utf-8"))
                 check_status = sck.recv(1024).decode("utf-8")
                 if check_status == "forbidden file":
-                    result = messagebox.askyesno("Forbidden File", "The file is forbidden. Do you want to try another file?")
+                    messagebox.showwarning("Forbidden File", "The file is forbidden. Try again")
                     sck.sendall("CANCEL".encode("utf-8"))
                     flag = False
                     break
                 elif check_status == "Not exist":
-                    result = messagebox.askokcancel("File not exist", "The file not exist. Try again")
+                    messagebox.showwarning("File not exist", "The file not exist. Try again")
                     sck.sendall("CANCEL".encode("utf-8"))
                     flag = False
                     break
@@ -617,7 +617,10 @@ class App(Tk):
                         break
                     if not checkExist(msg):
                         messagebox.showwarning("ERROR", "File not exist")
-                        continue
+                        sck.sendall("CANCEL".encode("utf-8"))
+                        rec = sck.recv(1024).decode("utf-8")
+                        flag = False
+                        break
                     sck.sendall(msg.encode("utf-8"))
                     rec = sck.recv(1024).decode("utf-8")
                     break
@@ -640,9 +643,11 @@ class App(Tk):
                         flag = False
                         break
                     if not checkExist(msg):
-                        print("The file does not exist. Please enter again!!!")
-                        messagebox.showinfo("Inform", "File not exist. Enter again!!")
-                        continue
+                        messagebox.showwarning("ERROR", "File not exist")
+                        sck.sendall("CANCEL".encode("utf-8"))
+                        rec = sck.recv(1024).decode("utf-8")
+                        flag = False
+                        break
                     sck.sendall(msg.encode("utf-8"))
                     rec = sck.recv(1024).decode("utf-8")
                     break
